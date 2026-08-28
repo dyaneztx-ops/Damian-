@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Real Estate Exam Rush</title>
-<meta name="description" content="A timed real-estate licensing quiz game — race your marker from Listed to the Closing Table, spending tokens on power-ups, before your strikes run out.">
+<title>Texas Real Estate Exam Rush</title>
+<meta name="description" content="A timed Texas real-estate licensing quiz game — race your marker from Listed to the Closing Table through national and TREC/Texas-specific questions, spending tokens on power-ups, before your strikes run out.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;900&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -692,7 +692,7 @@
   <header class="titleblock">
     <div class="tb-name">
       <div>
-        <span class="tb-kicker">Licensing Exam Simulator</span>
+        <span class="tb-kicker">Texas Licensing Exam Simulator</span>
         <h1>Real Estate Exam Rush</h1>
       </div>
       <button class="sound-toggle" id="sound-toggle" type="button" aria-pressed="true">Sound: On</button>
@@ -727,7 +727,7 @@
       <div class="sheet">
         <ol class="brief-list" style="list-style:none; margin:0 0 4px; padding:0;">
           <li><span class="brief-num">01</span><p>Your marker starts at Listed and races down the deal pipeline toward the Closing Table.<span class="sub">Every answered question moves you forward — right or wrong.</span></p></li>
-          <li><span class="brief-num">02</span><p>15 questions, drawn at random from property law, contracts &amp; agency, financing, appraisal, fair housing, and closing math.<span class="sub">Same pool every run — no two exams play alike.</span></p></li>
+          <li><span class="brief-num">02</span><p>15 questions per round — about a third pulled from Texas-specific law (TRELA, TREC rules, intermediary status, homestead, contracts), the rest from the national topics: property law, contracts &amp; agency, financing, appraisal, fair housing, and closing math.<span class="sub">That mix mirrors the real exam's national + state split. Randomized every run.</span></p></li>
           <li><span class="brief-num">03</span><p>20 seconds per question.<span class="sub">Answer before the ruler runs out, or it counts against you.</span></p></li>
           <li><span class="brief-num">04</span><p>Three strikes and the exam ends.<span class="sub">A wrong answer or a timeout costs one strike.</span></p></li>
           <li><span class="brief-num">05</span><p>Every correct answer earns a Deal Token.<span class="sub">Spend tokens on 50/50 (cuts two wrong answers) or +10 Seconds.</span></p></li>
@@ -850,6 +850,12 @@
     { cat:"Property & Ownership", q:"A property owner dies with no will and no heirs can be located. The property passes to the state through:",
       opts:["Escheat", "Eminent domain", "Adverse possession", "Police power"], correct:0,
       ex:"Escheat returns property to the state when there is no will and no legal heirs can be found." },
+    { cat:"Property & Ownership", q:"The \"bundle of rights\" that comes with owning real property includes all of the following EXCEPT the right to:",
+      opts:["Possess the property", "Exclude others from it", "Violate local zoning ordinances", "Dispose of it by sale or will"], correct:2,
+      ex:"Ownership includes the rights to possess, use, control, exclude, and dispose of property — all subject to valid public restrictions like zoning." },
+    { cat:"Property & Ownership", q:"A subdivision covenant limiting homes to residential use only, recorded against every lot, is an example of:",
+      opts:["A public land-use control", "A private, voluntary deed restriction", "An easement in gross", "An escheat provision"], correct:1,
+      ex:"Deed restrictions (restrictive covenants) are private agreements that run with the land, unlike zoning, which is a public control." },
 
     // ---------------- Contracts & Agency ----------------
     { cat:"Contracts & Agency", q:"Along with offer, acceptance, and legal capacity, an enforceable contract also requires:",
@@ -876,6 +882,12 @@
     { cat:"Contracts & Agency", q:"When both parties have fully carried out their contractual obligations, the contract is discharged by:",
       opts:["Assignment", "Performance", "Novation", "Breach"], correct:1,
       ex:"Full performance by both sides discharges the contract's obligations." },
+    { cat:"Contracts & Agency", q:"A license holder who represents only the buyer, owing the seller nothing beyond honesty and fair dealing, is acting as a:",
+      opts:["Subagent of the seller", "Buyer's agent", "Dual agent", "Transaction facilitator with no duties to anyone"], correct:1,
+      ex:"A buyer's agent owes fiduciary duties exclusively to the buyer, while still owing the seller basic honesty and fair dealing." },
+    { cat:"Contracts & Agency", q:"An offer that is not accepted before its stated expiration date is:",
+      opts:["Automatically renewed for 24 hours", "Terminated and no longer open for acceptance", "Converted into a binding counteroffer", "Still valid until formally withdrawn"], correct:1,
+      ex:"An offer simply lapses once its stated expiration passes — it can no longer be accepted." },
 
     // ---------------- Financing ----------------
     { cat:"Financing", q:"A loan whose interest rate can change periodically based on a market index is a(n):",
@@ -902,6 +914,12 @@
     { cat:"Financing", q:"When a lender agrees not to pursue a borrower for the shortfall after a short sale, that shortfall is being:",
       opts:["Collected via deficiency judgment", "Forgiven", "Assigned to a new borrower", "Added to the next loan"], correct:1,
       ex:"If the lender waives its right to collect the remaining balance, that unpaid amount is forgiven rather than pursued as a deficiency judgment." },
+    { cat:"Financing", q:"A loan insured by the Federal Housing Administration, often allowing a lower down payment, is commonly called a(n):",
+      opts:["Conventional loan", "FHA loan", "Portfolio loan", "Wraparound loan"], correct:1,
+      ex:"FHA-insured loans protect the lender against borrower default, which typically allows more flexible qualifying and lower down payments." },
+    { cat:"Financing", q:"The process of paying off a loan through regular installments that include both principal and interest is:",
+      opts:["Subordination", "Amortization", "Assumption", "Acceleration"], correct:1,
+      ex:"Amortization schedules payments so the loan balance is systematically reduced to zero by the end of the term." },
 
     // ---------------- Valuation & Appraisal ----------------
     { cat:"Valuation & Appraisal", q:"Which appraisal approach is most commonly used to value single-family, owner-occupied homes?",
@@ -928,6 +946,12 @@
     { cat:"Valuation & Appraisal", q:"A Comparative Market Analysis (CMA) prepared by a real estate agent differs from a formal appraisal because a CMA:",
       opts:["Is a certified, legally binding value", "Is an informal pricing estimate, not a licensed appraisal", "Always requires a state license", "Is required at every closing"], correct:1,
       ex:"A CMA is an agent's informal pricing tool; a formal appraisal is performed by a licensed or certified appraiser." },
+    { cat:"Valuation & Appraisal", q:"After valuing a property using all three approaches, an appraiser weighs their reliability and settles on one final opinion of value. This step is called:",
+      opts:["Reconciliation", "Depreciation", "Capitalization", "Assemblage"], correct:0,
+      ex:"Reconciliation is a judgment call weighing each approach's reliability for that property — it is not a simple average of the three results." },
+    { cat:"Valuation & Appraisal", q:"An investor combines two adjoining lots under one owner to create a single, more valuable site. The resulting increase in value is called:",
+      opts:["Plottage", "Partition", "Escheat", "Regression"], correct:0,
+      ex:"Combining parcels is called assemblage; the value it adds is plottage." },
 
     // ---------------- Fair Housing & Law ----------------
     { cat:"Fair Housing & Law", q:"The original 1968 federal Fair Housing Act protected against discrimination based on all of these EXCEPT:",
@@ -954,6 +978,12 @@
     { cat:"Fair Housing & Law", q:"A use that violated no rule when it started, but is now barred by a later zoning change, is:",
       opts:["A variance", "A legal nonconforming use", "A special use permit", "Spot zoning"], correct:1,
       ex:"A legal nonconforming use is \"grandfathered in\" because it predates the zoning change that made it non-compliant." },
+    { cat:"Fair Housing & Law", q:"Under fair housing law, when a tenant with a disability asks to make a reasonable structural modification to their unit, the landlord generally must:",
+      opts:["Pay for the modification", "Allow it, usually at the tenant's own expense", "Refuse it if the lease doesn't mention it", "Charge an extra deposit before allowing it"], correct:1,
+      ex:"Fair housing law requires landlords to allow reasonable modifications, typically at the tenant's expense, alongside reasonable accommodations in rules and policies." },
+    { cat:"Fair Housing & Law", q:"A lender who factors an applicant's race into an underwriting or appraisal decision is committing:",
+      opts:["Legitimate risk assessment", "Illegal discrimination", "Standard due diligence", "Redlining only if done on purpose"], correct:1,
+      ex:"Considering race in a lending or valuation decision is illegal discrimination under fair housing and equal credit laws, regardless of intent." },
 
     // ---------------- Math & Closing ----------------
     { cat:"Math & Closing", q:"A home sells for $320,000 with a 6% commission split evenly between two brokerages. Each brokerage receives:",
@@ -979,10 +1009,71 @@
       ex:"$500,000 × 3% = $15,000 total commission; the agent's 60% share = $9,000." },
     { cat:"Math & Closing", q:"A seller wants to net $200,000 after a 5% commission. The required sale price is closest to:",
       opts:["$210,000", "$210,526", "$205,000", "$211,000"], correct:1,
-      ex:"Sale price × 0.95 = $200,000, so sale price = $200,000 ÷ 0.95 ≈ $210,526." }
+      ex:"Sale price × 0.95 = $200,000, so sale price = $200,000 ÷ 0.95 ≈ $210,526." },
+    { cat:"Math & Closing", q:"A property with a $180,000 assessed value is taxed at a rate of 2.5%. The annual property tax bill is:",
+      opts:["$450", "$4,500", "$45,000", "$720"], correct:1,
+      ex:"$180,000 × 2.5% = $4,500." },
+    { cat:"Math & Closing", q:"A buyer's closing costs total $8,400 on a $280,000 purchase. What percentage of the purchase price do closing costs represent?",
+      opts:["2%", "3%", "4%", "5%"], correct:1,
+      ex:"$8,400 ÷ $280,000 = 0.03, or 3%." },
+
+    // ---------------- Texas Law & Practice ----------------
+    { cat:"Texas Law & Practice", q:"In Texas, when one broker represents both the buyer and seller in the same transaction with their written consent, the broker is acting as a(n):",
+      opts:["Dual agent", "Intermediary", "Subagent", "Transaction attorney"], correct:1,
+      ex:"Texas law (TRELA) uses the term \"intermediary\" rather than \"dual agent\" for a broker representing both parties with written consent." },
+    { cat:"Texas Law & Practice", q:"Which state agency regulates real estate license holders in Texas?",
+      opts:["Texas Department of Insurance", "Texas Real Estate Commission (TREC)", "Texas Secretary of State", "Texas Comptroller"], correct:1,
+      ex:"TREC administers and enforces the Texas Real Estate License Act (TRELA) and licenses brokers and sales agents." },
+    { cat:"Texas Law & Practice", q:"The Information About Brokerage Services (IABS) form must be given to a prospective party:",
+      opts:["Only at closing", "At the first substantive communication about a specific property", "Only if the party requests it in writing", "Only when representing the seller"], correct:1,
+      ex:"Texas law requires license holders to provide the IABS notice at the first substantive contact with a party regarding a specific property." },
+    { cat:"Texas Law & Practice", q:"In the TREC-promulgated One to Four Family Residential Contract, the buyer's option fee pays for:",
+      opts:["A reduced sale price", "An unrestricted right to terminate the contract during the option period", "Automatic mortgage approval", "Ownership of the mineral rights"], correct:1,
+      ex:"The option fee buys the buyer an unrestricted right to terminate for any reason during the negotiated option period — a feature distinctive to Texas contracts." },
+    { cat:"Texas Law & Practice", q:"A licensed Texas sales agent may:",
+      opts:["Practice real estate independently once licensed", "Only act under the sponsorship and supervision of a licensed broker", "Directly supervise other sales agents", "Open their own brokerage immediately"], correct:1,
+      ex:"A Texas sales agent must be sponsored by a licensed broker and cannot practice independently or accept compensation directly from a client." },
+    { cat:"Texas Law & Practice", q:"Texas homestead protection generally shields a person's home from:",
+      opts:["Property tax liens", "Forced sale by most general, unsecured creditors", "A properly executed purchase-money mortgage", "A valid mechanic's lien for home improvements"], correct:1,
+      ex:"Texas homestead law protects the home from forced sale by ordinary creditors, but not from property taxes, purchase-money loans, home equity loans, or valid mechanic's liens." },
+    { cat:"Texas Law & Practice", q:"Under Texas law, an urban homestead can generally include up to:",
+      opts:["1 acre", "10 acres", "100 acres", "200 acres"], correct:1,
+      ex:"Texas caps an urban homestead at up to 10 acres; rural homesteads can be larger — up to 100 acres for a single adult or 200 acres for a family." },
+    { cat:"Texas Law & Practice", q:"Texas is a community property state. Property acquired by either spouse during the marriage is presumed to be:",
+      opts:["Separate property", "Community property", "Held automatically in a land trust", "Titled solely to whichever spouse signed the deed"], correct:1,
+      ex:"In Texas, property acquired during marriage is presumed community property unless shown to be separate — for example, acquired by gift, inheritance, or before the marriage." },
+    { cat:"Texas Law & Practice", q:"The security instrument most commonly used to finance real estate purchases in Texas is a:",
+      opts:["Mortgage", "Deed of trust", "Land contract", "Bill of sale"], correct:1,
+      ex:"Texas primarily uses a deed of trust (borrower, lender, and trustee), which allows non-judicial foreclosure through a trustee's sale rather than a court proceeding." },
+    { cat:"Texas Law & Practice", q:"Under the Texas \"rule of capture,\" a landowner who pumps groundwater from beneath their own land:",
+      opts:["Must first obtain a state permit in every case", "Generally may capture that water with limited liability to neighboring landowners", "Is prohibited from using it for any purpose", "Must share it equally with adjoining landowners"], correct:1,
+      ex:"Texas follows the rule of capture for groundwater, letting landowners pump water from beneath their property with limited liability for effects on a neighbor's well — unlike the permit-based system governing surface water." },
+    { cat:"Texas Law & Practice", q:"When real property is sold in Texas, the state generally imposes:",
+      opts:["A real estate transfer tax based on the sale price", "No state real property transfer tax", "A mandatory attorney review fee", "A state sales tax on the sale price"], correct:1,
+      ex:"Texas does not levy a state transfer tax on real property conveyances — only standard recording fees apply — unlike many other states." },
+    { cat:"Texas Law & Practice", q:"The Texas Seller's Disclosure Notice requires a seller to disclose known information about the property's condition, including whether the property:",
+      opts:["Has ever been listed with another agent", "Was ever used to manufacture methamphetamine", "Was purchased with an FHA loan", "Has ever had a lockbox installed"], correct:1,
+      ex:"Texas's statutory Seller's Disclosure Notice specifically asks whether the seller knows the property was used to manufacture methamphetamine, among other condition-related items." },
+    { cat:"Texas Law & Practice", q:"A Texas property located within a Municipal Utility District (MUD) typically requires:",
+      opts:["No special disclosure", "A statutory notice to the buyer about the MUD's taxing authority and bonded debt", "Automatic exemption from property taxes", "Mandatory rezoning before sale"], correct:1,
+      ex:"Texas law requires notifying buyers that a property lies within a MUD, since MUDs can levy additional taxes and carry bonded debt for infrastructure." },
+    { cat:"Texas Law & Practice", q:"In Texas, when the mineral estate has been severed from the surface estate, the mineral estate is generally considered:",
+      opts:["Subordinate to the surface estate", "Dominant over the surface estate", "Extinguished after ten years", "Automatically merged back into the surface estate"], correct:1,
+      ex:"Texas law treats the mineral estate as dominant, giving the mineral owner an implied right to use as much of the surface as reasonably necessary to explore for and produce minerals." },
+    { cat:"Texas Law & Practice", q:"A Texas sales agent who wants to advertise a listed property must:",
+      opts:["Advertise independently under their own name only", "Advertise under the sponsoring broker's name and authority, per TREC rules", "Get the buyer's approval first", "Avoid mentioning the brokerage entirely"], correct:1,
+      ex:"TREC advertising rules require a sales agent's advertising to be done under the sponsoring broker's name and oversight — agents may not advertise independently of their broker." },
+    { cat:"Texas Law & Practice", q:"The Texas Real Estate Recovery Trust Account exists primarily to:",
+      opts:["Fund TREC's advertising budget", "Reimburse consumers for certain actual damages caused by a license holder's fraud when a judgment can't otherwise be collected", "Pay license renewal fees for agents facing financial hardship", "Automatically insure brokers against errors and omissions"], correct:1,
+      ex:"The Recovery Trust Account can reimburse members of the public for certain actual damages from a license holder's fraudulent, dishonest, or deceptive conduct when they can't collect on a court judgment against the licensee." },
+    { cat:"Texas Law & Practice", q:"Texas real estate contract forms like the One to Four Family Residential Contract are:",
+      opts:["Drafted independently by each brokerage", "Promulgated by TREC, with license holders filling in blanks but not drafting new contract terms", "Optional and rarely used", "Only required for commercial property" ], correct:1,
+      ex:"License holders must use TREC's promulgated contract forms as written and generally may not draft custom contract language, which would be the unauthorized practice of law." }
   ];
 
   var ROUND_SIZE = 15;
+  var TEXAS_CATEGORY = "Texas Law & Practice";
+  var TEXAS_PER_ROUND = 5;
   var TIME_PER_Q = 20;
   var MAX_STRIKES = 3;
   var STAGES = ["Listed", "Offer", "Inspection", "Appraisal", "Financing", "Title Search", "Closing Table"];
@@ -1187,10 +1278,18 @@
     }
   }
 
+  function buildDeck(){
+    var texasPool = QUESTIONS.filter(function(q){ return q.cat === TEXAS_CATEGORY; });
+    var generalPool = QUESTIONS.filter(function(q){ return q.cat !== TEXAS_CATEGORY; });
+    var texasPicks = shuffle(texasPool).slice(0, TEXAS_PER_ROUND);
+    var generalPicks = shuffle(generalPool).slice(0, ROUND_SIZE - texasPicks.length);
+    return shuffle(texasPicks.concat(generalPicks));
+  }
+
   function startRound(){
     ensureAudio();
     state = {
-      deck: shuffle(QUESTIONS).slice(0, ROUND_SIZE),
+      deck: buildDeck(),
       pos: 0,
       score: 0,
       streak: 0,
