@@ -1,0 +1,1052 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Real Estate Exam Rush</title>
+<meta name="description" content="A timed real-estate licensing quiz game — answer questions on property law, financing, appraisal, fair housing, and closing math before your strikes run out.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;900&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+
+  /* ===================================================================
+     REAL ESTATE EXAM RUSH — a drafting-table / blueprint world.
+     Deliberately single-theme: the page is a lit blueprint table at
+     night, so it keeps that identity regardless of host light/dark mode.
+     =================================================================== */
+
+  :root{
+    --blue-deep:   #0a2540;   /* table / page ground */
+    --blue-mid:    #123a5e;   /* sheet / card surface */
+    --blue-raised: #17456e;   /* hovered / raised surface */
+    --line-cyan:   #7fb8d9;   /* linework, secondary text, borders */
+    --line-cyan-dim: rgba(127,184,217,0.28);
+    --paper:       #eef5fa;   /* primary text, high emphasis */
+    --brass:       #e0a940;   /* accent: CTAs, correct, highlight */
+    --brass-deep:  #b6822c;
+    --miss:        #e0664a;   /* incorrect / timeout */
+    --pass-green:  #6fbf86;   /* pass stamp only */
+
+    --display: 'Big Shoulders Display', 'Arial Narrow', sans-serif;
+    --body: 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif;
+    --mono: 'IBM Plex Mono', 'Courier New', monospace;
+  }
+
+  *, *::before, *::after{ box-sizing: border-box; }
+
+  @media (prefers-reduced-motion: reduce){
+    *, *::before, *::after{
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  html, body{ height: 100%; }
+
+  body{
+    margin: 0;
+    background:
+      linear-gradient(rgba(10,37,64,0.94), rgba(10,37,64,0.98)),
+      repeating-linear-gradient(0deg, var(--line-cyan-dim) 0 1px, transparent 1px 32px),
+      repeating-linear-gradient(90deg, var(--line-cyan-dim) 0 1px, transparent 1px 32px);
+    background-color: var(--blue-deep);
+    color: var(--paper);
+    font-family: var(--body);
+    font-weight: 400;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding: clamp(16px, 3vw, 36px);
+    gap: clamp(16px, 3vw, 28px);
+  }
+
+  :focus-visible{
+    outline: 2px solid var(--brass);
+    outline-offset: 3px;
+  }
+
+  h1, h2, h3{ font-family: var(--display); font-weight: 900; margin: 0; text-wrap: balance; }
+  button{ font-family: inherit; }
+
+  .scene{
+    max-width: 760px;
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(16px, 3vw, 28px);
+    flex: 1;
+  }
+
+  /* ---------- title block (drafting-table title block motif) ---------- */
+
+  .titleblock{
+    border: 1px solid var(--line-cyan-dim);
+    background: rgba(18,58,94,0.55);
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .tb-name{
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--line-cyan-dim);
+  }
+
+  .tb-kicker{
+    display: block;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--line-cyan);
+    margin-bottom: 6px;
+  }
+
+  .tb-name h1{
+    font-size: clamp(26px, 5vw, 38px);
+    letter-spacing: 0.01em;
+    color: var(--paper);
+  }
+
+  .tb-fields{
+    display: none;
+    grid-template-columns: repeat(4, 1fr);
+  }
+  .tb-fields.show{ display: grid; }
+
+  .tb-field{
+    padding: 10px 14px;
+    border-right: 1px solid var(--line-cyan-dim);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+  }
+  .tb-field:last-child{ border-right: none; }
+
+  .tb-label{
+    font-family: var(--mono);
+    font-size: 9.5px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--line-cyan);
+    opacity: 0.85;
+  }
+
+  .tb-value{
+    font-family: var(--mono);
+    font-size: 16px;
+    font-weight: 500;
+    font-variant-numeric: tabular-nums;
+    color: var(--paper);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .tb-value.strikes-row{ letter-spacing: 0.12em; }
+  .strike-pip{ color: var(--line-cyan-dim); }
+  .strike-pip.used{ color: var(--miss); }
+
+  /* ---------- screens ---------- */
+
+  main{ flex: 1; display: flex; }
+  .screen{ display: none; flex-direction: column; gap: 22px; width: 100%; }
+  .screen.active{ display: flex; }
+
+  .sheet{
+    border: 1px solid var(--line-cyan-dim);
+    background: var(--blue-mid);
+    padding: clamp(20px, 4vw, 36px);
+  }
+
+  /* ---------- start screen ---------- */
+
+  .brief-list{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .brief-list li{
+    display: grid;
+    grid-template-columns: 28px 1fr;
+    gap: 12px;
+    align-items: baseline;
+  }
+  .brief-num{
+    font-family: var(--mono);
+    color: var(--brass);
+    font-size: 14px;
+  }
+  .brief-list p{ margin: 0; color: var(--paper); }
+  .brief-list .sub{ display:block; color: var(--line-cyan); font-size: 13.5px; margin-top: 2px; }
+
+  .hs-row{
+    margin-top: 22px;
+    padding-top: 18px;
+    border-top: 1px dashed var(--line-cyan-dim);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--line-cyan);
+  }
+  .hs-row strong{ color: var(--brass); font-size: 18px; font-variant-numeric: tabular-nums; }
+
+  .cta-row{ display: flex; justify-content: center; }
+
+  .stamp-btn{
+    appearance: none;
+    background: var(--brass);
+    color: var(--blue-deep);
+    border: 2px solid var(--brass);
+    font-family: var(--display);
+    font-weight: 900;
+    font-size: 18px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 14px 40px;
+    cursor: pointer;
+    transition: transform 0.15s ease, background-color 0.2s ease, color 0.2s ease;
+  }
+  .stamp-btn:hover{ transform: translateY(-2px); }
+  .stamp-btn:active{ transform: translateY(0) scale(0.98); }
+  .stamp-btn.ghost{
+    background: transparent;
+    color: var(--brass);
+  }
+  .stamp-btn.ghost:hover{ background: rgba(224,169,64,0.12); }
+
+  /* ---------- game screen ---------- */
+
+  .q-head{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .category-tag{
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--line-cyan);
+    border: 1px solid var(--line-cyan-dim);
+    padding: 5px 10px;
+  }
+
+  .q-index{
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--line-cyan);
+  }
+
+  .q-text{
+    font-family: var(--body);
+    font-weight: 600;
+    font-size: clamp(18px, 2.6vw, 22px);
+    color: var(--paper);
+    text-wrap: balance;
+    margin: 6px 0 2px;
+  }
+
+  /* ruler timer */
+  .ruler{
+    position: relative;
+    height: 22px;
+    display: flex;
+    align-items: flex-end;
+  }
+  .ruler-track{
+    position: relative;
+    width: 100%;
+    height: 8px;
+    background: rgba(238,245,250,0.08);
+    overflow: hidden;
+  }
+  .ruler-fill{
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    background: var(--brass);
+    transform-origin: left center;
+    transition: width 0.1s linear, background-color 0.2s ease;
+  }
+  .ruler-fill.low{ background: var(--miss); }
+  .ruler-ticks{
+    position: absolute;
+    inset: 0;
+    display: flex;
+    justify-content: space-between;
+    pointer-events: none;
+  }
+  .ruler-ticks span{ width: 1px; height: 8px; background: rgba(10,37,64,0.4); }
+  .ruler-secs{
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--line-cyan);
+    margin-left: 10px;
+    font-variant-numeric: tabular-nums;
+    min-width: 2.2ch;
+  }
+
+  .options{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .option{
+    position: relative;
+    display: grid;
+    grid-template-columns: 28px 1fr;
+    gap: 14px;
+    align-items: start;
+    width: 100%;
+    text-align: left;
+    background: rgba(238,245,250,0.03);
+    border: 1px solid var(--line-cyan-dim);
+    color: var(--paper);
+    padding: 13px 16px;
+    font-family: var(--body);
+    font-size: 15.5px;
+    cursor: pointer;
+    transition: background-color 0.15s ease, border-color 0.15s ease;
+  }
+  .option:hover:not(:disabled){
+    background: rgba(224,169,64,0.08);
+    border-color: var(--line-cyan);
+  }
+  .option:disabled{ cursor: default; }
+
+  .option .letter{
+    font-family: var(--mono);
+    color: var(--brass);
+    font-weight: 500;
+  }
+
+  .option.correct{
+    border-color: var(--pass-green);
+    background: rgba(111,191,134,0.12);
+  }
+  .option.correct .letter{ color: var(--pass-green); }
+  .option.wrong{
+    border-color: var(--miss);
+    background: rgba(224,102,74,0.12);
+  }
+  .option.wrong .letter{ color: var(--miss); }
+
+  .stamp-mark{
+    position: absolute;
+    top: 50%; right: 14px;
+    transform: translateY(-50%) rotate(-8deg);
+    font-family: var(--display);
+    font-weight: 900;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    padding: 3px 8px;
+    border: 2px solid currentColor;
+    text-transform: uppercase;
+    animation: stampin 0.22s ease-out;
+  }
+  .stamp-mark.correct{ color: var(--pass-green); }
+  .stamp-mark.wrong{ color: var(--miss); }
+  @keyframes stampin{
+    from{ opacity: 0; transform: translateY(-50%) rotate(-8deg) scale(1.6); }
+    to{ opacity: 1; transform: translateY(-50%) rotate(-8deg) scale(1); }
+  }
+
+  .explain{
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--line-cyan);
+    border-left: 2px solid var(--brass);
+    padding: 10px 14px;
+    background: rgba(238,245,250,0.03);
+    display: none;
+  }
+  .explain.show{ display: block; }
+
+  .next-row{ display: flex; justify-content: flex-end; min-height: 44px; }
+
+  /* ---------- end screen ---------- */
+
+  .verdict{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    text-align: center;
+  }
+
+  .stamp-big{
+    font-family: var(--display);
+    font-weight: 900;
+    font-size: clamp(38px, 9vw, 64px);
+    letter-spacing: 0.05em;
+    border: 4px solid currentColor;
+    padding: 6px 28px;
+    transform: rotate(-4deg);
+  }
+  .stamp-big.pass{ color: var(--pass-green); }
+  .stamp-big.fail{ color: var(--miss); }
+
+  .verdict .score-line{
+    font-family: var(--mono);
+    color: var(--line-cyan);
+    font-size: 14px;
+    margin-top: 10px;
+  }
+
+  .stat-grid{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--line-cyan-dim);
+    border: 1px solid var(--line-cyan-dim);
+  }
+  .stat-cell{
+    background: var(--blue-mid);
+    padding: 16px;
+    text-align: center;
+  }
+  .stat-cell .tb-label{ justify-content: center; display: block; }
+  .stat-cell .big-num{
+    font-family: var(--mono);
+    font-size: clamp(20px, 4vw, 28px);
+    color: var(--brass);
+    font-variant-numeric: tabular-nums;
+    margin-top: 4px;
+    display: block;
+  }
+
+  .review{
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .review h3{
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--line-cyan);
+    font-weight: 500;
+  }
+  .review-item{
+    border: 1px solid var(--line-cyan-dim);
+    padding: 14px 16px;
+  }
+  .review-item .rq{ font-weight: 600; margin: 0 0 8px; }
+  .review-item .ra{
+    font-family: var(--mono);
+    font-size: 13px;
+    margin: 0 0 4px;
+  }
+  .review-item .ra.wrong{ color: var(--miss); }
+  .review-item .ra.right{ color: var(--pass-green); }
+  .review-item .rex{
+    font-size: 13px;
+    color: var(--line-cyan);
+    margin: 8px 0 0;
+  }
+  .review-empty{
+    font-family: var(--mono);
+    color: var(--pass-green);
+    font-size: 14px;
+  }
+
+  footer{
+    max-width: 760px;
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    color: var(--line-cyan-dim);
+  }
+
+  @media (max-width: 560px){
+    .tb-fields{ grid-template-columns: repeat(2, 1fr); }
+    .tb-field:nth-child(2){ border-right: none; }
+    .tb-field{ border-bottom: 1px solid var(--line-cyan-dim); }
+    .stat-grid{ grid-template-columns: 1fr; }
+    .stat-cell{ border-bottom: 1px solid var(--line-cyan-dim); }
+  }
+
+</style>
+</head>
+<body>
+
+<div class="scene">
+
+  <header class="titleblock">
+    <div class="tb-name">
+      <span class="tb-kicker">Licensing Exam Simulator</span>
+      <h1>Real Estate Exam Rush</h1>
+    </div>
+    <div class="tb-fields" id="tb-fields">
+      <div class="tb-field">
+        <span class="tb-label">Score</span>
+        <span class="tb-value" id="stat-score">0</span>
+      </div>
+      <div class="tb-field">
+        <span class="tb-label">Streak</span>
+        <span class="tb-value" id="stat-streak">0</span>
+      </div>
+      <div class="tb-field">
+        <span class="tb-label">Strikes</span>
+        <span class="tb-value strikes-row" id="stat-strikes">▢ ▢ ▢</span>
+      </div>
+      <div class="tb-field">
+        <span class="tb-label">Sheet</span>
+        <span class="tb-value" id="stat-progress">00 / 15</span>
+      </div>
+    </div>
+  </header>
+
+  <main>
+
+    <section class="screen active" id="screen-start">
+      <div class="sheet">
+        <ol class="brief-list" style="list-style:none; margin:0 0 4px; padding:0;">
+          <li><span class="brief-num">01</span><p>15 questions, drawn at random from property law, contracts &amp; agency, financing, appraisal, fair housing, and closing math.<span class="sub">Same pool every run — no two exams play alike.</span></p></li>
+          <li><span class="brief-num">02</span><p>20 seconds per question.<span class="sub">Answer before the ruler runs out, or it counts against you.</span></p></li>
+          <li><span class="brief-num">03</span><p>Three strikes and the exam ends.<span class="sub">A wrong answer or a timeout costs one strike.</span></p></li>
+          <li><span class="brief-num">04</span><p>Score rewards speed and streaks.<span class="sub">Faster, consecutive correct answers earn more points.</span></p></li>
+          <li><span class="brief-num">05</span><p>70% correct passes the exam.<span class="sub">Below that, you'll need to retake it.</span></p></li>
+        </ol>
+        <div class="hs-row">
+          <span>Best score on file</span>
+          <strong id="high-score">0</strong>
+        </div>
+      </div>
+      <div class="cta-row">
+        <button class="stamp-btn" id="btn-start">Begin Exam</button>
+      </div>
+    </section>
+
+    <section class="screen" id="screen-game">
+      <div class="sheet">
+        <div class="q-head">
+          <span class="category-tag" id="q-category">Category</span>
+          <span class="q-index" id="q-index">Item 01 / 15</span>
+        </div>
+        <p class="q-text" id="q-text">Question text goes here.</p>
+
+        <div class="ruler">
+          <div class="ruler-track">
+            <div class="ruler-fill" id="ruler-fill"></div>
+            <div class="ruler-ticks" id="ruler-ticks"></div>
+          </div>
+          <span class="ruler-secs" id="ruler-secs">20</span>
+        </div>
+
+        <ul class="options" id="options"></ul>
+
+        <p class="explain" id="explain"></p>
+
+        <div class="next-row">
+          <button class="stamp-btn ghost" id="btn-next" style="display:none;">Next Item ▸</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="screen" id="screen-end">
+      <div class="sheet verdict">
+        <span class="stamp-big" id="verdict-stamp">PASSED</span>
+        <span class="score-line" id="verdict-line">12 / 15 correct — 80%</span>
+      </div>
+
+      <div class="stat-grid">
+        <div class="stat-cell">
+          <span class="tb-label">Final Score</span>
+          <span class="big-num" id="end-score">0</span>
+        </div>
+        <div class="stat-cell">
+          <span class="tb-label">Best Streak</span>
+          <span class="big-num" id="end-streak">0</span>
+        </div>
+        <div class="stat-cell">
+          <span class="tb-label">High Score</span>
+          <span class="big-num" id="end-highscore">0</span>
+        </div>
+      </div>
+
+      <div class="sheet review">
+        <h3>Missed Items</h3>
+        <div id="review-list"></div>
+      </div>
+
+      <div class="cta-row">
+        <button class="stamp-btn" id="btn-retake">Retake Exam</button>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>Not affiliated with any state licensing board — study aid only.</footer>
+
+</div>
+
+<script>
+(function(){
+
+  var QUESTIONS = [
+    // ---------------- Property & Ownership ----------------
+    { cat:"Property & Ownership", q:"Which of the following is considered real property rather than personal property?",
+      opts:["A refrigerator that simply plugs in", "A built-in dishwasher", "Bedroom curtains", "An area rug"], correct:1,
+      ex:"A fixture is personal property that has become permanently attached to the real estate — built-in appliances typically pass with the house." },
+    { cat:"Property & Ownership", q:"Which of these is NOT one of the classic tests used to decide whether an item is a fixture?",
+      opts:["Method of attachment", "Intention of the parties", "Purchase price of the item", "Adaptability to the property's use"], correct:2,
+      ex:"Fixture tests look at attachment, intent, adaptability, and agreement between the parties — not what the item cost." },
+    { cat:"Property & Ownership", q:"Which estate gives the holder ownership rights for the duration of another named person's life?",
+      opts:["Fee simple absolute", "Life estate pur autre vie", "Estate for years", "Tenancy at will"], correct:1,
+      ex:"\"Pur autre vie\" means \"for the life of another\" — the estate ends when that other person dies, not the holder." },
+    { cat:"Property & Ownership", q:"Two owners hold equal shares in a property with the right of survivorship. This is:",
+      opts:["Tenancy in common", "Joint tenancy", "Severalty", "A leasehold estate"], correct:1,
+      ex:"Joint tenancy requires the four unities (time, title, interest, possession) and passes automatically to the surviving owner." },
+    { cat:"Property & Ownership", q:"Ownership of property by one person alone is called:",
+      opts:["Severalty", "Community property", "Tenancy in common", "Joint tenancy"], correct:0,
+      ex:"Severalty means the owner is \"severed\" from all others — sole ownership, regardless of marital status." },
+    { cat:"Property & Ownership", q:"A tenant signs a lease for a fixed one-year term with a defined start and end date. This is:",
+      opts:["An estate at will", "An estate for years", "An estate at sufferance", "A periodic estate"], correct:1,
+      ex:"Any lease with a definite start and end date is an estate for years, no matter how long or short the term is." },
+    { cat:"Property & Ownership", q:"\"Littoral rights\" belong to an owner whose land borders:",
+      opts:["A flowing river or stream", "A lake or ocean", "Underground aquifers only", "A public roadway"], correct:1,
+      ex:"Littoral rights apply to non-flowing bodies of water like oceans and lakes; riparian rights apply to rivers and streams." },
+    { cat:"Property & Ownership", q:"A property owner dies with no will and no heirs can be located. The property passes to the state through:",
+      opts:["Escheat", "Eminent domain", "Adverse possession", "Police power"], correct:0,
+      ex:"Escheat returns property to the state when there is no will and no legal heirs can be found." },
+
+    // ---------------- Contracts & Agency ----------------
+    { cat:"Contracts & Agency", q:"Along with offer, acceptance, and legal capacity, an enforceable contract also requires:",
+      opts:["Consideration", "An escrow account", "A home inspection", "A broker's license"], correct:0,
+      ex:"Valid contracts need offer, acceptance, consideration, capacity, and a lawful objective." },
+    { cat:"Contracts & Agency", q:"A fiduciary relationship in real estate exists primarily between:",
+      opts:["The seller and the buyer", "The agent and their client", "The appraiser and the lender", "The buyer and the title company"], correct:1,
+      ex:"Agents owe fiduciary duties — loyalty, obedience, disclosure, confidentiality, accounting, and reasonable care — to their client." },
+    { cat:"Contracts & Agency", q:"In a dual agency arrangement (where it's permitted), the agent represents:",
+      opts:["Only the buyer", "Only the seller", "Both buyer and seller, with informed consent", "Neither party"], correct:2,
+      ex:"Dual agency means one agent or brokerage represents both principals, which requires disclosed, informed consent from both." },
+    { cat:"Contracts & Agency", q:"Under an exclusive right-to-sell listing, the broker earns a commission:",
+      opts:["Only if the broker personally finds the buyer", "No matter who sells the property during the term", "Only if another broker finds the buyer", "Only if the seller finds the buyer"], correct:1,
+      ex:"Exclusive right-to-sell guarantees the listing broker a commission regardless of who ultimately procures the buyer." },
+    { cat:"Contracts & Agency", q:"A contract that looks valid but can be canceled by one party due to a defect like misrepresentation is:",
+      opts:["Void", "Voidable", "Unenforceable", "Fully executed"], correct:1,
+      ex:"A voidable contract stays valid and binding until the disadvantaged party chooses to rescind it." },
+    { cat:"Contracts & Agency", q:"A seller accepts a buyer's offer but changes one term before signing back. This is legally a:",
+      opts:["Acceptance", "Counteroffer", "Novation", "Ratification"], correct:1,
+      ex:"Changing any term of an offer voids the original offer and creates a new counteroffer for the other party to accept." },
+    { cat:"Contracts & Agency", q:"Under which listing type(s) can the seller sell the property themselves and owe no commission?",
+      opts:["Exclusive right to sell", "Exclusive agency only", "Open listing only", "Both exclusive agency and open listing"], correct:3,
+      ex:"In both exclusive agency and open listings, the seller keeps the right to sell without paying commission if they find the buyer." },
+    { cat:"Contracts & Agency", q:"When both parties have fully carried out their contractual obligations, the contract is discharged by:",
+      opts:["Assignment", "Performance", "Novation", "Breach"], correct:1,
+      ex:"Full performance by both sides discharges the contract's obligations." },
+
+    // ---------------- Financing ----------------
+    { cat:"Financing", q:"A loan whose interest rate can change periodically based on a market index is a(n):",
+      opts:["Fixed-rate mortgage", "Adjustable-rate mortgage", "Balloon mortgage", "Term loan"], correct:1,
+      ex:"ARMs tie their rate to an index and reset at intervals set by the loan terms." },
+    { cat:"Financing", q:"One discount point equals what percentage of the loan amount?",
+      opts:["0.1%", "1%", "5%", "10%"], correct:1,
+      ex:"A point equals 1% of the loan amount, paid up front to buy down the interest rate." },
+    { cat:"Financing", q:"The ratio of the loan amount to a property's appraised value or sale price is the:",
+      opts:["Debt-to-income ratio", "Loan-to-value ratio", "Capitalization rate", "Gross rent multiplier"], correct:1,
+      ex:"LTV = loan amount ÷ property value, expressed as a percentage." },
+    { cat:"Financing", q:"A mortgage with small periodic payments and one large final payment due at maturity is a:",
+      opts:["Fully amortized loan", "Balloon mortgage", "Graduated payment mortgage", "Wraparound mortgage"], correct:1,
+      ex:"Balloon mortgages leave a large lump-sum balance due at the end of the term." },
+    { cat:"Financing", q:"Private mortgage insurance (PMI) is typically required on a conventional loan when the down payment is less than:",
+      opts:["3%", "10%", "20%", "50%"], correct:2,
+      ex:"Below a 20% down payment, LTV exceeds 80% and conventional lenders generally require PMI." },
+    { cat:"Financing", q:"In a fully amortized loan, each scheduled payment includes:",
+      opts:["Interest only", "Principal only", "Both principal and interest", "Only escrow reserves"], correct:2,
+      ex:"Amortized payments blend interest and principal so the loan balance reaches zero by the end of the term." },
+    { cat:"Financing", q:"A junior lien that ranks behind an existing first mortgage in priority is called a:",
+      opts:["Second mortgage", "Blanket mortgage", "Package mortgage", "Purchase-money mortgage"], correct:0,
+      ex:"A second mortgage (junior lien) is subordinate to the first mortgage recorded earlier." },
+    { cat:"Financing", q:"When a lender agrees not to pursue a borrower for the shortfall after a short sale, that shortfall is being:",
+      opts:["Collected via deficiency judgment", "Forgiven", "Assigned to a new borrower", "Added to the next loan"], correct:1,
+      ex:"If the lender waives its right to collect the remaining balance, that unpaid amount is forgiven rather than pursued as a deficiency judgment." },
+
+    // ---------------- Valuation & Appraisal ----------------
+    { cat:"Valuation & Appraisal", q:"Which appraisal approach is most commonly used to value single-family, owner-occupied homes?",
+      opts:["Cost approach", "Sales comparison approach", "Income approach", "Gross rent multiplier approach"], correct:1,
+      ex:"The sales comparison approach relies on recent comparable sales, well suited to typical residential properties." },
+    { cat:"Valuation & Appraisal", q:"The income approach to value is most appropriate for appraising:",
+      opts:["A single-family residence", "A vacant lot", "An income-producing apartment building", "A historic landmark"], correct:2,
+      ex:"The income approach capitalizes net operating income, which fits investment and income-producing properties." },
+    { cat:"Valuation & Appraisal", q:"In the cost approach, value is estimated as:",
+      opts:["Land value + reproduction cost − depreciation", "The price of comparable sales", "Net operating income ÷ cap rate", "Gross income × gross rent multiplier"], correct:0,
+      ex:"Cost approach = land value + cost to reproduce or replace improvements − accrued depreciation." },
+    { cat:"Valuation & Appraisal", q:"Loss in value caused by an outdated floor plan or old fixtures inside the property is:",
+      opts:["Physical deterioration", "Functional obsolescence", "External obsolescence", "Curable physical depreciation"], correct:1,
+      ex:"Functional obsolescence comes from outdated design or features within the property itself." },
+    { cat:"Valuation & Appraisal", q:"A drop in value caused by something outside the property, like a new landfill nearby, is:",
+      opts:["Physical deterioration", "Functional obsolescence", "External (economic) obsolescence", "Deferred maintenance"], correct:2,
+      ex:"External obsolescence comes from negative influences outside the property's boundaries and is usually incurable by the owner." },
+    { cat:"Valuation & Appraisal", q:"The appraisal principle holding that value is maximized when nearby land uses are compatible is:",
+      opts:["Conformity", "Progression", "Regression", "Substitution"], correct:0,
+      ex:"The principle of conformity says value is best supported when property use matches its surroundings." },
+    { cat:"Valuation & Appraisal", q:"The principle stating a buyer won't pay more for a property than the cost of an equally desirable substitute is:",
+      opts:["Anticipation", "Substitution", "Contribution", "Supply and demand"], correct:1,
+      ex:"The principle of substitution is the foundation of the sales comparison approach." },
+    { cat:"Valuation & Appraisal", q:"A Comparative Market Analysis (CMA) prepared by a real estate agent differs from a formal appraisal because a CMA:",
+      opts:["Is a certified, legally binding value", "Is an informal pricing estimate, not a licensed appraisal", "Always requires a state license", "Is required at every closing"], correct:1,
+      ex:"A CMA is an agent's informal pricing tool; a formal appraisal is performed by a licensed or certified appraiser." },
+
+    // ---------------- Fair Housing & Law ----------------
+    { cat:"Fair Housing & Law", q:"The original 1968 federal Fair Housing Act protected against discrimination based on all of these EXCEPT:",
+      opts:["Race", "Religion", "Sexual orientation", "National origin"], correct:2,
+      ex:"The 1968 Act covered race, color, religion, and national origin (sex was added in 1974; familial status and disability in 1988). Sexual orientation is not a class named in the federal Act's text." },
+    { cat:"Fair Housing & Law", q:"A lender's refusal to make loans in certain neighborhoods based on the area's racial makeup is called:",
+      opts:["Steering", "Blockbusting", "Redlining", "Panic peddling"], correct:2,
+      ex:"Redlining denies services or loans based on a neighborhood's demographics rather than an applicant's own qualifications." },
+    { cat:"Fair Housing & Law", q:"Directing homebuyers toward or away from certain neighborhoods based on a protected characteristic is:",
+      opts:["Redlining", "Steering", "Blockbusting", "Escheat"], correct:1,
+      ex:"Steering channels buyers toward or away from areas based on race or other protected classes." },
+    { cat:"Fair Housing & Law", q:"Persuading owners to sell quickly by suggesting a protected class is moving into the neighborhood is:",
+      opts:["Steering", "Blockbusting", "Redlining", "Novation"], correct:1,
+      ex:"Blockbusting (panic peddling) induces sales through fear tied to demographic change." },
+    { cat:"Fair Housing & Law", q:"A public restriction on how land can be used, established by local government, is:",
+      opts:["A deed restriction", "An easement", "Zoning", "A lien"], correct:2,
+      ex:"Zoning ordinances are public land-use controls enacted by local government under its police power." },
+    { cat:"Fair Housing & Law", q:"A utility company's right to run power lines across part of a property is an example of:",
+      opts:["A license", "An easement", "An encroachment", "A leasehold"], correct:1,
+      ex:"An easement grants a non-owner the right to use part of another's land for a specific purpose, like utility lines." },
+    { cat:"Fair Housing & Law", q:"A neighbor's fence extends onto your property without permission. This is called:",
+      opts:["An easement", "An encroachment", "A variance", "An encumbrance in gross"], correct:1,
+      ex:"An encroachment is an unauthorized physical intrusion onto adjoining property." },
+    { cat:"Fair Housing & Law", q:"A use that violated no rule when it started, but is now barred by a later zoning change, is:",
+      opts:["A variance", "A legal nonconforming use", "A special use permit", "Spot zoning"], correct:1,
+      ex:"A legal nonconforming use is \"grandfathered in\" because it predates the zoning change that made it non-compliant." },
+
+    // ---------------- Math & Closing ----------------
+    { cat:"Math & Closing", q:"A home sells for $320,000 with a 6% commission split evenly between two brokerages. Each brokerage receives:",
+      opts:["$9,600", "$19,200", "$6,400", "$3,200"], correct:0,
+      ex:"$320,000 × 6% = $19,200 total; split evenly between two sides = $9,600 each." },
+    { cat:"Math & Closing", q:"Annual property taxes are $3,600. Using a 360-day year, the daily proration rate is:",
+      opts:["$10", "$12", "$30", "$100"], correct:0,
+      ex:"$3,600 ÷ 360 days = $10 per day." },
+    { cat:"Math & Closing", q:"A rectangular lot measures 120 feet by 90 feet. Its area is:",
+      opts:["10,800 sq ft", "1,080 sq ft", "21,600 sq ft", "9,600 sq ft"], correct:0,
+      ex:"120 × 90 = 10,800 square feet." },
+    { cat:"Math & Closing", q:"A buyer takes a $250,000 loan at 6% annual interest. Using 12 equal months, interest for the first month is:",
+      opts:["$1,250", "$1,500", "$2,500", "$15,000"], correct:0,
+      ex:"$250,000 × 6% = $15,000 a year ÷ 12 months = $1,250 for the first month." },
+    { cat:"Math & Closing", q:"One acre contains how many square feet?",
+      opts:["5,280", "10,890", "43,560", "1,000"], correct:2,
+      ex:"One acre equals 43,560 square feet." },
+    { cat:"Math & Closing", q:"A property is under contract for $450,000 with a 20% down payment required. The down payment is:",
+      opts:["$45,000", "$90,000", "$22,500", "$9,000"], correct:1,
+      ex:"$450,000 × 20% = $90,000." },
+    { cat:"Math & Closing", q:"A $500,000 sale earns a 3% commission, of which the agent keeps 60%. The agent's personal earnings are:",
+      opts:["$9,000", "$6,000", "$15,000", "$12,000"], correct:0,
+      ex:"$500,000 × 3% = $15,000 total commission; the agent's 60% share = $9,000." },
+    { cat:"Math & Closing", q:"A seller wants to net $200,000 after a 5% commission. The required sale price is closest to:",
+      opts:["$210,000", "$210,526", "$205,000", "$211,000"], correct:1,
+      ex:"Sale price × 0.95 = $200,000, so sale price = $200,000 ÷ 0.95 ≈ $210,526." }
+  ];
+
+  var ROUND_SIZE = 15;
+  var TIME_PER_Q = 20;
+  var MAX_STRIKES = 3;
+
+  var state = null;
+
+  function shuffle(arr){
+    var a = arr.slice();
+    for (var i = a.length - 1; i > 0; i--){
+      var j = Math.floor(Math.random() * (i + 1));
+      var t = a[i]; a[i] = a[j]; a[j] = t;
+    }
+    return a;
+  }
+
+  function getHighScore(){
+    try { return parseInt(localStorage.getItem('rer_high_score') || '0', 10); }
+    catch (e) { return 0; }
+  }
+  function setHighScore(v){
+    try { localStorage.setItem('rer_high_score', String(v)); } catch (e) {}
+  }
+
+  var els = {
+    tbFields: document.getElementById('tb-fields'),
+    statScore: document.getElementById('stat-score'),
+    statStreak: document.getElementById('stat-streak'),
+    statStrikes: document.getElementById('stat-strikes'),
+    statProgress: document.getElementById('stat-progress'),
+    highScore: document.getElementById('high-score'),
+    screens: {
+      start: document.getElementById('screen-start'),
+      game: document.getElementById('screen-game'),
+      end: document.getElementById('screen-end')
+    },
+    btnStart: document.getElementById('btn-start'),
+    btnNext: document.getElementById('btn-next'),
+    btnRetake: document.getElementById('btn-retake'),
+    qCategory: document.getElementById('q-category'),
+    qIndex: document.getElementById('q-index'),
+    qText: document.getElementById('q-text'),
+    options: document.getElementById('options'),
+    explain: document.getElementById('explain'),
+    rulerFill: document.getElementById('ruler-fill'),
+    rulerTicks: document.getElementById('ruler-ticks'),
+    rulerSecs: document.getElementById('ruler-secs'),
+    verdictStamp: document.getElementById('verdict-stamp'),
+    verdictLine: document.getElementById('verdict-line'),
+    endScore: document.getElementById('end-score'),
+    endStreak: document.getElementById('end-streak'),
+    endHighscore: document.getElementById('end-highscore'),
+    reviewList: document.getElementById('review-list')
+  };
+
+  (function buildTicks(){
+    for (var i = 0; i <= 10; i++){
+      var s = document.createElement('span');
+      els.rulerTicks.appendChild(s);
+    }
+  })();
+
+  els.highScore.textContent = getHighScore();
+
+  function showScreen(name){
+    Object.keys(els.screens).forEach(function(k){
+      els.screens[k].classList.toggle('active', k === name);
+    });
+    els.tbFields.classList.toggle('show', name === 'game');
+  }
+
+  function startRound(){
+    state = {
+      deck: shuffle(QUESTIONS).slice(0, ROUND_SIZE),
+      pos: 0,
+      score: 0,
+      streak: 0,
+      bestStreak: 0,
+      strikes: 0,
+      answered: 0,
+      missed: [],
+      timerId: null,
+      remaining: TIME_PER_Q,
+      locked: false
+    };
+    updateHud();
+    showScreen('game');
+    nextQuestion();
+  }
+
+  function updateHud(){
+    els.statScore.textContent = state.score;
+    els.statStreak.textContent = state.streak;
+    var pips = [];
+    for (var i = 0; i < MAX_STRIKES; i++){
+      pips.push('<span class="strike-pip' + (i < state.strikes ? ' used' : '') + '">' + (i < state.strikes ? '▨' : '▢') + '</span>');
+    }
+    els.statStrikes.innerHTML = pips.join(' ');
+    els.statProgress.textContent = pad(Math.min(state.pos + 1, ROUND_SIZE)) + ' / ' + ROUND_SIZE;
+  }
+
+  function pad(n){ return (n < 10 ? '0' : '') + n; }
+
+  function nextQuestion(){
+    if (state.pos >= state.deck.length || state.strikes >= MAX_STRIKES){
+      endRound();
+      return;
+    }
+    state.locked = false;
+    var item = state.deck[state.pos];
+    els.qCategory.textContent = item.cat;
+    els.qIndex.textContent = 'Item ' + pad(state.pos + 1) + ' / ' + ROUND_SIZE;
+    els.qText.textContent = item.q;
+    els.explain.classList.remove('show');
+    els.explain.textContent = '';
+    els.btnNext.style.display = 'none';
+
+    var order = shuffle(item.opts.map(function(text, idx){ return { text: text, isCorrect: idx === item.correct }; }));
+    els.options.innerHTML = '';
+    var letters = ['A', 'B', 'C', 'D'];
+    order.forEach(function(opt, i){
+      var li = document.createElement('li');
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'option';
+      btn.innerHTML = '<span class="letter">' + letters[i] + '</span><span>' + opt.text + '</span>';
+      btn.addEventListener('click', function(){ selectAnswer(btn, opt.isCorrect, item); });
+      li.appendChild(btn);
+      els.options.appendChild(li);
+    });
+
+    updateHud();
+    startTimer(item);
+  }
+
+  function startTimer(item){
+    clearInterval(state.timerId);
+    state.remaining = TIME_PER_Q;
+    els.rulerSecs.textContent = state.remaining;
+    els.rulerFill.style.width = '100%';
+    els.rulerFill.classList.remove('low');
+
+    var startedAt = Date.now();
+    state.timerId = setInterval(function(){
+      var elapsed = (Date.now() - startedAt) / 1000;
+      var left = Math.max(0, TIME_PER_Q - elapsed);
+      els.rulerFill.style.width = (left / TIME_PER_Q * 100) + '%';
+      els.rulerFill.classList.toggle('low', left <= TIME_PER_Q * 0.25);
+      var secsShown = Math.ceil(left);
+      if (secsShown !== state.remaining){
+        state.remaining = secsShown;
+        els.rulerSecs.textContent = secsShown;
+      }
+      if (left <= 0){
+        clearInterval(state.timerId);
+        timeExpired(item);
+      }
+    }, 100);
+  }
+
+  function timeExpired(item){
+    if (state.locked) return;
+    state.locked = true;
+    var buttons = els.options.querySelectorAll('.option');
+    buttons.forEach(function(b){
+      b.disabled = true;
+      if (b.textContent.replace(/^[A-D]/, '').trim() === item.opts[item.correct]){
+        b.classList.add('correct');
+      }
+    });
+    registerResult(item, false, true, 0, null);
+  }
+
+  function selectAnswer(btn, isCorrect, item){
+    if (state.locked) return;
+    state.locked = true;
+    clearInterval(state.timerId);
+
+    var buttons = els.options.querySelectorAll('.option');
+    var timeLeft = state.remaining;
+    var chosenText = btn.querySelector('span:last-child').textContent;
+
+    buttons.forEach(function(b){ b.disabled = true; });
+
+    if (isCorrect){
+      btn.classList.add('correct');
+      var stamp = document.createElement('span');
+      stamp.className = 'stamp-mark correct';
+      stamp.textContent = 'Correct';
+      btn.appendChild(stamp);
+    } else {
+      btn.classList.add('wrong');
+      var stampW = document.createElement('span');
+      stampW.className = 'stamp-mark wrong';
+      stampW.textContent = 'Denied';
+      btn.appendChild(stampW);
+      buttons.forEach(function(b){
+        if (b.textContent.indexOf(item.opts[item.correct]) !== -1 && !b.classList.contains('wrong')){
+          b.classList.add('correct');
+        }
+      });
+    }
+
+    registerResult(item, isCorrect, false, timeLeft, chosenText);
+  }
+
+  function registerResult(item, isCorrect, timedOut, timeLeft, chosenText){
+    state.answered += 1;
+    els.explain.textContent = item.ex;
+    els.explain.classList.add('show');
+    els.btnNext.style.display = 'inline-block';
+    els.btnNext.textContent = (state.pos + 1 >= state.deck.length || state.strikes + (isCorrect ? 0 : 1) >= MAX_STRIKES) ? 'See Results ▸' : 'Next Item ▸';
+
+    if (isCorrect){
+      state.streak += 1;
+      state.bestStreak = Math.max(state.bestStreak, state.streak);
+      var base = 100;
+      var streakBonus = (state.streak - 1) * 20;
+      var timeBonus = Math.round((timeLeft || 0) * 3);
+      state.score += base + streakBonus + timeBonus;
+    } else {
+      state.streak = 0;
+      state.strikes += 1;
+      state.missed.push({
+        q: item.q,
+        yourAnswer: timedOut ? 'No answer (time expired)' : chosenText,
+        correctAnswer: item.opts[item.correct],
+        ex: item.ex
+      });
+    }
+    updateHud();
+  }
+
+  els.btnNext.addEventListener('click', function(){
+    state.pos += 1;
+    nextQuestion();
+  });
+
+  function endRound(){
+    clearInterval(state.timerId);
+    showScreen('end');
+
+    var answered = state.answered;
+    var correctCount = answered - state.missed.length;
+    var pct = answered > 0 ? Math.round((correctCount / answered) * 100) : 0;
+    var passed = pct >= 70;
+
+    els.verdictStamp.textContent = passed ? 'PASSED' : 'FAILED';
+    els.verdictStamp.className = 'stamp-big ' + (passed ? 'pass' : 'fail');
+    els.verdictLine.textContent = correctCount + ' / ' + answered + ' correct — ' + pct + '%';
+
+    els.endScore.textContent = state.score;
+    els.endStreak.textContent = state.bestStreak;
+
+    var hs = getHighScore();
+    if (state.score > hs){
+      hs = state.score;
+      setHighScore(hs);
+    }
+    els.endHighscore.textContent = hs;
+    els.highScore.textContent = hs;
+
+    if (state.missed.length === 0){
+      els.reviewList.innerHTML = '<p class="review-empty">Clean sweep — nothing missed.</p>';
+    } else {
+      els.reviewList.innerHTML = '';
+      state.missed.forEach(function(m){
+        var div = document.createElement('div');
+        div.className = 'review-item';
+        div.innerHTML =
+          '<p class="rq">' + m.q + '</p>' +
+          (m.yourAnswer ? '<p class="ra wrong">Your answer: ' + m.yourAnswer + '</p>' : '<p class="ra wrong">Your answer: incorrect option selected</p>') +
+          '<p class="ra right">Correct answer: ' + m.correctAnswer + '</p>' +
+          '<p class="rex">' + m.ex + '</p>';
+        els.reviewList.appendChild(div);
+      });
+    }
+  }
+
+  els.btnStart.addEventListener('click', startRound);
+  els.btnRetake.addEventListener('click', startRound);
+
+})();
+</script>
+
+</body>
+</html>
