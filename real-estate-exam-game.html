@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Real Estate Exam Rush</title>
-<meta name="description" content="A timed real-estate licensing quiz game — answer questions on property law, financing, appraisal, fair housing, and closing math before your strikes run out.">
+<meta name="description" content="A timed real-estate licensing quiz game — race your marker from Listed to the Closing Table, spending tokens on power-ups, before your strikes run out.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;900&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -94,6 +94,10 @@
   .tb-name{
     padding: 16px 20px;
     border-bottom: 1px solid var(--line-cyan-dim);
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
   }
 
   .tb-kicker{
@@ -112,9 +116,26 @@
     color: var(--paper);
   }
 
+  .sound-toggle{
+    appearance: none;
+    background: transparent;
+    border: 1px solid var(--line-cyan-dim);
+    color: var(--line-cyan);
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 7px 11px;
+    cursor: pointer;
+    white-space: nowrap;
+    flex: 0 0 auto;
+    transition: border-color 0.2s ease, color 0.2s ease;
+  }
+  .sound-toggle:hover{ border-color: var(--brass); color: var(--brass); }
+
   .tb-fields{
     display: none;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(5, 1fr);
   }
   .tb-fields.show{ display: grid; }
 
@@ -151,6 +172,22 @@
   .tb-value.strikes-row{ letter-spacing: 0.12em; }
   .strike-pip{ color: var(--line-cyan-dim); }
   .strike-pip.used{ color: var(--miss); }
+
+  .tb-field.combo-pulse .tb-value{ animation: combo-pop 0.35s ease; color: var(--brass); }
+  @keyframes combo-pop{
+    0%{ transform: scale(1); }
+    50%{ transform: scale(1.28); }
+    100%{ transform: scale(1); }
+  }
+  .tb-field.combo-break{ animation: shake-x 0.4s ease; }
+
+  @keyframes shake-x{
+    10%, 90%{ transform: translateX(-1px); }
+    20%, 80%{ transform: translateX(2px); }
+    30%, 50%, 70%{ transform: translateX(-4px); }
+    40%, 60%{ transform: translateX(4px); }
+  }
+  .shake{ animation: shake-x 0.4s ease; }
 
   /* ---------- screens ---------- */
 
@@ -224,6 +261,136 @@
     color: var(--brass);
   }
   .stamp-btn.ghost:hover{ background: rgba(224,169,64,0.12); }
+
+  /* ---------- game board (route from Listed to the Closing Table) ---------- */
+
+  .board{ margin-bottom: 6px; }
+
+  .board-stages{
+    position: relative;
+    height: 56px;
+  }
+
+  .board-rail{
+    position: absolute;
+    left: 0; right: 0; top: 24px;
+    height: 3px;
+    background: rgba(238,245,250,0.12);
+  }
+  .board-rail-fill{
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 0%;
+    background: var(--brass);
+    transition: width 0.5s cubic-bezier(.4,0,.2,1);
+  }
+
+  .board-stage{
+    position: absolute;
+    top: 16px;
+    width: 15px; height: 15px;
+    margin-left: -8px;
+    border: 2px solid rgba(238,245,250,0.25);
+    background: var(--blue-mid);
+    transform: rotate(45deg);
+    transition: border-color 0.3s ease, background-color 0.3s ease;
+  }
+  .board-stage.reached{ border-color: var(--brass); background: var(--brass); }
+
+  .board-stage-label{
+    position: absolute;
+    top: 36px;
+    transform: translateX(-50%);
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--line-cyan);
+    white-space: nowrap;
+  }
+
+  .board-avatar{
+    position: absolute;
+    left: 0%;
+    top: -2px;
+    transform: translateX(-50%);
+    transition: left 0.5s cubic-bezier(.4,0,.2,1);
+    z-index: 2;
+  }
+  .board-avatar-shape{
+    width: 16px; height: 20px;
+    background: var(--brass);
+    clip-path: polygon(50% 100%, 6% 42%, 6% 22%, 22% 6%, 78% 6%, 94% 22%, 94% 42%);
+    filter: drop-shadow(0 2px 3px rgba(0,0,0,0.45));
+  }
+  .board-avatar-shape.hop{ animation: avatar-hop 0.45s ease; }
+  .board-avatar-shape.recoil{ animation: avatar-recoil 0.4s ease; background: var(--miss); }
+  @keyframes avatar-hop{
+    0%{ transform: translateY(0) scale(1); }
+    35%{ transform: translateY(-14px) scale(1.08); }
+    60%{ transform: translateY(-14px) scale(1.08); }
+    100%{ transform: translateY(0) scale(1); }
+  }
+  @keyframes avatar-recoil{
+    0%, 100%{ transform: translateY(0) rotate(0deg); }
+    25%{ transform: translateY(2px) rotate(-10deg); }
+    75%{ transform: translateY(2px) rotate(10deg); }
+  }
+
+  .checkpoint-toast{
+    position: absolute;
+    left: 50%; top: -4px;
+    transform: translate(-50%, -6px);
+    background: var(--brass);
+    color: var(--blue-deep);
+    font-family: var(--display);
+    font-weight: 900;
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    opacity: 0;
+    pointer-events: none;
+    white-space: nowrap;
+    transition: opacity 0.25s ease, transform 0.25s ease;
+    z-index: 3;
+  }
+  .checkpoint-toast.show{
+    opacity: 1;
+    transform: translate(-50%, -28px);
+  }
+
+  /* ---------- power-ups ---------- */
+
+  .powerups{
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .power-btn{
+    appearance: none;
+    background: rgba(224,169,64,0.08);
+    border: 1px solid var(--brass-deep);
+    color: var(--brass);
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.03em;
+    padding: 8px 12px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    transition: background-color 0.15s ease, opacity 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+  }
+  .power-btn .cost{ color: var(--line-cyan); }
+  .power-btn:hover:not(:disabled){ background: rgba(224,169,64,0.2); }
+  .power-btn:disabled{
+    opacity: 0.35;
+    cursor: not-allowed;
+    border-color: var(--line-cyan-dim);
+    color: var(--line-cyan);
+  }
+  .power-btn:disabled .cost{ color: var(--line-cyan-dim); }
 
   /* ---------- game screen ---------- */
 
@@ -324,7 +491,7 @@
     font-family: var(--body);
     font-size: 15.5px;
     cursor: pointer;
-    transition: background-color 0.15s ease, border-color 0.15s ease;
+    transition: background-color 0.15s ease, border-color 0.15s ease, opacity 0.15s ease;
   }
   .option:hover:not(:disabled){
     background: rgba(224,169,64,0.08);
@@ -348,6 +515,11 @@
     background: rgba(224,102,74,0.12);
   }
   .option.wrong .letter{ color: var(--miss); }
+
+  .option.eliminated{
+    opacity: 0.3;
+    text-decoration: line-through;
+  }
 
   .stamp-mark{
     position: absolute;
@@ -385,11 +557,30 @@
   /* ---------- end screen ---------- */
 
   .verdict{
+    position: relative;
+    overflow: hidden;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 6px;
     text-align: center;
+  }
+
+  .confetti-layer{
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+  .confetti-piece{
+    position: absolute;
+    top: -12px;
+    width: 7px;
+    height: 12px;
+    opacity: 0.95;
+    animation: confetti-fall linear forwards;
+  }
+  @keyframes confetti-fall{
+    to{ transform: translateY(260px) rotate(340deg); opacity: 0; }
   }
 
   .stamp-big{
@@ -400,6 +591,7 @@
     border: 4px solid currentColor;
     padding: 6px 28px;
     transform: rotate(-4deg);
+    position: relative;
   }
   .stamp-big.pass{ color: var(--pass-green); }
   .stamp-big.fail{ color: var(--miss); }
@@ -409,6 +601,7 @@
     color: var(--line-cyan);
     font-size: 14px;
     margin-top: 10px;
+    position: relative;
   }
 
   .stat-grid{
@@ -482,10 +675,12 @@
 
   @media (max-width: 560px){
     .tb-fields{ grid-template-columns: repeat(2, 1fr); }
-    .tb-field:nth-child(2){ border-right: none; }
     .tb-field{ border-bottom: 1px solid var(--line-cyan-dim); }
+    .tb-field:nth-child(2n){ border-right: none; }
+    .tb-field:last-child{ border-bottom: none; }
     .stat-grid{ grid-template-columns: 1fr; }
     .stat-cell{ border-bottom: 1px solid var(--line-cyan-dim); }
+    .board-stage-label{ font-size: 8px; }
   }
 
 </style>
@@ -496,17 +691,24 @@
 
   <header class="titleblock">
     <div class="tb-name">
-      <span class="tb-kicker">Licensing Exam Simulator</span>
-      <h1>Real Estate Exam Rush</h1>
+      <div>
+        <span class="tb-kicker">Licensing Exam Simulator</span>
+        <h1>Real Estate Exam Rush</h1>
+      </div>
+      <button class="sound-toggle" id="sound-toggle" type="button" aria-pressed="true">Sound: On</button>
     </div>
     <div class="tb-fields" id="tb-fields">
       <div class="tb-field">
         <span class="tb-label">Score</span>
         <span class="tb-value" id="stat-score">0</span>
       </div>
+      <div class="tb-field" id="tb-combo-field">
+        <span class="tb-label">Combo</span>
+        <span class="tb-value" id="stat-streak">—</span>
+      </div>
       <div class="tb-field">
-        <span class="tb-label">Streak</span>
-        <span class="tb-value" id="stat-streak">0</span>
+        <span class="tb-label">Tokens</span>
+        <span class="tb-value" id="stat-tokens">0</span>
       </div>
       <div class="tb-field">
         <span class="tb-label">Strikes</span>
@@ -524,11 +726,12 @@
     <section class="screen active" id="screen-start">
       <div class="sheet">
         <ol class="brief-list" style="list-style:none; margin:0 0 4px; padding:0;">
-          <li><span class="brief-num">01</span><p>15 questions, drawn at random from property law, contracts &amp; agency, financing, appraisal, fair housing, and closing math.<span class="sub">Same pool every run — no two exams play alike.</span></p></li>
-          <li><span class="brief-num">02</span><p>20 seconds per question.<span class="sub">Answer before the ruler runs out, or it counts against you.</span></p></li>
-          <li><span class="brief-num">03</span><p>Three strikes and the exam ends.<span class="sub">A wrong answer or a timeout costs one strike.</span></p></li>
-          <li><span class="brief-num">04</span><p>Score rewards speed and streaks.<span class="sub">Faster, consecutive correct answers earn more points.</span></p></li>
-          <li><span class="brief-num">05</span><p>70% correct passes the exam.<span class="sub">Below that, you'll need to retake it.</span></p></li>
+          <li><span class="brief-num">01</span><p>Your marker starts at Listed and races down the deal pipeline toward the Closing Table.<span class="sub">Every answered question moves you forward — right or wrong.</span></p></li>
+          <li><span class="brief-num">02</span><p>15 questions, drawn at random from property law, contracts &amp; agency, financing, appraisal, fair housing, and closing math.<span class="sub">Same pool every run — no two exams play alike.</span></p></li>
+          <li><span class="brief-num">03</span><p>20 seconds per question.<span class="sub">Answer before the ruler runs out, or it counts against you.</span></p></li>
+          <li><span class="brief-num">04</span><p>Three strikes and the exam ends.<span class="sub">A wrong answer or a timeout costs one strike.</span></p></li>
+          <li><span class="brief-num">05</span><p>Every correct answer earns a Deal Token.<span class="sub">Spend tokens on 50/50 (cuts two wrong answers) or +10 Seconds.</span></p></li>
+          <li><span class="brief-num">06</span><p>Score rewards speed and streaks — 70% correct passes the exam.<span class="sub">Fall short and you'll be back at Listed for another run.</span></p></li>
         </ol>
         <div class="hs-row">
           <span>Best score on file</span>
@@ -542,6 +745,15 @@
 
     <section class="screen" id="screen-game">
       <div class="sheet">
+
+        <div class="board">
+          <div class="board-stages" id="board-stages">
+            <div class="board-rail"><div class="board-rail-fill" id="board-rail-fill"></div></div>
+            <div class="board-avatar" id="board-avatar"><div class="board-avatar-shape" id="board-avatar-shape"></div></div>
+            <div class="checkpoint-toast" id="checkpoint-toast" aria-live="polite"></div>
+          </div>
+        </div>
+
         <div class="q-head">
           <span class="category-tag" id="q-category">Category</span>
           <span class="q-index" id="q-index">Item 01 / 15</span>
@@ -556,6 +768,11 @@
           <span class="ruler-secs" id="ruler-secs">20</span>
         </div>
 
+        <div class="powerups">
+          <button class="power-btn" id="power-5050" type="button">50 / 50 <span class="cost">· 2 tokens</span></button>
+          <button class="power-btn" id="power-freeze" type="button">+10 Seconds <span class="cost">· 1 token</span></button>
+        </div>
+
         <ul class="options" id="options"></ul>
 
         <p class="explain" id="explain"></p>
@@ -568,6 +785,7 @@
 
     <section class="screen" id="screen-end">
       <div class="sheet verdict">
+        <div class="confetti-layer" id="confetti-layer" aria-hidden="true"></div>
         <span class="stamp-big" id="verdict-stamp">PASSED</span>
         <span class="score-line" id="verdict-line">12 / 15 correct — 80%</span>
       </div>
@@ -578,7 +796,7 @@
           <span class="big-num" id="end-score">0</span>
         </div>
         <div class="stat-cell">
-          <span class="tb-label">Best Streak</span>
+          <span class="tb-label">Best Combo</span>
           <span class="big-num" id="end-streak">0</span>
         </div>
         <div class="stat-cell">
@@ -767,8 +985,13 @@
   var ROUND_SIZE = 15;
   var TIME_PER_Q = 20;
   var MAX_STRIKES = 3;
+  var STAGES = ["Listed", "Offer", "Inspection", "Appraisal", "Financing", "Title Search", "Closing Table"];
+  var STAGE_THRESHOLDS = STAGES.map(function(_, i){ return Math.round(i * ROUND_SIZE / (STAGES.length - 1)); });
+  var SOUND_KEY = 'rer_sound';
 
   var state = null;
+  var audioCtx = null;
+  var soundOn = getSoundOn();
 
   function shuffle(arr){
     var a = arr.slice();
@@ -786,14 +1009,57 @@
   function setHighScore(v){
     try { localStorage.setItem('rer_high_score', String(v)); } catch (e) {}
   }
+  function getSoundOn(){
+    try { return localStorage.getItem(SOUND_KEY) !== 'off'; }
+    catch (e) { return true; }
+  }
+  function setSoundOn(v){
+    try { localStorage.setItem(SOUND_KEY, v ? 'on' : 'off'); } catch (e) {}
+  }
+
+  /* ---------- sound (tiny WebAudio blips, no external assets) ---------- */
+
+  function ensureAudio(){
+    if (!audioCtx){
+      try { audioCtx = new (window.AudioContext || window.webkitAudioContext)(); }
+      catch (e) { audioCtx = null; }
+    }
+    if (audioCtx && audioCtx.state === 'suspended'){ audioCtx.resume(); }
+  }
+
+  function beep(freq, dur, type, delay, vol){
+    if (!soundOn || !audioCtx) return;
+    var t0 = audioCtx.currentTime + (delay || 0);
+    var osc = audioCtx.createOscillator();
+    var gain = audioCtx.createGain();
+    osc.type = type || 'sine';
+    osc.frequency.setValueAtTime(freq, t0);
+    gain.gain.setValueAtTime(0, t0);
+    gain.gain.linearRampToValueAtTime(vol || 0.15, t0 + 0.01);
+    gain.gain.exponentialRampToValueAtTime(0.0001, t0 + dur);
+    osc.connect(gain).connect(audioCtx.destination);
+    osc.start(t0);
+    osc.stop(t0 + dur + 0.03);
+  }
+
+  function playCorrect(){ beep(660, 0.11, 'square'); beep(880, 0.14, 'square', 0.09); }
+  function playWrong(){ beep(170, 0.28, 'sawtooth', 0, 0.13); }
+  function playCheckpoint(){ beep(440, 0.1, 'triangle'); beep(554, 0.1, 'triangle', 0.11); beep(660, 0.18, 'triangle', 0.22); }
+  function playBoost(){ beep(520, 0.1, 'sine'); beep(700, 0.12, 'sine', 0.09); }
+  function playClick(){ beep(320, 0.07, 'triangle'); }
+  function playPass(){ beep(523, 0.14, 'square'); beep(659, 0.14, 'square', 0.13); beep(784, 0.24, 'square', 0.26); }
+  function playFail(){ beep(300, 0.2, 'sawtooth'); beep(220, 0.3, 'sawtooth', 0.18); }
 
   var els = {
     tbFields: document.getElementById('tb-fields'),
+    comboField: document.getElementById('tb-combo-field'),
     statScore: document.getElementById('stat-score'),
     statStreak: document.getElementById('stat-streak'),
+    statTokens: document.getElementById('stat-tokens'),
     statStrikes: document.getElementById('stat-strikes'),
     statProgress: document.getElementById('stat-progress'),
     highScore: document.getElementById('high-score'),
+    soundToggle: document.getElementById('sound-toggle'),
     screens: {
       start: document.getElementById('screen-start'),
       game: document.getElementById('screen-game'),
@@ -810,8 +1076,16 @@
     rulerFill: document.getElementById('ruler-fill'),
     rulerTicks: document.getElementById('ruler-ticks'),
     rulerSecs: document.getElementById('ruler-secs'),
+    boardStages: document.getElementById('board-stages'),
+    boardRailFill: document.getElementById('board-rail-fill'),
+    boardAvatar: document.getElementById('board-avatar'),
+    boardAvatarShape: document.getElementById('board-avatar-shape'),
+    checkpointToast: document.getElementById('checkpoint-toast'),
+    power5050: document.getElementById('power-5050'),
+    powerFreeze: document.getElementById('power-freeze'),
     verdictStamp: document.getElementById('verdict-stamp'),
     verdictLine: document.getElementById('verdict-line'),
+    confettiLayer: document.getElementById('confetti-layer'),
     endScore: document.getElementById('end-score'),
     endStreak: document.getElementById('end-streak'),
     endHighscore: document.getElementById('end-highscore'),
@@ -820,12 +1094,40 @@
 
   (function buildTicks(){
     for (var i = 0; i <= 10; i++){
-      var s = document.createElement('span');
-      els.rulerTicks.appendChild(s);
+      els.rulerTicks.appendChild(document.createElement('span'));
     }
   })();
 
+  (function buildBoard(){
+    STAGES.forEach(function(label, i){
+      var pct = STAGE_THRESHOLDS[i] / ROUND_SIZE * 100;
+      var dot = document.createElement('div');
+      dot.className = 'board-stage';
+      dot.style.left = pct + '%';
+      els.boardStages.appendChild(dot);
+      var lab = document.createElement('div');
+      lab.className = 'board-stage-label';
+      lab.style.left = pct + '%';
+      lab.textContent = label;
+      els.boardStages.appendChild(lab);
+    });
+  })();
+
   els.highScore.textContent = getHighScore();
+
+  function renderSoundToggle(){
+    els.soundToggle.textContent = 'Sound: ' + (soundOn ? 'On' : 'Off');
+    els.soundToggle.setAttribute('aria-pressed', soundOn ? 'true' : 'false');
+  }
+  renderSoundToggle();
+
+  els.soundToggle.addEventListener('click', function(){
+    soundOn = !soundOn;
+    setSoundOn(soundOn);
+    renderSoundToggle();
+    ensureAudio();
+    if (soundOn) beep(440, 0.08, 'sine');
+  });
 
   function showScreen(name){
     Object.keys(els.screens).forEach(function(k){
@@ -834,7 +1136,59 @@
     els.tbFields.classList.toggle('show', name === 'game');
   }
 
+  function retrigger(el, cls){
+    el.classList.remove(cls);
+    void el.offsetWidth;
+    el.classList.add(cls);
+  }
+
+  function hopAvatar(){ retrigger(els.boardAvatarShape, 'hop'); }
+  function recoilAvatar(){ retrigger(els.boardAvatarShape, 'recoil'); }
+  function pulseCombo(){ retrigger(els.comboField, 'combo-pulse'); }
+  function breakCombo(){ retrigger(els.comboField, 'combo-break'); }
+  function shakeScreen(){
+    var sheet = els.screens.game.querySelector('.sheet');
+    retrigger(sheet, 'shake');
+  }
+
+  function showCheckpoint(label){
+    els.checkpointToast.textContent = 'Checkpoint — ' + label;
+    els.checkpointToast.classList.add('show');
+    clearTimeout(state.toastTimer);
+    state.toastTimer = setTimeout(function(){
+      els.checkpointToast.classList.remove('show');
+    }, 1400);
+  }
+
+  function resetBoard(){
+    state.stageIndex = 0;
+    els.boardRailFill.style.width = '0%';
+    els.boardAvatar.style.left = '0%';
+    els.checkpointToast.classList.remove('show');
+    els.boardStages.querySelectorAll('.board-stage').forEach(function(d){ d.classList.remove('reached'); });
+  }
+
+  function updateBoard(answered){
+    var pct = Math.min(100, answered / ROUND_SIZE * 100);
+    els.boardRailFill.style.width = pct + '%';
+    els.boardAvatar.style.left = pct + '%';
+
+    var newStageIndex = 0;
+    for (var i = 0; i < STAGE_THRESHOLDS.length; i++){
+      if (answered >= STAGE_THRESHOLDS[i]) newStageIndex = i;
+    }
+    var dots = els.boardStages.querySelectorAll('.board-stage');
+    dots.forEach(function(d, i){ d.classList.toggle('reached', i <= newStageIndex); });
+
+    if (newStageIndex > state.stageIndex){
+      state.stageIndex = newStageIndex;
+      showCheckpoint(STAGES[newStageIndex]);
+      playCheckpoint();
+    }
+  }
+
   function startRound(){
+    ensureAudio();
     state = {
       deck: shuffle(QUESTIONS).slice(0, ROUND_SIZE),
       pos: 0,
@@ -843,19 +1197,27 @@
       bestStreak: 0,
       strikes: 0,
       answered: 0,
+      tokens: 0,
+      extraTime: 0,
+      powerUsed: { fifty: false, freeze: false },
       missed: [],
       timerId: null,
+      toastTimer: null,
       remaining: TIME_PER_Q,
-      locked: false
+      locked: false,
+      stageIndex: 0
     };
     updateHud();
     showScreen('game');
+    resetBoard();
+    updateBoard(0);
     nextQuestion();
   }
 
   function updateHud(){
     els.statScore.textContent = state.score;
-    els.statStreak.textContent = state.streak;
+    els.statStreak.textContent = state.streak > 0 ? ('×' + state.streak) : '—';
+    els.statTokens.textContent = state.tokens;
     var pips = [];
     for (var i = 0; i < MAX_STRIKES; i++){
       pips.push('<span class="strike-pip' + (i < state.strikes ? ' used' : '') + '">' + (i < state.strikes ? '▨' : '▢') + '</span>');
@@ -866,12 +1228,20 @@
 
   function pad(n){ return (n < 10 ? '0' : '') + n; }
 
+  function updatePowerupButtons(){
+    var wrongRemaining = els.options.querySelectorAll('.option[data-correct="0"]:not(.eliminated)').length;
+    els.power5050.disabled = state.locked || state.powerUsed.fifty || state.tokens < 2 || wrongRemaining < 2;
+    els.powerFreeze.disabled = state.locked || state.powerUsed.freeze || state.tokens < 1;
+  }
+
   function nextQuestion(){
     if (state.pos >= state.deck.length || state.strikes >= MAX_STRIKES){
       endRound();
       return;
     }
     state.locked = false;
+    state.extraTime = 0;
+    state.powerUsed = { fifty: false, freeze: false };
     var item = state.deck[state.pos];
     els.qCategory.textContent = item.cat;
     els.qIndex.textContent = 'Item ' + pad(state.pos + 1) + ' / ' + ROUND_SIZE;
@@ -888,6 +1258,7 @@
       var btn = document.createElement('button');
       btn.type = 'button';
       btn.className = 'option';
+      btn.setAttribute('data-correct', opt.isCorrect ? '1' : '0');
       btn.innerHTML = '<span class="letter">' + letters[i] + '</span><span>' + opt.text + '</span>';
       btn.addEventListener('click', function(){ selectAnswer(btn, opt.isCorrect, item); });
       li.appendChild(btn);
@@ -895,22 +1266,24 @@
     });
 
     updateHud();
-    startTimer(item);
+    updatePowerupButtons();
+    startTimer();
   }
 
-  function startTimer(item){
+  function startTimer(){
     clearInterval(state.timerId);
-    state.remaining = TIME_PER_Q;
+    state.remaining = TIME_PER_Q + state.extraTime;
     els.rulerSecs.textContent = state.remaining;
     els.rulerFill.style.width = '100%';
     els.rulerFill.classList.remove('low');
 
     var startedAt = Date.now();
     state.timerId = setInterval(function(){
+      var total = TIME_PER_Q + state.extraTime;
       var elapsed = (Date.now() - startedAt) / 1000;
-      var left = Math.max(0, TIME_PER_Q - elapsed);
-      els.rulerFill.style.width = (left / TIME_PER_Q * 100) + '%';
-      els.rulerFill.classList.toggle('low', left <= TIME_PER_Q * 0.25);
+      var left = Math.max(0, total - elapsed);
+      els.rulerFill.style.width = (left / total * 100) + '%';
+      els.rulerFill.classList.toggle('low', left <= total * 0.25);
       var secsShown = Math.ceil(left);
       if (secsShown !== state.remaining){
         state.remaining = secsShown;
@@ -918,21 +1291,21 @@
       }
       if (left <= 0){
         clearInterval(state.timerId);
-        timeExpired(item);
+        timeExpired();
       }
     }, 100);
   }
 
-  function timeExpired(item){
+  function timeExpired(){
     if (state.locked) return;
     state.locked = true;
+    var item = state.deck[state.pos];
     var buttons = els.options.querySelectorAll('.option');
     buttons.forEach(function(b){
       b.disabled = true;
-      if (b.textContent.replace(/^[A-D]/, '').trim() === item.opts[item.correct]){
-        b.classList.add('correct');
-      }
+      if (b.getAttribute('data-correct') === '1'){ b.classList.add('correct'); }
     });
+    updatePowerupButtons();
     registerResult(item, false, true, 0, null);
   }
 
@@ -960,12 +1333,11 @@
       stampW.textContent = 'Denied';
       btn.appendChild(stampW);
       buttons.forEach(function(b){
-        if (b.textContent.indexOf(item.opts[item.correct]) !== -1 && !b.classList.contains('wrong')){
-          b.classList.add('correct');
-        }
+        if (b.getAttribute('data-correct') === '1'){ b.classList.add('correct'); }
       });
     }
 
+    updatePowerupButtons();
     registerResult(item, isCorrect, false, timeLeft, chosenText);
   }
 
@@ -974,16 +1346,22 @@
     els.explain.textContent = item.ex;
     els.explain.classList.add('show');
     els.btnNext.style.display = 'inline-block';
-    els.btnNext.textContent = (state.pos + 1 >= state.deck.length || state.strikes + (isCorrect ? 0 : 1) >= MAX_STRIKES) ? 'See Results ▸' : 'Next Item ▸';
+    var willEnd = (state.pos + 1 >= state.deck.length) || (state.strikes + (isCorrect ? 0 : 1) >= MAX_STRIKES);
+    els.btnNext.textContent = willEnd ? 'See Results ▸' : 'Next Item ▸';
 
     if (isCorrect){
       state.streak += 1;
       state.bestStreak = Math.max(state.bestStreak, state.streak);
+      state.tokens += 1;
       var base = 100;
       var streakBonus = (state.streak - 1) * 20;
       var timeBonus = Math.round((timeLeft || 0) * 3);
       state.score += base + streakBonus + timeBonus;
+      playCorrect();
+      hopAvatar();
+      pulseCombo();
     } else {
+      var prevStreak = state.streak;
       state.streak = 0;
       state.strikes += 1;
       state.missed.push({
@@ -992,17 +1370,68 @@
         correctAnswer: item.opts[item.correct],
         ex: item.ex
       });
+      playWrong();
+      recoilAvatar();
+      shakeScreen();
+      if (prevStreak >= 2) breakCombo();
     }
+
     updateHud();
+    updateBoard(state.answered);
+    updatePowerupButtons();
   }
+
+  els.power5050.addEventListener('click', function(){
+    if (els.power5050.disabled) return;
+    ensureAudio();
+    state.tokens -= 2;
+    state.powerUsed.fifty = true;
+    var wrongBtns = Array.prototype.slice.call(els.options.querySelectorAll('.option[data-correct="0"]:not(.eliminated)'));
+    shuffle(wrongBtns).slice(0, 2).forEach(function(b){
+      b.classList.add('eliminated');
+      b.disabled = true;
+    });
+    playClick();
+    updateHud();
+    updatePowerupButtons();
+  });
+
+  els.powerFreeze.addEventListener('click', function(){
+    if (els.powerFreeze.disabled) return;
+    ensureAudio();
+    state.tokens -= 1;
+    state.powerUsed.freeze = true;
+    state.extraTime += 10;
+    playBoost();
+    updateHud();
+    updatePowerupButtons();
+  });
 
   els.btnNext.addEventListener('click', function(){
     state.pos += 1;
     nextQuestion();
   });
 
+  function spawnConfetti(){
+    els.confettiLayer.innerHTML = '';
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduce) return;
+    var colors = ['var(--brass)', 'var(--pass-green)', 'var(--paper)', 'var(--line-cyan)'];
+    for (var i = 0; i < 28; i++){
+      var p = document.createElement('span');
+      p.className = 'confetti-piece';
+      p.style.left = (Math.random() * 100) + '%';
+      p.style.background = colors[i % colors.length];
+      p.style.animationDuration = (1.8 + Math.random() * 1.2) + 's';
+      p.style.animationDelay = (Math.random() * 0.4) + 's';
+      p.style.transform = 'rotate(' + Math.floor(Math.random() * 360) + 'deg)';
+      els.confettiLayer.appendChild(p);
+    }
+  }
+
   function endRound(){
     clearInterval(state.timerId);
+    clearTimeout(state.toastTimer);
     showScreen('end');
 
     var answered = state.answered;
@@ -1025,6 +1454,9 @@
     els.endHighscore.textContent = hs;
     els.highScore.textContent = hs;
 
+    if (passed){ spawnConfetti(); playPass(); }
+    else { els.confettiLayer.innerHTML = ''; playFail(); }
+
     if (state.missed.length === 0){
       els.reviewList.innerHTML = '<p class="review-empty">Clean sweep — nothing missed.</p>';
     } else {
@@ -1034,7 +1466,7 @@
         div.className = 'review-item';
         div.innerHTML =
           '<p class="rq">' + m.q + '</p>' +
-          (m.yourAnswer ? '<p class="ra wrong">Your answer: ' + m.yourAnswer + '</p>' : '<p class="ra wrong">Your answer: incorrect option selected</p>') +
+          '<p class="ra wrong">Your answer: ' + m.yourAnswer + '</p>' +
           '<p class="ra right">Correct answer: ' + m.correctAnswer + '</p>' +
           '<p class="rex">' + m.ex + '</p>';
         els.reviewList.appendChild(div);
