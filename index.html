@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Maison Yanez — No. 3</title>
+<meta name="description" content="Maison Yanez. A small coffee bar. Few drinks, done with restraint.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+
+  :root{
+    --espresso: #2A211C;
+    --walnut: #6F5B4A;
+    --ivory: #F2EBE0;
+    --champagne: #D6C7A8;
+    --serif: 'Cormorant Garamond', Georgia, serif;
+    --sans: 'Jost', 'Helvetica Neue', Arial, sans-serif;
+  }
+
+  *, *::before, *::after{ box-sizing: border-box; }
+
+  html{ scroll-behavior: smooth; }
+
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior: auto; }
+    *, *::before, *::after{
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  body{
+    margin: 0;
+    background: var(--ivory);
+    color: var(--espresso);
+    font-family: var(--sans);
+    font-weight: 300;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  img, svg{ max-width: 100%; display: block; }
+
+  a{ color: inherit; }
+
+  :focus-visible{
+    outline: 1px solid currentColor;
+    outline-offset: 4px;
+  }
+
+  .submit:focus-visible{
+    outline-color: var(--espresso);
+  }
+
+  .wrap{
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  /* ---------- wordmark lockup ---------- */
+
+  .lockup{
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    text-decoration: none;
+  }
+
+  .lockup .name{
+    font-family: var(--serif);
+    font-weight: 500;
+    letter-spacing: 0.42em;
+    text-indent: 0.42em; /* re-center the trailing tracking */
+    line-height: 1.5;
+  }
+
+  .lockup .rule{
+    width: 46px;
+    height: 1px;
+    background: currentColor;
+    opacity: 0.55;
+    margin: 0.6em 0;
+  }
+
+  .lockup .no{
+    font-family: var(--serif);
+    font-style: italic;
+    letter-spacing: 0.18em;
+    text-indent: 0.18em;
+    opacity: 0.75;
+  }
+
+  .lockup--hero .name{ font-size: clamp(28px, 6vw, 46px); }
+  .lockup--hero .no{ font-size: clamp(13px, 2vw, 16px); }
+
+  .lockup--header .name{ font-size: 14px; letter-spacing: 0.32em; text-indent: 0.32em; }
+  .lockup--header .rule{ width: 26px; margin: 0.35em 0; }
+  .lockup--header .no{ font-size: 9px; }
+
+  .lockup--footer .name{ font-size: 18px; }
+  .lockup--footer .no{ font-size: 11px; }
+
+  /* ---------- section divider (numeral motif reused) ---------- */
+
+  .divider{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    color: var(--walnut);
+    margin: 0 0 56px;
+  }
+  .divider::before,
+  .divider::after{
+    content: "";
+    flex: 1 1 auto;
+    max-width: 120px;
+    height: 1px;
+    background: currentColor;
+    opacity: 0.35;
+  }
+  .divider span{
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 14px;
+    letter-spacing: 0.14em;
+    white-space: nowrap;
+  }
+
+  /* ---------- header ---------- */
+
+  header{
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 22px 0;
+    color: var(--ivory);
+    background: transparent;
+    transition: background-color 0.4s ease, color 0.4s ease, box-shadow 0.4s ease, padding 0.4s ease;
+  }
+
+  header.solid{
+    background: var(--ivory);
+    color: var(--espresso);
+    padding: 14px 0;
+    box-shadow: 0 1px 0 rgba(42,33,28,0.08);
+  }
+
+  header .bar{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+  }
+
+  header .lockup{ flex: 0 0 auto; }
+
+  nav ul{
+    list-style: none;
+    display: flex;
+    gap: 28px;
+    margin: 0;
+    padding: 0;
+  }
+
+  nav a{
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 4px 2px;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.3s ease, opacity 0.3s ease;
+    opacity: 0.85;
+  }
+
+  nav a:hover{ opacity: 1; border-color: currentColor; }
+
+  .nav-toggle{
+    display: none;
+    position: relative;
+    z-index: 20;
+    background: none;
+    border: 1px solid currentColor;
+    color: inherit;
+    width: 40px;
+    height: 40px;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+  }
+
+  /* ---------- hero ---------- */
+
+  .hero{
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background: var(--espresso);
+    color: var(--ivory);
+    padding: 140px 32px 80px;
+  }
+
+  .hero .tagline{
+    margin-top: 40px;
+    max-width: 30ch;
+    font-size: 15px;
+    letter-spacing: 0.02em;
+    color: var(--champagne);
+  }
+
+  /* ---------- generic section ---------- */
+
+  section{
+    padding: 96px 0;
+  }
+
+  section.alt{
+    background: #EAE2D4;
+  }
+
+  .eyebrow{
+    display: block;
+    text-align: center;
+    font-size: 12px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--walnut);
+    margin-bottom: 10px;
+  }
+
+  h2{
+    font-family: var(--serif);
+    font-weight: 500;
+    font-size: clamp(26px, 4vw, 38px);
+    text-align: center;
+    margin: 0 0 12px;
+    letter-spacing: 0.01em;
+  }
+
+  .section-lead{
+    max-width: 56ch;
+    margin: 0 auto 56px;
+    text-align: center;
+    font-size: 16px;
+    color: var(--walnut);
+  }
+
+  /* ---------- fade-in ---------- */
+
+  .reveal{
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .reveal.in{
+    opacity: 1;
+    transform: translateY(0);
+  }
+  @media (prefers-reduced-motion: reduce){
+    .reveal{ opacity: 1; transform: none; transition: none; }
+  }
+
+  /* ---------- menu ---------- */
+
+  .menu-grid{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 64px 56px;
+  }
+
+  .menu-cat h3{
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 500;
+    font-size: 20px;
+    letter-spacing: 0.04em;
+    margin: 0 0 24px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid rgba(42,33,28,0.18);
+  }
+
+  .menu-item{
+    padding: 18px 0;
+    border-bottom: 1px solid rgba(42,33,28,0.1);
+  }
+  .menu-item:last-child{ border-bottom: none; }
+
+  .menu-item .row{
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 16px;
+    font-family: var(--serif);
+    font-size: 20px;
+    letter-spacing: 0.01em;
+  }
+
+  .menu-item .row .name{ letter-spacing: 0.01em; }
+  .menu-item .price{
+    font-family: var(--sans);
+    font-size: 14px;
+    color: var(--walnut);
+    white-space: nowrap;
+  }
+
+  .menu-item p{
+    margin: 8px 0 0;
+    font-size: 14px;
+    color: var(--walnut);
+    max-width: 46ch;
+  }
+
+  /* ---------- sourcing ---------- */
+
+  .sourcing{
+    display: grid;
+    grid-template-columns: 0.9fr 1.1fr;
+    gap: 64px;
+    align-items: start;
+  }
+
+  .sourcing .figure{
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: clamp(48px, 9vw, 96px);
+    line-height: 1;
+    color: var(--walnut);
+    opacity: 0.5;
+  }
+
+  .sourcing .figure small{
+    display: block;
+    font-family: var(--sans);
+    font-style: normal;
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-top: 12px;
+    opacity: 0.8;
+  }
+
+  .sourcing .copy p{
+    margin: 0 0 20px;
+  }
+  .sourcing .copy p:last-child{ margin-bottom: 0; }
+
+  /* ---------- visit ---------- */
+
+  .visit-grid{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+  }
+
+  .visit dl{
+    margin: 0;
+  }
+  .visit dt{
+    font-size: 12px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--walnut);
+    margin-top: 22px;
+  }
+  .visit dt:first-child{ margin-top: 0; }
+  .visit dd{
+    margin: 6px 0 0;
+    font-family: var(--serif);
+    font-size: 19px;
+  }
+
+  .visit .about p{ margin: 0 0 18px; }
+  .visit .about p:last-child{ margin-bottom: 0; }
+
+  /* ---------- contact ---------- */
+
+  .contact-form{
+    max-width: 480px;
+    margin: 0 auto;
+  }
+
+  .field{
+    margin-bottom: 28px;
+  }
+
+  .field label{
+    display: block;
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--walnut);
+    margin-bottom: 8px;
+  }
+
+  .field input,
+  .field textarea{
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(42,33,28,0.3);
+    padding: 10px 2px;
+    font-family: var(--sans);
+    font-size: 16px;
+    color: var(--espresso);
+    transition: border-color 0.3s ease;
+    resize: vertical;
+  }
+
+  .field input:focus,
+  .field textarea:focus{
+    border-color: var(--espresso);
+  }
+
+  .field textarea{ min-height: 110px; }
+
+  .submit{
+    display: inline-block;
+    background: var(--espresso);
+    color: var(--ivory);
+    border: 1px solid var(--espresso);
+    font-family: var(--sans);
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    padding: 14px 34px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  .submit:hover{
+    background: transparent;
+    color: var(--espresso);
+  }
+
+  .form-note{
+    text-align: center;
+    margin-top: 22px;
+    font-size: 13px;
+    color: var(--walnut);
+  }
+
+  .form-status{
+    text-align: center;
+    margin-top: 18px;
+    font-size: 13px;
+    min-height: 1.2em;
+  }
+
+  /* ---------- footer ---------- */
+
+  footer{
+    background: var(--espresso);
+    color: var(--ivory);
+    padding: 56px 0 32px;
+    text-align: center;
+  }
+
+  footer .copyright{
+    margin-top: 28px;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    color: var(--champagne);
+    opacity: 0.75;
+  }
+
+  /* ---------- responsive ---------- */
+
+  @media (max-width: 860px){
+    .sourcing{ grid-template-columns: 1fr; gap: 32px; }
+    .visit-grid{ grid-template-columns: 1fr; gap: 48px; }
+    .menu-grid{ grid-template-columns: 1fr; gap: 48px; }
+  }
+
+  @media (max-width: 700px){
+    nav{
+      position: fixed;
+      top: 0; right: 0;
+      z-index: 10;
+      height: 100vh;
+      width: min(78vw, 300px);
+      background: var(--espresso);
+      transform: translateX(100%);
+      transition: transform 0.35s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    header.nav-open nav{ transform: translateX(0); }
+    nav ul{
+      flex-direction: column;
+      text-align: center;
+      gap: 26px;
+    }
+    nav a{ color: var(--ivory); font-size: 13px; }
+    .nav-toggle{ display: inline-flex; }
+    header .bar{ position: relative; z-index: 5; }
+  }
+
+  @media (max-width: 480px){
+    .wrap{ padding: 0 20px; }
+    section{ padding: 72px 0; }
+    .lockup--hero .name{ letter-spacing: 0.32em; text-indent: 0.32em; }
+  }
+
+</style>
+</head>
+<body>
+
+<header id="site-header">
+  <div class="wrap bar">
+    <a href="#top" class="lockup lockup--header" aria-label="Maison Yanez, home">
+      <span class="name">MAISON<br>YANEZ</span>
+      <span class="rule"></span>
+      <span class="no">No. 3</span>
+    </a>
+
+    <nav id="site-nav" aria-label="Primary">
+      <ul>
+        <li><a href="#menu">Menu</a></li>
+        <li><a href="#sourcing">Sourcing</a></li>
+        <li><a href="#visit">Visit</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+
+    <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="site-nav" aria-label="Toggle menu">MENU</button>
+  </div>
+</header>
+
+<main id="top">
+
+  <section class="hero">
+    <div class="lockup lockup--hero">
+      <span class="name">MAISON<br>YANEZ</span>
+      <span class="rule"></span>
+      <span class="no">No. 3</span>
+    </div>
+    <p class="tagline">Four drinks. One room. Nothing added for effect.</p>
+  </section>
+
+  <section id="menu">
+    <div class="wrap">
+      <span class="eyebrow reveal">The Menu</span>
+      <h2 class="reveal">What we make</h2>
+      <p class="section-lead reveal">Five drinks, held to one standard. Ask and we'll tell you what's pouring today.</p>
+
+      <div class="divider reveal"><span>No. 1 — No. 3</span></div>
+
+      <div class="menu-grid">
+        <div class="menu-cat reveal">
+          <h3>Espresso</h3>
+          <div class="menu-item">
+            <div class="row">
+              <span class="name">No. 1 — Espresso</span>
+              <span class="price">$5</span>
+            </div>
+            <p>Single origin, pulled short. Dark cherry, cocoa.</p>
+          </div>
+          <div class="menu-item">
+            <div class="row">
+              <span class="name">Cortado</span>
+              <span class="price">$6</span>
+            </div>
+            <p>Equal parts espresso and warm milk. No foam. Served in glass.</p>
+          </div>
+        </div>
+
+        <div class="menu-cat reveal">
+          <h3>Filter</h3>
+          <div class="menu-item">
+            <div class="row">
+              <span class="name">No. 3 — Pour Over</span>
+              <span class="price">$7</span>
+            </div>
+            <p>Rotating single origin, brewed to order, one cup at a time.</p>
+          </div>
+          <div class="menu-item">
+            <div class="row">
+              <span class="name">Batch</span>
+              <span class="price">$4</span>
+            </div>
+            <p>A single filter coffee, held at temperature, refreshed hourly.</p>
+          </div>
+        </div>
+
+        <div class="menu-cat reveal" style="grid-column: 1 / -1; max-width: 480px; margin: 0 auto; width: 100%;">
+          <h3>Non-Coffee</h3>
+          <div class="menu-item">
+            <div class="row">
+              <span class="name">Steamed Cacao</span>
+              <span class="price">$6</span>
+            </div>
+            <p>Single-origin drinking chocolate, steamed milk. Unsweetened unless asked.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="sourcing" class="alt">
+    <div class="wrap">
+      <span class="eyebrow reveal">Sourcing</span>
+      <h2 class="reveal">Where it comes from</h2>
+
+      <div class="sourcing" style="margin-top: 56px;">
+        <div class="figure reveal">
+          1,830m
+          <small>Huila, Colombia</small>
+        </div>
+        <div class="copy reveal">
+          <p>The filter program runs on one lot at a time, bought direct from a single farm above Pitalito. Current pour is a washed caturra, picked in the last two weeks of the harvest window, when the cherry sugars run highest.</p>
+          <p>We roast in batches of twelve kilos, light enough to keep the acidity intact, and rest each batch nine days before it goes on the bar. Nothing is blended to smooth it out.</p>
+          <p>Pour overs are brewed at a 1:16 ratio, water just off the boil, through a single paper filter, by hand, every time. The espresso is a separate lot, chosen for body rather than brightness, and pulled on a two-year recipe we haven't felt the need to change.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="visit">
+    <div class="wrap">
+      <span class="eyebrow reveal">Visit</span>
+      <h2 class="reveal">The room</h2>
+
+      <div class="visit-grid" style="margin-top: 56px;">
+        <div class="details reveal">
+          <div class="visit">
+            <dl>
+              <dt>Hours</dt>
+              <dd>Tuesday – Sunday, 7:00 – 15:00</dd>
+              <dd>Closed Monday</dd>
+              <dt>Address</dt>
+              <dd>214 Alder Street<br>Portland, Oregon</dd>
+            </dl>
+          </div>
+        </div>
+        <div class="about reveal">
+          <p>Twelve seats, most of them at the counter. The espresso machine sits at the center of the room, not off to the side, because most of what happens here is worth watching.</p>
+          <p>Morning light comes in low from the east window until about ten, then the room settles into the kind of even, indirect light that makes it easy to stay through a second cup. We don't play music before nine.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="alt">
+    <div class="wrap">
+      <span class="eyebrow reveal">Contact</span>
+      <h2 class="reveal">Private tastings &amp; bulk orders</h2>
+      <p class="section-lead reveal">For groups, private tastings, or standing orders. Tell us what you need and we'll follow up within two days.</p>
+
+      <form class="contact-form reveal" id="inquiry-form">
+        <div class="field">
+          <label for="name">Name</label>
+          <input type="text" id="name" name="name" autocomplete="name" required>
+        </div>
+        <div class="field">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" autocomplete="email" required>
+        </div>
+        <div class="field">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" required></textarea>
+        </div>
+        <button type="submit" class="submit">Send Inquiry</button>
+        <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="lockup lockup--footer">
+      <span class="name">MAISON<br>YANEZ</span>
+      <span class="rule"></span>
+      <span class="no">No. 3</span>
+    </div>
+    <p class="copyright">&copy; 2026 Maison Yanez. All rights reserved.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var header = document.getElementById('site-header');
+  var toggle = document.getElementById('nav-toggle');
+  var nav = document.getElementById('site-nav');
+
+  function onScroll(){
+    if (window.scrollY > 40){
+      header.classList.add('solid');
+    } else {
+      header.classList.remove('solid');
+    }
+  }
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  toggle.addEventListener('click', function(){
+    var open = header.classList.toggle('nav-open');
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+
+  nav.querySelectorAll('a').forEach(function(link){
+    link.addEventListener('click', function(){
+      header.classList.remove('nav-open');
+      toggle.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var revealEls = document.querySelectorAll('.reveal');
+
+  if (reduceMotion || !('IntersectionObserver' in window)){
+    revealEls.forEach(function(el){ el.classList.add('in'); });
+  } else {
+    var observer = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting){
+          entry.target.classList.add('in');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+
+    revealEls.forEach(function(el){ observer.observe(el); });
+  }
+
+  var form = document.getElementById('inquiry-form');
+  var status = document.getElementById('form-status');
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    status.textContent = 'Thank you. We will be in touch within two days.';
+    form.reset();
+  });
+})();
+</script>
+
+</body>
+</html>
