@@ -1,0 +1,1908 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Texas Real Estate Exam Simulator</title>
+<meta name="description" content="A 100-question Texas real estate sales agent practice exam presented in a testing-center interface: timed sections, mark for review, on-screen calculator, and a scored diagnostic report.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+
+  /* ===================================================================
+     TEXAS REAL ESTATE EXAM SIMULATOR
+     Deliberately single-theme: this imitates testing-center software,
+     which is always a light institutional interface. Every color is
+     painted explicitly so it holds on any host background.
+     =================================================================== */
+
+  :root{
+    --ground:      #e8ecf1;  /* kiosk desktop behind the exam panel */
+    --chrome:      #16375c;  /* navy header / footer bars */
+    --chrome-deep: #0f2a47;
+    --panel:       #ffffff;  /* question panel */
+    --ink:         #16202e;
+    --muted:       #5a6779;
+    --line:        #ccd5df;
+    --line-soft:   #e3e9ef;
+    --accent:      #1668b3;  /* selection blue */
+    --accent-soft: #e7f0f9;
+    --flag:        #b5790b;  /* marked for review */
+    --flag-soft:   #fdf3e0;
+    --pass:        #17703f;
+    --fail:        #b23320;
+    --pass-soft:   #e8f4ec;
+    --fail-soft:   #fbeceb;
+
+    --ui: Arial, 'Helvetica Neue', Helvetica, sans-serif;
+    --mono: 'IBM Plex Mono', 'Courier New', monospace;
+  }
+
+  *, *::before, *::after{ box-sizing: border-box; }
+
+  @media (prefers-reduced-motion: reduce){
+    *, *::before, *::after{
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  html, body{ height: 100%; }
+
+  body{
+    margin: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--ui);
+    font-size: 15px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  button{ font-family: inherit; }
+
+  :focus-visible{
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  /* ---------- exam chrome ---------- */
+
+  .topbar{
+    background: var(--chrome);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 0 18px;
+    min-height: 54px;
+    flex-wrap: wrap;
+  }
+
+  .topbar .exam-id{
+    font-size: 13px;
+    letter-spacing: 0.02em;
+  }
+  .topbar .exam-id strong{ font-weight: bold; }
+  .topbar .exam-id .sub{
+    display: block;
+    font-size: 11px;
+    color: #b9cbdd;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .topbar-right{
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    font-family: var(--mono);
+    font-size: 13px;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .counter{ color: #dbe6f1; }
+
+  .clock{
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.25);
+    padding: 5px 10px;
+    letter-spacing: 0.03em;
+  }
+  .clock.warn{
+    background: #7a2318;
+    border-color: #d2593f;
+    color: #ffdfd8;
+  }
+
+  .bottombar{
+    background: var(--chrome-deep);
+    padding: 10px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .bottombar .left-group,
+  .bottombar .right-group{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .btn{
+    appearance: none;
+    background: #dfe6ee;
+    border: 1px solid #9fb0c2;
+    color: #12283f;
+    font-size: 14px;
+    padding: 9px 18px;
+    cursor: pointer;
+    border-radius: 2px;
+    transition: background-color 0.15s ease;
+  }
+  .btn:hover:not(:disabled){ background: #eef3f8; }
+  .btn:disabled{ opacity: 0.4; cursor: not-allowed; }
+  .btn.primary{
+    background: var(--accent);
+    border-color: #0f5490;
+    color: #fff;
+    font-weight: bold;
+  }
+  .btn.primary:hover:not(:disabled){ background: #1b78c9; }
+  .btn.ghost-light{
+    background: transparent;
+    border-color: rgba(255,255,255,0.4);
+    color: #e6eef6;
+  }
+  .btn.ghost-light:hover:not(:disabled){ background: rgba(255,255,255,0.12); }
+  .btn.danger{
+    background: #fff;
+    border-color: #c48f86;
+    color: var(--fail);
+  }
+
+  .flag-toggle{
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: #e6eef6;
+    font-size: 13.5px;
+    cursor: pointer;
+    user-select: none;
+    padding: 6px 10px;
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 2px;
+  }
+  .flag-toggle input{ accent-color: var(--flag); width: 15px; height: 15px; }
+  .flag-toggle.on{ background: var(--flag); border-color: var(--flag); color: #241701; font-weight: bold; }
+
+  /* ---------- stage / panels ---------- */
+
+  .stage{
+    flex: 1;
+    overflow-y: auto;
+    padding: 22px 18px 32px;
+  }
+
+  .panel{
+    background: var(--panel);
+    border: 1px solid var(--line);
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 28px 32px 32px;
+    border-radius: 2px;
+  }
+
+  .panel h1{
+    font-size: 22px;
+    margin: 0 0 4px;
+    letter-spacing: -0.01em;
+  }
+  .panel h2{
+    font-size: 17px;
+    margin: 26px 0 10px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--line-soft);
+  }
+  .panel p{ margin: 0 0 12px; }
+
+  .kicker{
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+
+  .lede{ color: var(--muted); font-size: 15px; }
+
+  .spec-table{
+    width: 100%;
+    border-collapse: collapse;
+    margin: 4px 0 8px;
+    font-size: 14px;
+  }
+  .spec-table th, .spec-table td{
+    text-align: left;
+    padding: 9px 12px;
+    border: 1px solid var(--line-soft);
+    vertical-align: top;
+  }
+  .spec-table th{
+    background: #f4f7fa;
+    font-weight: bold;
+    width: 40%;
+    color: #2b3a4c;
+  }
+  .spec-table td{ font-variant-numeric: tabular-nums; }
+
+  .notice{
+    background: var(--flag-soft);
+    border-left: 4px solid var(--flag);
+    padding: 12px 14px;
+    font-size: 13.5px;
+    margin: 16px 0;
+  }
+  .notice strong{ display: block; margin-bottom: 3px; }
+
+  .field-row{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin: 18px 0 6px;
+  }
+  .field-row label{ font-size: 14px; color: var(--muted); }
+  .field-row input{
+    font-family: var(--ui);
+    font-size: 15px;
+    padding: 9px 12px;
+    border: 1px solid var(--line);
+    border-radius: 2px;
+    min-width: 240px;
+    color: var(--ink);
+    background: #fff;
+  }
+  .field-row input:focus{ border-color: var(--accent); outline: none; box-shadow: 0 0 0 3px var(--accent-soft); }
+
+  .actions{
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 24px;
+  }
+
+  /* ---------- question view ---------- */
+
+  .q-meta{
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 14px;
+    flex-wrap: wrap;
+    margin-bottom: 14px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--line-soft);
+  }
+  .q-number{
+    font-family: var(--mono);
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .q-topic{
+    font-size: 12px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .flag-indicator{
+    font-size: 12px;
+    color: var(--flag);
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .q-stem{
+    font-size: 16.5px;
+    line-height: 1.55;
+    margin: 0 0 20px;
+    color: var(--ink);
+  }
+
+  .choices{ display: flex; flex-direction: column; gap: 0; }
+
+  .choice{
+    display: grid;
+    grid-template-columns: 22px 22px 1fr;
+    gap: 12px;
+    align-items: start;
+    padding: 13px 14px;
+    border: 1px solid transparent;
+    border-bottom: 1px solid var(--line-soft);
+    cursor: pointer;
+    font-size: 15.5px;
+    transition: background-color 0.12s ease;
+  }
+  .choice:hover{ background: #f5f9fc; }
+  .choice input{ margin: 3px 0 0; accent-color: var(--accent); width: 17px; height: 17px; }
+  .choice .ltr{
+    font-family: var(--mono);
+    font-weight: 600;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+  .choice.selected{
+    background: var(--accent-soft);
+    border-color: #b7d3ec;
+  }
+  .choice.selected .ltr{ color: var(--accent); }
+
+  /* ---------- review screen ---------- */
+
+  .legend{
+    display: flex;
+    gap: 18px;
+    flex-wrap: wrap;
+    font-size: 13px;
+    color: var(--muted);
+    margin: 10px 0 18px;
+  }
+  .legend span{ display: inline-flex; align-items: center; gap: 7px; }
+  .swatch{ width: 14px; height: 14px; border: 1px solid var(--line); display: inline-block; }
+  .swatch.answered{ background: var(--accent-soft); border-color: #a8c9e6; }
+  .swatch.unanswered{ background: #fff; }
+  .swatch.marked{ background: var(--flag-soft); border-color: #dcb463; }
+
+  .qgrid{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(52px, 1fr));
+    gap: 7px;
+    margin-bottom: 8px;
+  }
+  .qchip{
+    appearance: none;
+    border: 1px solid var(--line);
+    background: #fff;
+    color: var(--ink);
+    font-family: var(--mono);
+    font-size: 13px;
+    padding: 9px 0;
+    cursor: pointer;
+    border-radius: 2px;
+    position: relative;
+  }
+  .qchip:hover{ border-color: var(--accent); }
+  .qchip.answered{ background: var(--accent-soft); border-color: #a8c9e6; }
+  .qchip.marked{ background: var(--flag-soft); border-color: #dcb463; }
+  .qchip.marked::after{
+    content: "";
+    position: absolute;
+    top: 2px; right: 2px;
+    width: 0; height: 0;
+    border-left: 6px solid transparent;
+    border-top: 6px solid var(--flag);
+  }
+
+  .summary-row{
+    display: flex;
+    gap: 26px;
+    flex-wrap: wrap;
+    font-size: 14px;
+    margin: 14px 0 4px;
+    font-variant-numeric: tabular-nums;
+  }
+  .summary-row b{ font-family: var(--mono); }
+
+  /* ---------- results ---------- */
+
+  .verdict-banner{
+    padding: 20px 24px;
+    border: 2px solid;
+    margin-bottom: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    flex-wrap: wrap;
+  }
+  .verdict-banner.pass{ background: var(--pass-soft); border-color: var(--pass); color: var(--pass); }
+  .verdict-banner.fail{ background: var(--fail-soft); border-color: var(--fail); color: var(--fail); }
+  .verdict-banner .result-word{
+    font-size: 30px;
+    font-weight: bold;
+    letter-spacing: 0.04em;
+  }
+  .verdict-banner .result-detail{
+    font-size: 13.5px;
+    color: var(--ink);
+    max-width: 46ch;
+  }
+
+  .score-cards{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 14px;
+    margin-bottom: 8px;
+  }
+  .score-card{
+    border: 1px solid var(--line);
+    padding: 16px 18px;
+  }
+  .score-card .sc-name{
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+  .score-card .sc-score{
+    font-family: var(--mono);
+    font-size: 27px;
+    font-variant-numeric: tabular-nums;
+  }
+  .score-card .sc-need{ font-size: 13px; color: var(--muted); margin-top: 4px; }
+  .score-card .sc-status{
+    display: inline-block;
+    margin-top: 10px;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 3px 9px;
+    border: 1px solid;
+  }
+  .score-card .sc-status.pass{ color: var(--pass); border-color: var(--pass); background: var(--pass-soft); }
+  .score-card .sc-status.fail{ color: var(--fail); border-color: var(--fail); background: var(--fail-soft); }
+
+  .topic-table{
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+  }
+  .topic-table th, .topic-table td{
+    text-align: left;
+    padding: 8px 10px;
+    border-bottom: 1px solid var(--line-soft);
+  }
+  .topic-table th{
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+  }
+  .topic-table td.num{
+    font-family: var(--mono);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+    width: 84px;
+  }
+  .bar{
+    background: var(--line-soft);
+    height: 9px;
+    width: 100%;
+    min-width: 90px;
+    position: relative;
+  }
+  .bar span{
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    background: var(--accent);
+  }
+  .bar span.weak{ background: var(--fail); }
+  .bar span.strong{ background: var(--pass); }
+
+  /* ---------- answer review ---------- */
+
+  .filter-row{
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin: 6px 0 18px;
+  }
+  .filter-btn{
+    appearance: none;
+    background: #fff;
+    border: 1px solid var(--line);
+    padding: 7px 14px;
+    font-size: 13.5px;
+    cursor: pointer;
+    border-radius: 2px;
+  }
+  .filter-btn.on{ background: var(--accent); border-color: var(--accent); color: #fff; font-weight: bold; }
+
+  .rev-item{
+    border: 1px solid var(--line-soft);
+    border-left: 4px solid var(--pass);
+    padding: 14px 16px;
+    margin-bottom: 12px;
+  }
+  .rev-item.incorrect{ border-left-color: var(--fail); }
+  .rev-head{
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+  .rev-verdict{ font-weight: 600; }
+  .rev-verdict.ok{ color: var(--pass); }
+  .rev-verdict.no{ color: var(--fail); }
+  .rev-q{ font-size: 15px; margin: 0 0 10px; font-weight: bold; }
+  .rev-line{ font-size: 14px; margin: 0 0 4px; }
+  .rev-line .lbl{ color: var(--muted); display: inline-block; min-width: 108px; }
+  .rev-line.yours.no{ color: var(--fail); }
+  .rev-line.right{ color: var(--pass); }
+  .rev-ex{
+    font-size: 13.5px;
+    color: #3c4a5c;
+    background: #f6f8fa;
+    padding: 10px 12px;
+    margin-top: 10px;
+    border-left: 3px solid var(--line);
+  }
+
+  /* ---------- calculator ---------- */
+
+  .calc{
+    position: fixed;
+    right: 18px;
+    bottom: 82px;
+    width: 226px;
+    background: #f3f5f8;
+    border: 1px solid #94a5b8;
+    box-shadow: 0 8px 24px rgba(12,30,50,0.28);
+    padding: 10px;
+    z-index: 60;
+    border-radius: 3px;
+  }
+  .calc[hidden]{ display: none !important; }
+  .calc-head{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    margin-bottom: 7px;
+  }
+  .calc-close{
+    appearance: none;
+    background: none;
+    border: none;
+    font-size: 15px;
+    line-height: 1;
+    cursor: pointer;
+    color: var(--muted);
+    padding: 2px 4px;
+  }
+  .calc-display{
+    background: #fff;
+    border: 1px solid #b6c3d1;
+    font-family: var(--mono);
+    font-size: 19px;
+    text-align: right;
+    padding: 9px 10px;
+    margin-bottom: 8px;
+    overflow: hidden;
+    font-variant-numeric: tabular-nums;
+  }
+  .calc-keys{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 5px;
+  }
+  .calc-keys button{
+    appearance: none;
+    background: #fff;
+    border: 1px solid #b6c3d1;
+    padding: 10px 0;
+    font-size: 14.5px;
+    font-family: var(--mono);
+    cursor: pointer;
+    border-radius: 2px;
+  }
+  .calc-keys button:hover{ background: var(--accent-soft); }
+  .calc-keys button.op{ background: #e3eaf1; }
+  .calc-keys button.eq{ background: var(--accent); border-color: #0f5490; color: #fff; }
+
+  /* ---------- modal ---------- */
+
+  .modal-backdrop{
+    position: fixed;
+    inset: 0;
+    background: rgba(11,26,43,0.55);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    z-index: 80;
+  }
+  .modal-backdrop[hidden]{ display: none !important; }
+  .modal{
+    background: #fff;
+    border: 1px solid var(--line);
+    max-width: 460px;
+    width: 100%;
+    padding: 22px 24px;
+    border-radius: 2px;
+  }
+  .modal h3{ margin: 0 0 10px; font-size: 17px; }
+  .modal p{ margin: 0 0 8px; font-size: 14.5px; }
+  .modal .modal-actions{ display: flex; gap: 10px; justify-content: flex-end; margin-top: 18px; flex-wrap: wrap; }
+
+  .screen{ display: none; }
+  .screen.active{ display: block; }
+
+  footer.disclaimer{
+    text-align: center;
+    font-size: 11.5px;
+    color: #6c7a8b;
+    padding: 12px 18px 18px;
+    max-width: 880px;
+    margin: 0 auto;
+  }
+
+  @media (max-width: 620px){
+    .panel{ padding: 20px 18px 24px; }
+    .topbar{ padding: 8px 14px; }
+    .choice{ grid-template-columns: 20px 20px 1fr; gap: 9px; font-size: 15px; }
+    .calc{ right: 10px; left: 10px; width: auto; }
+  }
+
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="exam-id">
+    <span class="sub">Texas Real Estate Sales Agent</span>
+    <strong id="section-name">Practice Examination</strong>
+  </div>
+  <div class="topbar-right">
+    <span class="counter" id="counter" hidden>Question 1 of 68</span>
+    <span class="clock" id="clock" hidden>2:00:00</span>
+  </div>
+</header>
+
+<div class="stage" id="stage">
+
+  <!-- ============ INTRO ============ -->
+  <section class="screen active" id="screen-intro">
+    <div class="panel">
+      <p class="kicker">Examination Introduction</p>
+      <h1>Texas Real Estate Sales Agent Practice Examination</h1>
+      <p class="lede">This practice examination is presented in the same format you will encounter at the testing center: two separately timed sections, one question at a time, with the ability to mark questions for review and return to them before the section ends.</p>
+
+      <h2>Examination format</h2>
+      <table class="spec-table">
+        <tr><th>Section 1 — National</th><td>68 questions · 120 minutes</td></tr>
+        <tr><th>Section 2 — Texas State Law</th><td>32 questions · 72 minutes</td></tr>
+        <tr><th>Total</th><td>100 questions · 192 minutes</td></tr>
+        <tr><th>Passing standard</th><td>45 of 68 national <em>and</em> 17 of 32 state — both sections must be passed</td></tr>
+      </table>
+
+      <div class="notice">
+        <strong>How this compares to the real exam</strong>
+        The actual Texas sales agent exam is 125 questions — 85 national (150 minutes) and 40 state (90 minutes) — and requires 56 of 85 national plus 21 of 40 state to pass. This 100-question version keeps the same national-to-state ratio, the same per-question pacing, and the same proportional passing standard, so the experience and the difficulty of the clock match closely.
+      </div>
+
+      <h2>Rules for this session</h2>
+      <p>1. Each section is timed independently. When a section's time expires, it is submitted automatically.</p>
+      <p>2. Within a section you may move freely between questions, change answers, and flag questions with <em>Mark for Review</em>.</p>
+      <p>3. Once you end a section you cannot return to it — exactly as at the testing center.</p>
+      <p>4. No scoring feedback is shown during the exam. Your score report and full answer rationales appear after Section 2.</p>
+      <p>5. An on-screen calculator is available at all times, as it is on the real exam.</p>
+
+      <div class="field-row">
+        <label for="candidate">Candidate name (optional)</label>
+        <input type="text" id="candidate" placeholder="Your name" autocomplete="name">
+      </div>
+
+      <p id="last-attempt" class="lede" style="margin-top:14px;"></p>
+
+      <div class="actions">
+        <button class="btn primary" id="btn-begin">Begin Examination</button>
+      </div>
+    </div>
+    <footer class="disclaimer">Practice material only. Not affiliated with TREC, Pearson VUE, or any licensing authority. Verify all rules, hour requirements, and thresholds against current TREC and Pearson VUE candidate materials before your exam date.</footer>
+  </section>
+
+  <!-- ============ SECTION INTRO ============ -->
+  <section class="screen" id="screen-section-intro">
+    <div class="panel">
+      <p class="kicker" id="si-kicker">Section 1 of 2</p>
+      <h1 id="si-title">National Portion</h1>
+      <p class="lede" id="si-lede"></p>
+      <table class="spec-table">
+        <tr><th>Questions</th><td id="si-count"></td></tr>
+        <tr><th>Time allowed</th><td id="si-time"></td></tr>
+        <tr><th>Required to pass this section</th><td id="si-pass"></td></tr>
+      </table>
+      <p>The timer starts as soon as you select <strong>Start Section</strong>. It does not pause.</p>
+      <div class="actions">
+        <button class="btn primary" id="btn-start-section">Start Section</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ QUESTION ============ -->
+  <section class="screen" id="screen-question">
+    <div class="panel">
+      <div class="q-meta">
+        <span class="q-number" id="q-number">Question 1 of 68</span>
+        <span class="q-topic" id="q-topic">Agency</span>
+        <span class="flag-indicator" id="q-flag" hidden>◤ Marked for review</span>
+      </div>
+      <p class="q-stem" id="q-stem"></p>
+      <div class="choices" id="choices"></div>
+    </div>
+  </section>
+
+  <!-- ============ REVIEW ============ -->
+  <section class="screen" id="screen-review">
+    <div class="panel">
+      <p class="kicker">Section Review</p>
+      <h1 id="rv-title">Review Your Answers</h1>
+      <p class="lede">Select any question number to return to it. You may continue working until you end the section or time expires.</p>
+
+      <div class="legend">
+        <span><i class="swatch answered"></i> Answered</span>
+        <span><i class="swatch unanswered"></i> Not answered</span>
+        <span><i class="swatch marked"></i> Marked for review</span>
+      </div>
+
+      <div class="qgrid" id="qgrid"></div>
+
+      <div class="summary-row" id="rv-summary"></div>
+
+      <div class="actions">
+        <button class="btn" id="btn-back-to-q">Return to Question</button>
+        <button class="btn" id="btn-goto-unanswered">Go to First Unanswered</button>
+        <button class="btn danger" id="btn-end-section">End Section</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ RESULTS ============ -->
+  <section class="screen" id="screen-results">
+    <div class="panel">
+      <p class="kicker">Score Report</p>
+      <h1 id="res-title">Examination Results</h1>
+      <p class="lede" id="res-sub"></p>
+
+      <div class="verdict-banner" id="verdict-banner">
+        <span class="result-word" id="verdict-word">PASS</span>
+        <span class="result-detail" id="verdict-detail"></span>
+      </div>
+
+      <div class="score-cards" id="score-cards"></div>
+
+      <h2>Performance by content area</h2>
+      <p class="lede" style="font-size:13.5px;">Areas where you answered fewer than 70% correctly are the ones to study first.</p>
+      <table class="topic-table" id="topic-table">
+        <thead>
+          <tr><th>Content area</th><th>Score</th><th style="width:38%;">Performance</th></tr>
+        </thead>
+        <tbody id="topic-body"></tbody>
+      </table>
+
+      <div class="actions">
+        <button class="btn primary" id="btn-review-answers">Review All Answers</button>
+        <button class="btn" id="btn-restart">Take Another Exam</button>
+      </div>
+    </div>
+    <footer class="disclaimer">Practice material only. Not affiliated with TREC, Pearson VUE, or any licensing authority. Verify all rules, hour requirements, and thresholds against current TREC and Pearson VUE candidate materials before your exam date.</footer>
+  </section>
+
+  <!-- ============ ANSWER REVIEW ============ -->
+  <section class="screen" id="screen-answers">
+    <div class="panel">
+      <p class="kicker">Answer Rationales</p>
+      <h1>Review All Answers</h1>
+      <p class="lede">Every question from your exam, with the correct answer and an explanation.</p>
+
+      <div class="filter-row">
+        <button class="filter-btn on" data-filter="all">All questions</button>
+        <button class="filter-btn" data-filter="incorrect">Missed only</button>
+        <button class="filter-btn" data-filter="marked">Marked only</button>
+        <button class="filter-btn" data-filter="state">Texas state only</button>
+      </div>
+
+      <div id="answers-list"></div>
+
+      <div class="actions">
+        <button class="btn" id="btn-back-results">Back to Score Report</button>
+        <button class="btn primary" id="btn-restart-2">Take Another Exam</button>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- ============ BOTTOM ACTION BAR ============ -->
+<nav class="bottombar" id="bottombar" hidden>
+  <div class="left-group">
+    <label class="flag-toggle" id="flag-label">
+      <input type="checkbox" id="flag-check">
+      Mark for Review
+    </label>
+    <button class="btn ghost-light" id="btn-calc">Calculator</button>
+  </div>
+  <div class="right-group">
+    <button class="btn" id="btn-prev">◂ Previous</button>
+    <button class="btn" id="btn-review">Review Section</button>
+    <button class="btn primary" id="btn-next">Next ▸</button>
+  </div>
+</nav>
+
+<!-- ============ CALCULATOR ============ -->
+<div class="calc" id="calc" hidden>
+  <div class="calc-head">
+    <span>Calculator</span>
+    <button class="calc-close" id="calc-close" aria-label="Close calculator">✕</button>
+  </div>
+  <div class="calc-display" id="calc-display">0</div>
+  <div class="calc-keys" id="calc-keys">
+    <button data-k="C" class="op">C</button>
+    <button data-k="←" class="op">←</button>
+    <button data-k="%" class="op">%</button>
+    <button data-k="/" class="op">÷</button>
+    <button data-k="7">7</button><button data-k="8">8</button><button data-k="9">9</button>
+    <button data-k="*" class="op">×</button>
+    <button data-k="4">4</button><button data-k="5">5</button><button data-k="6">6</button>
+    <button data-k="-" class="op">−</button>
+    <button data-k="1">1</button><button data-k="2">2</button><button data-k="3">3</button>
+    <button data-k="+" class="op">+</button>
+    <button data-k="0">0</button><button data-k=".">.</button>
+    <button data-k="=" class="eq" style="grid-column: span 2;">=</button>
+  </div>
+</div>
+
+<!-- ============ MODAL ============ -->
+<div class="modal-backdrop" id="modal" hidden>
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <h3 id="modal-title">End Section?</h3>
+    <div id="modal-body"></div>
+    <div class="modal-actions">
+      <button class="btn" id="modal-cancel">Cancel</button>
+      <button class="btn primary" id="modal-confirm">Confirm</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ==================================================================
+     QUESTION BANK — 68 national + 32 Texas state = 100
+     ================================================================== */
+
+  var QUESTIONS = [
+
+    /* ---------- NATIONAL: Property Ownership ---------- */
+    { p:"national", t:"Property Ownership", q:"A homeowner installs custom bookshelves, bolting them into the wall studs. Unless the contract says otherwise, at closing these shelves are MOST likely:",
+      o:["Personal property the seller may remove","Real property that conveys with the house","A trade fixture belonging to the seller","An emblement"], c:1,
+      e:"An item permanently attached with the intent that it remain becomes a fixture and conveys as real property unless it is expressly excluded in the contract." },
+    { p:"national", t:"Property Ownership", q:"Which form of co-ownership automatically includes the right of survivorship?",
+      o:["Tenancy in common","Joint tenancy","Ownership in severalty","Ownership by estoppel"], c:1,
+      e:"In joint tenancy, a deceased owner's interest passes automatically to the surviving joint tenants rather than to the deceased owner's heirs." },
+    { p:"national", t:"Property Ownership", q:"An owner conveys property \"to Maria for life, then to Carlos.\" Carlos holds a:",
+      o:["Life estate","Remainder interest","Reversionary interest","Leasehold estate"], c:1,
+      e:"A third party who takes the estate when the life estate ends holds a remainder. If the property returned to the grantor instead, that would be a reversion." },
+    { p:"national", t:"Property Ownership", q:"A tenant's lease expires, but the tenant stays in possession without the landlord's consent. The tenant now holds:",
+      o:["An estate for years","A periodic estate","An estate at sufferance","An estate at will"], c:2,
+      e:"A holdover tenant who remains without permission holds an estate at sufferance, the weakest leasehold interest." },
+    { p:"national", t:"Property Ownership", q:"The government's power to take private property for public use upon payment of just compensation is:",
+      o:["Escheat","Eminent domain","Police power","Adverse possession"], c:1,
+      e:"Eminent domain is the power itself; condemnation is the legal process through which it is exercised." },
+    { p:"national", t:"Property Ownership", q:"Which of the following is an encumbrance but NOT a lien?",
+      o:["A mortgage","A property tax lien","An easement","A mechanic's lien"], c:2,
+      e:"All liens are encumbrances, but an easement is a non-financial encumbrance — it limits use rather than securing a debt." },
+    { p:"national", t:"Property Ownership", q:"A neighbor's fence has stood three feet inside the adjoining owner's boundary, openly and without permission, for 25 years. The adjoining owner may lose title to that strip through:",
+      o:["Adverse possession","Novation","Escheat","Accretion"], c:0,
+      e:"Possession that is open, notorious, continuous, hostile, and exclusive for the statutory period can ripen into title by adverse possession." },
+
+    /* ---------- NATIONAL: Land Use Controls ---------- */
+    { p:"national", t:"Land Use Controls", q:"A city zoning ordinance is an exercise of which governmental power?",
+      o:["Eminent domain","Police power","Escheat","Taxation"], c:1,
+      e:"Police power allows government to regulate land use to protect public health, safety, and welfare without compensating owners." },
+    { p:"national", t:"Land Use Controls", q:"An owner wants to build a garage three feet from the lot line where the setback requires ten feet. The owner should apply for:",
+      o:["A variance","A nonconforming use permit","A rezoning","A restrictive covenant"], c:0,
+      e:"A variance permits a specific deviation from a zoning requirement based on hardship, without changing the property's zoning classification." },
+    { p:"national", t:"Land Use Controls", q:"Recorded subdivision covenants (CC&Rs) are enforced by:",
+      o:["The municipal zoning board","The owners' association or another benefited owner","The state real estate commission","The county appraisal district"], c:1,
+      e:"CC&Rs are private agreements. Enforcement comes from the HOA or another owner, usually by injunction — not from government." },
+    { p:"national", t:"Land Use Controls", q:"When a recorded deed restriction is more restrictive than the local zoning ordinance:",
+      o:["Zoning always controls","The more restrictive limitation generally controls","The deed restriction becomes void","The owner may choose which to follow"], c:1,
+      e:"Where public and private land-use controls conflict, the stricter of the two generally governs." },
+
+    /* ---------- NATIONAL: Valuation ---------- */
+    { p:"national", t:"Valuation", q:"An appraiser valuing a 40-year-old church would rely MOST heavily on the:",
+      o:["Sales comparison approach","Income approach","Cost approach","Gross rent multiplier"], c:2,
+      e:"Special-purpose properties with few comparable sales and no income stream are best valued using the cost approach." },
+    { p:"national", t:"Valuation", q:"A small apartment building produces $36,000 of annual net operating income. At a 9% capitalization rate, the indicated value is:",
+      o:["$324,000","$400,000","$40,000","$3,240,000"], c:1,
+      e:"Value = NOI ÷ capitalization rate: $36,000 ÷ 0.09 = $400,000." },
+    { p:"national", t:"Valuation", q:"The most expensive home on a block of modest homes tends to be worth less than it would be elsewhere. This illustrates the principle of:",
+      o:["Progression","Regression","Contribution","Anticipation"], c:1,
+      e:"Under regression, a superior property's value is pulled down by surrounding inferior properties. Progression is the reverse effect." },
+    { p:"national", t:"Valuation", q:"Highest and best use must be all of the following EXCEPT:",
+      o:["Legally permissible","Physically possible","Financially feasible","The property's current use"], c:3,
+      e:"Highest and best use is the legally permissible, physically possible, financially feasible, and maximally productive use — which is often not the current use." },
+    { p:"national", t:"Valuation", q:"A comparable sold for $310,000 but has one fewer bathroom than the subject property, a difference worth $8,000. The adjusted sale price of the comparable is:",
+      o:["$302,000","$318,000","$310,000","$326,000"], c:1,
+      e:"Adjustments are made to the comparable, never the subject. Because the comp is inferior, add the difference: $310,000 + $8,000 = $318,000." },
+    { p:"national", t:"Valuation", q:"A cracked foundation that can be economically repaired is an example of:",
+      o:["Curable physical deterioration","Incurable functional obsolescence","External obsolescence","Economic depreciation"], c:0,
+      e:"Deterioration is curable when the cost of the repair is justified by the value the repair adds." },
+
+    /* ---------- NATIONAL: Financing ---------- */
+    { p:"national", t:"Financing", q:"In a deed of trust, the party holding bare legal title until the debt is satisfied is the:",
+      o:["Trustor","Beneficiary","Trustee","Mortgagee"], c:2,
+      e:"The borrower (trustor) conveys title to a neutral trustee for the benefit of the lender (beneficiary) until the loan is repaid." },
+    { p:"national", t:"Financing", q:"A clause allowing the lender to declare the entire unpaid balance due upon default is a(n):",
+      o:["Alienation clause","Acceleration clause","Defeasance clause","Subordination clause"], c:1,
+      e:"Acceleration makes the whole balance immediately payable. An alienation (due-on-sale) clause is triggered by transfer of the property instead." },
+    { p:"national", t:"Financing", q:"A due-on-sale clause prevents a buyer from:",
+      o:["Prepaying the loan","Assuming the seller's existing loan without lender approval","Refinancing the property","Obtaining a second mortgage"], c:1,
+      e:"The clause lets the lender call the balance due when the property transfers, which blocks an unapproved loan assumption." },
+    { p:"national", t:"Financing", q:"A borrower pays two discount points on a $240,000 loan. The cost of those points is:",
+      o:["$480","$2,400","$4,800","$24,000"], c:2,
+      e:"One point equals 1% of the loan amount, so 2% × $240,000 = $4,800." },
+    { p:"national", t:"Financing", q:"Which entity purchases existing loans on the secondary market rather than originating them?",
+      o:["FHA","VA","Fannie Mae","A mortgage broker"], c:2,
+      e:"Fannie Mae and Freddie Mac buy loans from primary lenders, supplying liquidity so those lenders can originate new loans." },
+    { p:"national", t:"Financing", q:"The Truth in Lending Act (Regulation Z) primarily requires a lender to disclose:",
+      o:["The property's appraised value","The annual percentage rate and total cost of credit","The seller's net proceeds","The property's tax assessment"], c:1,
+      e:"Regulation Z requires meaningful disclosure of credit terms — including APR and finance charges — so consumers can compare loan offers." },
+    { p:"national", t:"Financing", q:"Under RESPA, a settlement service provider is PROHIBITED from:",
+      o:["Requiring an appraisal","Paying a kickback for referring settlement service business","Charging a loan origination fee","Requiring title insurance"], c:1,
+      e:"RESPA Section 8 bans kickbacks, fee splitting, and unearned fees in exchange for referrals of settlement service business." },
+    { p:"national", t:"Financing", q:"A buyer assumes an existing loan and the lender formally releases the original borrower from liability. This is:",
+      o:["Subordination","Novation","Subrogation","Hypothecation"], c:1,
+      e:"Novation substitutes a new obligor for the original one and releases the original borrower from the debt." },
+
+    /* ---------- NATIONAL: Agency ---------- */
+    { p:"national", t:"Agency", q:"Which fiduciary duty requires an agent to place the principal's interests above the agent's own?",
+      o:["Accounting","Loyalty","Disclosure","Reasonable care"], c:1,
+      e:"Loyalty prohibits self-dealing and requires the agent to act in the principal's best interest at all times." },
+    { p:"national", t:"Agency", q:"A seller privately tells the listing agent, \"I'll take $290,000, but list it at $310,000.\" The agent tells a buyer the seller will take $290,000. The agent has breached the duty of:",
+      o:["Confidentiality","Accounting","Obedience","Reasonable care"], c:0,
+      e:"An agent must protect the principal's confidential information — including bargaining position — and that duty survives the end of the agency." },
+    { p:"national", t:"Agency", q:"An agency relationship is MOST commonly created by:",
+      o:["Implication","Express agreement","Ratification","Estoppel"], c:1,
+      e:"Most agency relationships arise from an express agreement, such as a signed listing or buyer representation agreement." },
+    { p:"national", t:"Agency", q:"Which event would terminate a listing agreement?",
+      o:["The listing agent takes a vacation","The property is destroyed by fire","The seller receives an offer below list price","The market declines"], c:1,
+      e:"Destruction of the property terminates the agency, as do expiration, mutual agreement, performance, or death of a party." },
+    { p:"national", t:"Agency", q:"A listing agent learns of a serious foundation problem the seller has not disclosed. The agent must:",
+      o:["Keep it confidential for the seller","Disclose it to prospective buyers","Repair it before showing the home","Reduce the list price"], c:1,
+      e:"Confidentiality never extends to concealing known material defects. Those must be disclosed to all parties." },
+    { p:"national", t:"Agency", q:"Puffing differs from misrepresentation because puffing is:",
+      o:["A statement of fact the speaker knows is false","An opinion or exaggeration a reasonable person would not rely on as fact","Always illegal","Permitted only in writing"], c:1,
+      e:"\"Best view in town\" is opinion. Stating that a 20-year-old roof is new is misrepresentation." },
+    { p:"national", t:"Agency", q:"A licensee hired to represent a seller in one specific transaction is normally a:",
+      o:["Universal agent","General agent","Special agent","Gratuitous agent"], c:2,
+      e:"A special agent has narrow authority limited to a single transaction, which describes the typical listing relationship." },
+    { p:"national", t:"Agency", q:"Commission rates in a listing agreement are:",
+      o:["Set by the local MLS","Established by state law","Fully negotiable between the broker and the client","Standardized industry-wide at 6%"], c:2,
+      e:"Commissions are always negotiable. Any agreement among competing brokerages to set rates violates antitrust law." },
+    { p:"national", t:"Agency", q:"A buyer's agent discovers the buyer intends to use the property in a way that violates zoning. The agent should:",
+      o:["Say nothing, because zoning is public record","Advise the buyer to verify permitted uses with the municipality","Guarantee the use will be approved","Refuse to write any offer"], c:1,
+      e:"The duty of reasonable care requires alerting the client to the issue and directing them to the proper authority, without practicing law or guaranteeing outcomes." },
+
+    /* ---------- NATIONAL: Property Condition & Disclosures ---------- */
+    { p:"national", t:"Property Disclosures", q:"Federal lead-based paint disclosure requirements apply to residential property built:",
+      o:["Before 1978","Before 1990","After 1978","Before 2000"], c:0,
+      e:"The federal lead-based paint rule covers target housing built before 1978, and buyers must be given a 10-day opportunity to inspect." },
+    { p:"national", t:"Property Disclosures", q:"A latent defect is one that:",
+      o:["Is obvious on casual inspection","Is hidden and not readily discoverable by the buyer","Affects only commercial property","Must be repaired before closing"], c:1,
+      e:"Known latent — hidden — material defects must be disclosed precisely because a buyer's reasonable inspection would not reveal them." },
+    { p:"national", t:"Property Disclosures", q:"A colorless, odorless radioactive gas that seeps into homes from the soil and is associated with lung cancer is:",
+      o:["Asbestos","Radon","Formaldehyde","Carbon monoxide"], c:1,
+      e:"Radon enters through foundation cracks and sumps; mitigation typically uses a sub-slab depressurization system." },
+    { p:"national", t:"Property Disclosures", q:"Under CERCLA, liability for cleanup of hazardous substances on a property may be:",
+      o:["Limited to the original polluter only","Strict, joint and several, and retroactive","Waived by an \"as-is\" clause","Assumed only by the federal government"], c:1,
+      e:"CERCLA imposes strict, joint and several, and retroactive liability on current and prior owners and operators." },
+    { p:"national", t:"Property Disclosures", q:"A home built in 1965 with its original plumbing raises a concern about:",
+      o:["Radon in the water heater","Lead in pipes or solder","Mold in the roof deck","Termites in concrete"], c:1,
+      e:"Older plumbing systems may contain lead pipes or lead solder, a health hazard particularly for young children." },
+
+    /* ---------- NATIONAL: Contracts ---------- */
+    { p:"national", t:"Contracts", q:"A contract signed by a 16-year-old is generally:",
+      o:["Void","Voidable by the minor","Fully enforceable against the minor","Illegal"], c:1,
+      e:"A minor lacks full contractual capacity, so the contract is voidable at the minor's option." },
+    { p:"national", t:"Contracts", q:"The Statute of Frauds requires that a contract for the sale of real estate be:",
+      o:["Notarized","In writing and signed to be enforceable","Recorded within 30 days","Reviewed by an attorney"], c:1,
+      e:"Real estate sales contracts must be in writing and signed by the party to be charged in order to be enforceable in court." },
+    { p:"national", t:"Contracts", q:"A buyer's written offer states that it expires Friday at 5:00 p.m. The seller signs it Saturday morning. The result is:",
+      o:["A binding contract","No contract, because the offer lapsed","An option contract","A binding contract once the buyer is notified"], c:1,
+      e:"An offer terminates at its stated expiration and cannot be revived by a later signature — only a new offer can be made." },
+    { p:"national", t:"Contracts", q:"A liquidated damages provision in a purchase contract means:",
+      o:["The seller may sue for unlimited damages","The parties agreed in advance on the amount recoverable if the buyer defaults","The buyer forfeits nothing on default","The broker keeps the entire deposit"], c:1,
+      e:"A liquidated damages clause fixes the agreed remedy in advance — often the earnest money — avoiding litigation over actual damages." },
+    { p:"national", t:"Contracts", q:"The remedy that compels a defaulting seller to actually convey the property is:",
+      o:["Rescission","Specific performance","Liquidated damages","Novation"], c:1,
+      e:"Because every parcel of land is unique, courts may order specific performance rather than limiting the buyer to money damages." },
+    { p:"national", t:"Contracts", q:"When a buyer assigns a purchase contract to another party, the original buyer:",
+      o:["May remain secondarily liable unless released by novation","Is automatically released from all liability","Retains ownership of the property","Forfeits the earnest money"], c:0,
+      e:"An assignment transfers rights and duties, but the assignor generally stays secondarily liable unless the other party agrees to a novation." },
+    { p:"national", t:"Contracts", q:"A signed purchase contract awaiting closing is BEST described as:",
+      o:["Executed","Executory","Void","Unilateral"], c:1,
+      e:"A contract is executory while obligations remain outstanding. It becomes executed once all parties have fully performed." },
+    { p:"national", t:"Contracts", q:"An option contract gives the optionee:",
+      o:["An obligation to purchase","The right, but not the obligation, to purchase within a stated period","Immediate legal title","A leasehold interest"], c:1,
+      e:"The optionor is bound to sell if the option is exercised, but the optionee remains free to walk away." },
+    { p:"national", t:"Contracts", q:"When a contract states that \"time is of the essence,\" it means:",
+      o:["Deadlines are approximate","Stated deadlines must be met exactly","The contract has no expiration","Extensions are automatic"], c:1,
+      e:"With such a clause, failing to perform by the stated date is a breach — there is no implied grace period." },
+    { p:"national", t:"Contracts", q:"A contract signed under duress is:",
+      o:["Valid and fully enforceable","Voidable by the injured party","Void in every circumstance","Enforceable if it is in writing"], c:1,
+      e:"Duress, menace, fraud, or undue influence make an agreement voidable at the option of the party who was coerced." },
+
+    /* ---------- NATIONAL: Transfer of Title ---------- */
+    { p:"national", t:"Transfer of Title", q:"Which deed offers the grantee the greatest protection?",
+      o:["Quitclaim deed","Special warranty deed","General warranty deed","Deed in lieu of foreclosure"], c:2,
+      e:"A general warranty deed warrants title against defects arising at any time, including before the grantor owned the property." },
+    { p:"national", t:"Transfer of Title", q:"A quitclaim deed conveys:",
+      o:["Full warranties of title","Whatever interest the grantor may have, with no warranties","A policy of title insurance","Only the mineral rights"], c:1,
+      e:"Quitclaim deeds warrant nothing and are commonly used to clear clouds on title." },
+    { p:"national", t:"Transfer of Title", q:"Recording a deed primarily serves to:",
+      o:["Transfer title to the grantee","Give constructive notice of the ownership interest","Prove that the deed is valid","Set the property's assessed value"], c:1,
+      e:"Delivery and acceptance transfer title; recording protects the interest's priority by giving constructive notice to the world." },
+    { p:"national", t:"Transfer of Title", q:"A title search reveals an old mortgage that was paid off but never released. This is BEST described as:",
+      o:["An encroachment","A cloud on the title","A variance","A covenant"], c:1,
+      e:"A cloud is any claim or unreleased document that impairs marketable title until it is cleared." },
+    { p:"national", t:"Transfer of Title", q:"An owner's title insurance policy generally protects against:",
+      o:["Future zoning changes","Title defects that existed before the policy date","Physical damage to the structure","Declines in market value"], c:1,
+      e:"Title insurance looks backward, covering undiscovered defects that existed as of the policy date." },
+    { p:"national", t:"Transfer of Title", q:"When an owner dies without a valid will, the property passes according to:",
+      o:["The laws of intestate succession","Escheat","Testate distribution","Adverse possession"], c:0,
+      e:"Intestate succession statutes identify the heirs. Escheat applies only when no heirs can be found." },
+
+    /* ---------- NATIONAL: Practice of Real Estate ---------- */
+    { p:"national", t:"Practice of Real Estate", q:"The federal Fair Housing Act's protected classes include all of the following EXCEPT:",
+      o:["Familial status","Disability","Occupation","National origin"], c:2,
+      e:"The seven federal protected classes are race, color, religion, national origin, sex, familial status, and disability." },
+    { p:"national", t:"Practice of Real Estate", q:"\"Familial status\" protection covers:",
+      o:["Households with children under 18, and pregnant persons","Married couples only","Extended families only","Persons over 55 only"], c:0,
+      e:"Familial status covers families with children under 18, pregnant persons, and those securing custody, subject to limited senior-housing exemptions." },
+    { p:"national", t:"Practice of Real Estate", q:"Two competing brokerages agree to charge sellers the same commission rate. This is:",
+      o:["Legal if disclosed to clients","Illegal price fixing","Standard industry practice","Permitted with MLS approval"], c:1,
+      e:"Price fixing between competitors is a per se antitrust violation regardless of intent or disclosure." },
+    { p:"national", t:"Practice of Real Estate", q:"Several brokers agree to divide a city so each works only certain neighborhoods. This is:",
+      o:["Market allocation, an antitrust violation","Efficient territory management","Legal with MLS approval","A permitted group boycott"], c:0,
+      e:"Market allocation joins price fixing, group boycotts, and tying arrangements as a core antitrust violation." },
+    { p:"national", t:"Practice of Real Estate", q:"An advertisement that fails to identify the sponsoring brokerage is:",
+      o:["Acceptable if the agent's name appears","A prohibited blind advertisement","Required by MLS rules","Permitted for rentals only"], c:1,
+      e:"Advertising must identify the brokerage so the public knows who they are actually dealing with." },
+    { p:"national", t:"Practice of Real Estate", q:"Commingling occurs when a broker:",
+      o:["Deposits client trust funds into the broker's operating account","Places earnest money into a designated trust account","Delivers escrow funds to the title company","Refunds a deposit after a contract terminates"], c:0,
+      e:"Mixing client money with the broker's own funds is commingling; spending it is conversion. Both are serious license violations." },
+    { p:"national", t:"Practice of Real Estate", q:"An advertisement describing a home as \"perfect for a young Christian couple\" is:",
+      o:["Acceptable puffery","Discriminatory advertising that indicates a preference","Legal if the owner is exempt from fair housing","Permitted for duplexes"], c:1,
+      e:"Advertising may not state a preference or limitation based on a protected class, even where an owner might otherwise claim an exemption." },
+    { p:"national", t:"Practice of Real Estate", q:"A property manager's primary obligation is to:",
+      o:["Maximize the owner's return within the terms of the management agreement","Favor tenants over the owner","Guarantee full occupancy","Purchase the property if it underperforms"], c:0,
+      e:"The manager is the owner's fiduciary, charged with protecting the investment and producing the best lawful return." },
+
+    /* ---------- NATIONAL: Calculations ---------- */
+    { p:"national", t:"Real Estate Calculations", q:"A property sells for $425,000 with a 6% total commission. The listing brokerage keeps half, and the listing agent receives 60% of the brokerage's share. The agent earns:",
+      o:["$7,650","$12,750","$15,300","$25,500"], c:0,
+      e:"$425,000 × 6% = $25,500 total. The brokerage's half is $12,750, and the agent's 60% of that is $7,650." },
+    { p:"national", t:"Real Estate Calculations", q:"A lot measures 250 feet by 174.24 feet. Its size is closest to:",
+      o:["One-half acre","One acre","Two acres","Ten acres"], c:1,
+      e:"250 × 174.24 = 43,560 square feet, which is exactly one acre." },
+    { p:"national", t:"Real Estate Calculations", q:"Annual taxes are $4,380, paid in arrears. Using a 365-day year, closing occurs on day 120 of the tax year. The amount charged to the seller is:",
+      o:["$1,440","$1,320","$2,190","$1,200"], c:0,
+      e:"$4,380 ÷ 365 = $12 per day. The seller owned the property for 120 days: $12 × 120 = $1,440." },
+    { p:"national", t:"Real Estate Calculations", q:"A home appraises for $360,000 and the buyer obtains a loan at 80% loan-to-value. The required down payment is:",
+      o:["$28,800","$72,000","$288,000","$36,000"], c:1,
+      e:"The loan is 80% × $360,000 = $288,000, leaving a down payment of $360,000 − $288,000 = $72,000." },
+    { p:"national", t:"Real Estate Calculations", q:"An investor buys a property for $180,000 and sells it for $216,000. The percentage of profit is:",
+      o:["16.7%","20%","25%","36%"], c:1,
+      e:"Profit is $36,000. Percent of profit uses the original cost as the base: $36,000 ÷ $180,000 = 20%." },
+
+    /* ================= TEXAS STATE PORTION ================= */
+
+    { p:"state", t:"TREC & TRELA", q:"The Texas Real Estate License Act is codified in:",
+      o:["Texas Property Code, Chapter 5","Texas Occupations Code, Chapter 1101","Texas Water Code, Chapter 49","Texas Finance Code, Chapter 343"], c:1,
+      e:"TRELA is Chapter 1101 of the Texas Occupations Code. TREC's administrative rules appear in Title 22 of the Texas Administrative Code." },
+    { p:"state", t:"TREC & TRELA", q:"The Texas Real Estate Commission is composed of:",
+      o:["Nine members appointed by the Governor — six brokers and three public members","Five members elected by license holders","Twelve members appointed by the Legislature","Three members appointed by the Attorney General"], c:0,
+      e:"TREC consists of nine members appointed by the Governor with the consent of the Senate: six licensed brokers and three members of the public who are not in real estate." },
+    { p:"state", t:"TREC & TRELA", q:"The Texas Appraiser Licensing and Certification Board (TALCB) is:",
+      o:["Completely independent of TREC","An independent subdivision of TREC","A division of the Texas Department of Insurance","A private trade association"], c:1,
+      e:"TALCB operates as an independent subdivision of TREC and regulates real estate appraisers in Texas." },
+    { p:"state", t:"TREC & TRELA", q:"A person who performs brokerage activity in Texas without a license may be:",
+      o:["Subject to administrative penalties and criminal prosecution","Permitted if a broker supervises them informally","Excused if the transaction closed successfully","Allowed once per calendar year"], c:0,
+      e:"Unlicensed brokerage activity violates TRELA and exposes the person to TREC administrative penalties as well as criminal liability, and it bars them from suing to collect a commission." },
+
+    { p:"state", t:"Texas Licensing", q:"To qualify for a Texas sales agent license, an applicant must complete:",
+      o:["60 hours of qualifying education","180 hours of qualifying real estate education","270 hours of qualifying education","No education if a broker sponsors them"], c:1,
+      e:"Texas requires 180 classroom hours of qualifying courses, a passing exam score, and a sponsoring broker before the license can be placed on active status." },
+    { p:"state", t:"Texas Licensing", q:"A Texas real estate license is issued for a term of:",
+      o:["One year","Two years","Three years","Five years"], c:1,
+      e:"Texas licenses are issued for two-year terms and must be renewed with the required continuing education." },
+    { p:"state", t:"Texas Licensing", q:"Continuing education required to renew an active Texas license includes:",
+      o:["18 hours, including Legal Update I and Legal Update II","6 hours of any elective course","40 hours of ethics training","No CE for sales agents"], c:0,
+      e:"Active license holders must complete 18 hours of CE each renewal period, including the four-hour Legal Update I and four-hour Legal Update II courses." },
+    { p:"state", t:"Texas Licensing", q:"A sales agent whose sponsoring broker terminates the sponsorship:",
+      o:["May continue to work independently","Becomes inactive and may not perform brokerage activity until sponsored again","Automatically becomes a broker","Must retake the state examination"], c:1,
+      e:"Without a sponsoring broker the sales agent's license is inactive, and no brokerage activity may be performed while inactive." },
+    { p:"state", t:"Texas Licensing", q:"A Texas sales agent may lawfully receive compensation for brokerage services from:",
+      o:["The buyer directly","Their sponsoring broker only","Any licensed broker involved in the transaction","The title company at closing"], c:1,
+      e:"A sales agent may be paid only by their sponsoring broker — never directly by a client or by another broker." },
+    { p:"state", t:"Texas Licensing", q:"The Real Estate Recovery Trust Account administered by TREC exists to:",
+      o:["Fund TREC's operations and advertising","Reimburse consumers for certain actual damages caused by a license holder when a judgment cannot be collected","Pay renewal fees for license holders in hardship","Automatically insure brokers against errors and omissions"], c:1,
+      e:"The account may reimburse members of the public for certain actual damages arising from a license holder's fraudulent or dishonest conduct when a court judgment against that licensee cannot be collected." },
+
+    { p:"state", t:"Texas Agency & Intermediary", q:"Under TRELA, a broker who represents both the buyer and the seller in the same transaction acts as a(n):",
+      o:["Dual agent","Intermediary, with written consent from both parties","Subagent of the seller","Undisclosed dual agent"], c:1,
+      e:"Texas replaced traditional dual agency with intermediary status, which requires written consent from both parties obtained before the representation begins." },
+    { p:"state", t:"Texas Agency & Intermediary", q:"An intermediary broker may appoint associated license holders to communicate with and advise each party only if:",
+      o:["Both parties consent in writing to the appointments","The broker finds it convenient","The MLS approves the arrangement","Appointments are never permitted in Texas"], c:0,
+      e:"Appointments require written consent. Once appointed, each license holder may advise the party to whom they are appointed." },
+    { p:"state", t:"Texas Agency & Intermediary", q:"While acting as an intermediary, a Texas broker may NOT:",
+      o:["Treat both parties fairly and impartially","Disclose that the seller will accept a price lower than the asking price, without written authorization","Complete promulgated contract forms","Facilitate negotiations between the parties"], c:1,
+      e:"Without written authorization, an intermediary may not reveal that a party will accept a price different from the one submitted in writing." },
+    { p:"state", t:"Texas Agency & Intermediary", q:"The Information About Brokerage Services (IABS) notice must be provided:",
+      o:["Only at closing","At the first substantive communication about a specific property","Only when an offer is presented","Only to sellers"], c:1,
+      e:"TRELA requires delivery of the IABS at the first substantive dialogue about a specific property; it must also be displayed on a license holder's website." },
+    { p:"state", t:"Texas Agency & Intermediary", q:"A license holder selling property they own personally must:",
+      o:["Say nothing about holding a license","Disclose that they are a licensed real estate license holder","List the property with another brokerage","Obtain written approval from TREC"], c:1,
+      e:"Texas license holders must disclose their license status when buying or selling property for their own account." },
+
+    { p:"state", t:"Texas Contracts & Forms", q:"License holders must use TREC-promulgated contract forms because:",
+      o:["Drafting original contract language would be the unauthorized practice of law","The forms are optional templates","The forms are copyrighted by individual brokerages","They apply only to commercial transactions"], c:0,
+      e:"License holders fill in the blanks on promulgated forms. Drafting contract provisions would constitute practicing law without a license." },
+    { p:"state", t:"Texas Contracts & Forms", q:"Under the TREC One to Four Family Residential Contract (Resale), the option fee buys the buyer:",
+      o:["A reduction in the sales price","An unrestricted right to terminate the contract during the option period","Automatic financing approval","Ownership of the mineral estate"], c:1,
+      e:"The option fee purchases an unrestricted right to terminate the contract for any reason within the negotiated option period." },
+    { p:"state", t:"Texas Contracts & Forms", q:"Earnest money under the TREC residential contract is normally delivered to:",
+      o:["The listing broker's personal account","The escrow agent named in the contract, typically a title company","The seller directly","TREC"], c:1,
+      e:"The contract names an escrow agent — usually the title company — which holds the earnest money in escrow pending closing." },
+    { p:"state", t:"Texas Contracts & Forms", q:"If a buyer fails to deliver the earnest money within the time required by the TREC contract, the seller may:",
+      o:["Take no action until closing","Terminate the contract or pursue other remedies for the buyer's default","Keep the option fee and force the sale","Require the buyer to double the deposit"], c:1,
+      e:"Failure to timely deliver earnest money is a default, giving the seller contractual remedies including termination." },
+    { p:"state", t:"Texas Contracts & Forms", q:"Which TREC form is used for a home in a subdivision with mandatory owners' association membership?",
+      o:["Addendum for Property Subject to Mandatory Membership in a Property Owners Association","Seller Financing Addendum","Third Party Financing Addendum","Farm and Ranch Contract"], c:0,
+      e:"The POA addendum governs delivery of the subdivision information and resale certificate to the buyer." },
+    { p:"state", t:"Texas Contracts & Forms", q:"A buyer purchasing 60 acres of grazing land with a barn would use the:",
+      o:["One to Four Family Residential Contract (Resale)","Farm and Ranch Contract","Residential Condominium Contract","New Home Contract"], c:1,
+      e:"TREC promulgates separate contracts by property type, and the Farm and Ranch Contract addresses agricultural concerns such as crops, livestock, and exemptions." },
+    { p:"state", t:"Texas Contracts & Forms", q:"In Texas, title insurance premium rates are:",
+      o:["Set independently by each title company","Promulgated by the Texas Department of Insurance","Negotiated with the lender at closing","Established by TREC"], c:1,
+      e:"Texas title insurance rates are promulgated by the Texas Department of Insurance, so the basic premium is the same at every title company." },
+
+    { p:"state", t:"Texas Disclosures", q:"The Texas Seller's Disclosure Notice is generally required for:",
+      o:["All commercial property sales","Sales of residential property of not more than one dwelling unit, subject to statutory exceptions","Only newly constructed homes","Only properties priced above $500,000"], c:1,
+      e:"Texas Property Code §5.008 requires the notice for most single-unit residential resales, with exemptions such as foreclosure sales, estates, and certain transfers between relatives." },
+    { p:"state", t:"Texas Disclosures", q:"A Texas property located within a Municipal Utility District requires:",
+      o:["No special disclosure","A statutory MUD notice describing the district's taxes and bonded indebtedness","Rezoning before it may be sold","A waiver of homestead rights"], c:1,
+      e:"The Texas Water Code requires a MUD notice, because districts levy taxes and carry bonded debt for water and sewer infrastructure." },
+    { p:"state", t:"Texas Disclosures", q:"Under Texas law, a seller generally must disclose:",
+      o:["That a prior occupant died of natural causes","Known material defects in the property's condition","The seller's reason for moving","A prior occupant's medical history"], c:1,
+      e:"Known material defects must be disclosed. Texas law specifically provides there is no duty to disclose a death by natural causes or that a previous occupant had HIV or AIDS." },
+    { p:"state", t:"Texas Disclosures", q:"The Texas Seller's Disclosure Notice specifically asks the seller whether they are aware the property:",
+      o:["Has ever been listed with another brokerage","Was previously used to manufacture methamphetamine","Was purchased with an FHA loan","Has ever had a lockbox installed"], c:1,
+      e:"The statutory notice includes a specific question about known prior methamphetamine manufacture, along with many condition-related items." },
+
+    { p:"state", t:"Texas Property Law", q:"Texas homestead protection generally exempts the homestead from forced sale by:",
+      o:["Property taxing authorities","Most general, unsecured creditors","A purchase-money lender","A valid mechanic's lien holder"], c:1,
+      e:"Homestead protects against general creditors, but not against property taxes, purchase-money liens, valid mechanic's liens for improvements, or proper home equity liens." },
+    { p:"state", t:"Texas Property Law", q:"The maximum size of an urban homestead in Texas is:",
+      o:["1 acre","10 acres","100 acres","200 acres"], c:1,
+      e:"An urban homestead may include up to 10 acres. A rural homestead may include up to 100 acres for a single adult or 200 acres for a family." },
+    { p:"state", t:"Texas Property Law", q:"To convey or mortgage a homestead owned by a married couple in Texas:",
+      o:["Either spouse may sign alone","Both spouses generally must join in the conveyance","Only the spouse named on the deed must sign","A court order is always required"], c:1,
+      e:"Texas homestead law generally requires both spouses to join in any conveyance or encumbrance of the homestead, regardless of whose name appears on title." },
+    { p:"state", t:"Texas Property Law", q:"Under Texas community property law, property one spouse inherits during the marriage is:",
+      o:["Community property","That spouse's separate property","Owned equally by both spouses","Automatically homestead property"], c:1,
+      e:"Property acquired by gift, devise, or descent — or owned before the marriage — is separate property. Most other property acquired during marriage is presumed community property." },
+    { p:"state", t:"Texas Property Law", q:"Texas groundwater is generally governed by:",
+      o:["The rule of capture","State-issued prior appropriation permits","Federal water law","The riparian doctrine only"], c:0,
+      e:"Groundwater follows the rule of capture, subject to groundwater conservation district regulation, while surface water belongs to the state and requires a permit." },
+    { p:"state", t:"Texas Property Law", q:"When the mineral estate has been severed from the surface estate in Texas, the mineral estate is:",
+      o:["Dominant, with an implied right to use the surface as reasonably necessary","Subordinate to the surface owner's preferences","Terminated after ten years of non-use","Owned by the State of Texas"], c:0,
+      e:"The mineral estate is the dominant estate in Texas, carrying an implied easement to use as much of the surface as is reasonably necessary to produce the minerals." },
+
+    { p:"state", t:"Texas Finance & Foreclosure", q:"Non-judicial foreclosure sales in Texas are generally held:",
+      o:["On the first Tuesday of the month, between 10 a.m. and 4 p.m.","On the last Friday of the month","On any business day the lender selects","Only by order of a district court"], c:0,
+      e:"Texas trustee sales take place at the county courthouse on the first Tuesday of the month during the statutory hours." },
+    { p:"state", t:"Texas Finance & Foreclosure", q:"Notice of a non-judicial foreclosure sale in Texas must generally be given at least:",
+      o:["3 days before the sale","21 days before the sale","60 days before the sale","6 months before the sale"], c:1,
+      e:"The notice of sale must be posted at the courthouse, filed with the county clerk, and mailed to the debtor at least 21 days before the sale date." },
+    { p:"state", t:"Texas Finance & Foreclosure", q:"Texas constitutional limits on home equity lending cap total liens against the homestead at:",
+      o:["60% of fair market value","80% of fair market value","95% of fair market value","100% of fair market value"], c:1,
+      e:"All liens against a Texas homestead, including a home equity loan, generally may not exceed 80% of the property's fair market value." }
+  ];
+
+  /* ==================================================================
+     SECTION CONFIGURATION
+     ================================================================== */
+
+  var SECTIONS = [
+    { key:"national", label:"Section 1 — National Portion", short:"National Portion",
+      minutes:120, passing:45,
+      lede:"The national portion covers general real estate principles and practices used in every state: property ownership, land use, valuation, financing, agency, disclosures, contracts, transfer of title, professional practice, and calculations." },
+    { key:"state", label:"Section 2 — Texas State Portion", short:"Texas State Portion",
+      minutes:72, passing:17,
+      lede:"The state portion covers Texas law and practice: TRELA and TREC rules, licensing, intermediary representation, promulgated contract forms, required disclosures, homestead and community property, water and mineral rights, and Texas foreclosure procedure." }
+  ];
+
+  /* ==================================================================
+     STATE
+     ================================================================== */
+
+  var paper = [];        // [{ q, order:[...], correctPos }]
+  var bounds = [];       // [{start, end}] per section
+  var answers = [];      // selected position or null
+  var marked = [];       // booleans
+  var current = 0;       // index into paper
+  var sectionIndex = 0;
+  var sectionEndsAt = 0;
+  var tickTimer = null;
+  var sectionResults = [];
+  var candidateName = "";
+  var finished = false;
+
+  /* ==================================================================
+     HELPERS
+     ================================================================== */
+
+  function $(id){ return document.getElementById(id); }
+
+  function shuffle(arr){
+    var a = arr.slice();
+    for (var i = a.length - 1; i > 0; i--){
+      var j = Math.floor(Math.random() * (i + 1));
+      var t = a[i]; a[i] = a[j]; a[j] = t;
+    }
+    return a;
+  }
+
+  var NATIONAL_COUNT = 68;
+  var STATE_COUNT = 32;
+
+  function buildPaper(){
+    // Pools may hold more questions than a single exam uses, so each
+    // attempt draws a fresh subset — the exam is always 68 + 32.
+    var nat = shuffle(QUESTIONS.filter(function(q){ return q.p === "national"; })).slice(0, NATIONAL_COUNT);
+    var st  = shuffle(QUESTIONS.filter(function(q){ return q.p === "state"; })).slice(0, STATE_COUNT);
+    bounds = [
+      { start: 0, end: nat.length - 1, count: nat.length },
+      { start: nat.length, end: nat.length + st.length - 1, count: st.length }
+    ];
+    paper = nat.concat(st).map(function(q){
+      var order = shuffle([0,1,2,3]);
+      return { q:q, order:order, correctPos: order.indexOf(q.c) };
+    });
+    answers = paper.map(function(){ return null; });
+    marked = paper.map(function(){ return false; });
+  }
+
+  function showScreen(id){
+    ["screen-intro","screen-section-intro","screen-question","screen-review","screen-results","screen-answers"]
+      .forEach(function(s){ $(s).classList.toggle("active", s === id); });
+    $("stage").scrollTop = 0;
+  }
+
+  function fmtTime(ms){
+    if (ms < 0) ms = 0;
+    var total = Math.floor(ms / 1000);
+    var h = Math.floor(total / 3600);
+    var m = Math.floor((total % 3600) / 60);
+    var s = total % 60;
+    function pad(n){ return n < 10 ? "0" + n : String(n); }
+    return h > 0 ? (h + ":" + pad(m) + ":" + pad(s)) : (m + ":" + pad(s));
+  }
+
+  function sectionRange(){ return bounds[sectionIndex]; }
+
+  function inSection(i){
+    var b = sectionRange();
+    return i >= b.start && i <= b.end;
+  }
+
+  /* ==================================================================
+     TIMER
+     ================================================================== */
+
+  function startSectionTimer(){
+    var mins = SECTIONS[sectionIndex].minutes;
+    sectionEndsAt = Date.now() + mins * 60 * 1000;
+    $("clock").hidden = false;
+    $("counter").hidden = false;
+    clearInterval(tickTimer);
+    tickTimer = setInterval(tick, 250);
+    tick();
+  }
+
+  function tick(){
+    var left = sectionEndsAt - Date.now();
+    var clock = $("clock");
+    clock.textContent = fmtTime(left);
+    clock.classList.toggle("warn", left <= 5 * 60 * 1000);
+    if (left <= 0){
+      clearInterval(tickTimer);
+      endSection(true);
+    }
+  }
+
+  /* ==================================================================
+     QUESTION RENDERING
+     ================================================================== */
+
+  function renderQuestion(){
+    var item = paper[current];
+    var b = sectionRange();
+    var nInSection = current - b.start + 1;
+
+    $("section-name").textContent = SECTIONS[sectionIndex].short;
+    $("counter").textContent = "Question " + nInSection + " of " + b.count;
+    $("q-number").textContent = "Question " + nInSection + " of " + b.count;
+    $("q-topic").textContent = item.q.t;
+    $("q-flag").hidden = !marked[current];
+    $("q-stem").textContent = item.q.q;
+
+    var wrap = $("choices");
+    wrap.innerHTML = "";
+    var letters = ["A","B","C","D"];
+
+    item.order.forEach(function(origIdx, pos){
+      var label = document.createElement("label");
+      label.className = "choice" + (answers[current] === pos ? " selected" : "");
+
+      var radio = document.createElement("input");
+      radio.type = "radio";
+      radio.name = "choice";
+      radio.checked = answers[current] === pos;
+      radio.addEventListener("change", function(){
+        answers[current] = pos;
+        renderQuestion();
+      });
+
+      var ltr = document.createElement("span");
+      ltr.className = "ltr";
+      ltr.textContent = letters[pos];
+
+      var txt = document.createElement("span");
+      txt.textContent = item.q.o[origIdx];
+
+      label.appendChild(radio);
+      label.appendChild(ltr);
+      label.appendChild(txt);
+      wrap.appendChild(label);
+    });
+
+    var flagLabel = $("flag-label");
+    $("flag-check").checked = marked[current];
+    flagLabel.classList.toggle("on", marked[current]);
+
+    $("btn-prev").disabled = (current === b.start);
+    $("btn-next").textContent = (current === b.end) ? "Review Section ▸" : "Next ▸";
+
+    $("bottombar").hidden = false;
+    showScreen("screen-question");
+  }
+
+  /* ==================================================================
+     REVIEW SCREEN
+     ================================================================== */
+
+  function renderReview(){
+    var b = sectionRange();
+    $("rv-title").textContent = "Review — " + SECTIONS[sectionIndex].short;
+
+    var grid = $("qgrid");
+    grid.innerHTML = "";
+    var answered = 0, flagged = 0;
+
+    for (var i = b.start; i <= b.end; i++){
+      (function(idx){
+        var chip = document.createElement("button");
+        chip.type = "button";
+        chip.className = "qchip" + (answers[idx] !== null ? " answered" : "") + (marked[idx] ? " marked" : "");
+        chip.textContent = String(idx - b.start + 1);
+        chip.setAttribute("aria-label", "Go to question " + (idx - b.start + 1));
+        chip.addEventListener("click", function(){
+          current = idx;
+          renderQuestion();
+        });
+        grid.appendChild(chip);
+      })(i);
+      if (answers[i] !== null) answered++;
+      if (marked[i]) flagged++;
+    }
+
+    var unanswered = b.count - answered;
+    $("rv-summary").innerHTML = "";
+    [["Answered", answered], ["Not answered", unanswered], ["Marked for review", flagged]]
+      .forEach(function(pair){
+        var span = document.createElement("span");
+        var label = document.createTextNode(pair[0] + ": ");
+        var b2 = document.createElement("b");
+        b2.textContent = String(pair[1]);
+        span.appendChild(label);
+        span.appendChild(b2);
+        $("rv-summary").appendChild(span);
+      });
+
+    $("bottombar").hidden = true;
+    showScreen("screen-review");
+  }
+
+  /* ==================================================================
+     SECTION FLOW
+     ================================================================== */
+
+  function showSectionIntro(){
+    var sec = SECTIONS[sectionIndex];
+    var b = bounds[sectionIndex];
+    $("si-kicker").textContent = "Section " + (sectionIndex + 1) + " of " + SECTIONS.length;
+    $("si-title").textContent = sec.short;
+    $("si-lede").textContent = sec.lede;
+    $("si-count").textContent = b.count + " questions";
+    $("si-time").textContent = sec.minutes + " minutes";
+    $("si-pass").textContent = sec.passing + " of " + b.count + " correct";
+    $("section-name").textContent = sec.short;
+    $("clock").hidden = true;
+    $("counter").hidden = true;
+    $("bottombar").hidden = true;
+    showScreen("screen-section-intro");
+  }
+
+  function startSection(){
+    var b = bounds[sectionIndex];
+    current = b.start;
+    startSectionTimer();
+    renderQuestion();
+  }
+
+  function endSection(auto){
+    clearInterval(tickTimer);
+    var b = bounds[sectionIndex];
+    var correct = 0;
+    for (var i = b.start; i <= b.end; i++){
+      if (answers[i] !== null && answers[i] === paper[i].correctPos) correct++;
+    }
+    sectionResults[sectionIndex] = {
+      key: SECTIONS[sectionIndex].key,
+      label: SECTIONS[sectionIndex].short,
+      correct: correct,
+      total: b.count,
+      passing: SECTIONS[sectionIndex].passing,
+      passed: correct >= SECTIONS[sectionIndex].passing,
+      timedOut: !!auto
+    };
+
+    if (sectionIndex < SECTIONS.length - 1){
+      sectionIndex++;
+      showSectionIntro();
+    } else {
+      showResults();
+    }
+  }
+
+  /* ==================================================================
+     RESULTS
+     ================================================================== */
+
+  function showResults(){
+    finished = true;
+    clearInterval(tickTimer);
+    $("clock").hidden = true;
+    $("counter").hidden = true;
+    $("bottombar").hidden = true;
+    $("section-name").textContent = "Score Report";
+
+    var allPassed = sectionResults.every(function(r){ return r.passed; });
+    var totalCorrect = sectionResults.reduce(function(a, r){ return a + r.correct; }, 0);
+
+    $("res-sub").textContent = (candidateName ? candidateName + " — " : "") +
+      "Texas Real Estate Sales Agent Practice Examination · " + totalCorrect + " of 100 correct overall";
+
+    var banner = $("verdict-banner");
+    banner.className = "verdict-banner " + (allPassed ? "pass" : "fail");
+    $("verdict-word").textContent = allPassed ? "PASS" : "FAIL";
+    $("verdict-detail").textContent = allPassed
+      ? "You met the passing standard on both the national and the state portion. On the real exam, both portions must be passed in the same sitting."
+      : "Both portions must be passed to pass the examination. Any portion below the standard would need to be retaken.";
+
+    var cards = $("score-cards");
+    cards.innerHTML = "";
+    sectionResults.forEach(function(r){
+      var card = document.createElement("div");
+      card.className = "score-card";
+
+      var name = document.createElement("div");
+      name.className = "sc-name";
+      name.textContent = r.label;
+
+      var score = document.createElement("div");
+      score.className = "sc-score";
+      score.textContent = r.correct + " / " + r.total;
+
+      var need = document.createElement("div");
+      need.className = "sc-need";
+      need.textContent = "Required to pass: " + r.passing + " correct" + (r.timedOut ? " · section timed out" : "");
+
+      var status = document.createElement("span");
+      status.className = "sc-status " + (r.passed ? "pass" : "fail");
+      status.textContent = r.passed ? "Passed" : "Did not pass";
+
+      card.appendChild(name);
+      card.appendChild(score);
+      card.appendChild(need);
+      card.appendChild(status);
+      cards.appendChild(card);
+    });
+
+    // topic breakdown
+    var topics = {};
+    paper.forEach(function(item, i){
+      var t = item.q.t;
+      if (!topics[t]) topics[t] = { correct:0, total:0 };
+      topics[t].total++;
+      if (answers[i] !== null && answers[i] === item.correctPos) topics[t].correct++;
+    });
+
+    var body = $("topic-body");
+    body.innerHTML = "";
+    Object.keys(topics).forEach(function(t){
+      var d = topics[t];
+      var pct = Math.round(d.correct / d.total * 100);
+      var tr = document.createElement("tr");
+
+      var tdName = document.createElement("td");
+      tdName.textContent = t;
+
+      var tdScore = document.createElement("td");
+      tdScore.className = "num";
+      tdScore.textContent = d.correct + " / " + d.total + "  " + pct + "%";
+
+      var tdBar = document.createElement("td");
+      var bar = document.createElement("div");
+      bar.className = "bar";
+      var fill = document.createElement("span");
+      fill.style.width = pct + "%";
+      fill.className = pct >= 80 ? "strong" : (pct < 70 ? "weak" : "");
+      bar.appendChild(fill);
+      tdBar.appendChild(bar);
+
+      tr.appendChild(tdName);
+      tr.appendChild(tdScore);
+      tr.appendChild(tdBar);
+      body.appendChild(tr);
+    });
+
+    try {
+      localStorage.setItem("txres_last", JSON.stringify({
+        total: totalCorrect,
+        passed: allPassed,
+        when: new Date().toISOString()
+      }));
+    } catch (e) {}
+
+    showScreen("screen-results");
+  }
+
+  /* ==================================================================
+     ANSWER REVIEW
+     ================================================================== */
+
+  var currentFilter = "all";
+
+  function renderAnswers(){
+    var list = $("answers-list");
+    list.innerHTML = "";
+    var letters = ["A","B","C","D"];
+    var shown = 0;
+
+    paper.forEach(function(item, i){
+      var got = answers[i];
+      var isCorrect = got !== null && got === item.correctPos;
+
+      if (currentFilter === "incorrect" && isCorrect) return;
+      if (currentFilter === "marked" && !marked[i]) return;
+      if (currentFilter === "state" && item.q.p !== "state") return;
+      shown++;
+
+      var b = item.q.p === "state" ? bounds[1] : bounds[0];
+      var numInSection = i - b.start + 1;
+
+      var div = document.createElement("div");
+      div.className = "rev-item" + (isCorrect ? "" : " incorrect");
+
+      var head = document.createElement("div");
+      head.className = "rev-head";
+      var left = document.createElement("span");
+      left.textContent = (item.q.p === "state" ? "State" : "National") + " · Q" + numInSection + " · " + item.q.t + (marked[i] ? " · marked" : "");
+      var verdict = document.createElement("span");
+      verdict.className = "rev-verdict " + (isCorrect ? "ok" : "no");
+      verdict.textContent = isCorrect ? "CORRECT" : "INCORRECT";
+      head.appendChild(left);
+      head.appendChild(verdict);
+
+      var qp = document.createElement("p");
+      qp.className = "rev-q";
+      qp.textContent = item.q.q;
+
+      var yours = document.createElement("p");
+      yours.className = "rev-line yours " + (isCorrect ? "" : "no");
+      var yLbl = document.createElement("span");
+      yLbl.className = "lbl";
+      yLbl.textContent = "Your answer:";
+      yours.appendChild(yLbl);
+      yours.appendChild(document.createTextNode(
+        got === null ? "Not answered" : (letters[got] + ". " + item.q.o[item.order[got]])
+      ));
+
+      var right = document.createElement("p");
+      right.className = "rev-line right";
+      var rLbl = document.createElement("span");
+      rLbl.className = "lbl";
+      rLbl.textContent = "Correct answer:";
+      right.appendChild(rLbl);
+      right.appendChild(document.createTextNode(
+        letters[item.correctPos] + ". " + item.q.o[item.q.c]
+      ));
+
+      var ex = document.createElement("div");
+      ex.className = "rev-ex";
+      ex.textContent = item.q.e;
+
+      div.appendChild(head);
+      div.appendChild(qp);
+      div.appendChild(yours);
+      if (!isCorrect) div.appendChild(right);
+      div.appendChild(ex);
+      list.appendChild(div);
+    });
+
+    if (shown === 0){
+      var empty = document.createElement("p");
+      empty.className = "lede";
+      empty.textContent = "No questions match this filter.";
+      list.appendChild(empty);
+    }
+  }
+
+  /* ==================================================================
+     MODAL
+     ================================================================== */
+
+  var modalConfirmAction = null;
+
+  function openModal(title, bodyLines, confirmLabel, onConfirm){
+    $("modal-title").textContent = title;
+    var body = $("modal-body");
+    body.innerHTML = "";
+    bodyLines.forEach(function(line){
+      var p = document.createElement("p");
+      p.textContent = line;
+      body.appendChild(p);
+    });
+    $("modal-confirm").textContent = confirmLabel;
+    modalConfirmAction = onConfirm;
+    $("modal").hidden = false;
+  }
+
+  function closeModal(){
+    $("modal").hidden = true;
+    modalConfirmAction = null;
+  }
+
+  $("modal-cancel").addEventListener("click", closeModal);
+  $("modal-confirm").addEventListener("click", function(){
+    var fn = modalConfirmAction;
+    closeModal();
+    if (fn) fn();
+  });
+
+  /* ==================================================================
+     CALCULATOR
+     ================================================================== */
+
+  var calcAcc = null, calcOp = null, calcFresh = true;
+
+  function calcDisplay(){ return $("calc-display"); }
+  function calcSet(v){
+    var s = String(v);
+    if (s.length > 14) s = Number(v).toPrecision(10).replace(/\.?0+$/, "");
+    calcDisplay().textContent = s;
+  }
+  function calcValue(){ return parseFloat(calcDisplay().textContent) || 0; }
+
+  function calcApply(){
+    if (calcOp === null || calcAcc === null) return calcValue();
+    var b = calcValue(), a = calcAcc, r = b;
+    if (calcOp === "+") r = a + b;
+    else if (calcOp === "-") r = a - b;
+    else if (calcOp === "*") r = a * b;
+    else if (calcOp === "/") r = b === 0 ? NaN : a / b;
+    return isFinite(r) ? Math.round(r * 1e10) / 1e10 : 0;
+  }
+
+  $("calc-keys").addEventListener("click", function(ev){
+    var btn = ev.target.closest("button");
+    if (!btn) return;
+    var k = btn.getAttribute("data-k");
+
+    if (/^[0-9]$/.test(k)){
+      if (calcFresh){ calcSet(k); calcFresh = false; }
+      else calcSet(calcDisplay().textContent === "0" ? k : calcDisplay().textContent + k);
+    } else if (k === "."){
+      if (calcFresh){ calcSet("0."); calcFresh = false; }
+      else if (calcDisplay().textContent.indexOf(".") === -1) calcSet(calcDisplay().textContent + ".");
+    } else if (k === "C"){
+      calcAcc = null; calcOp = null; calcFresh = true; calcSet(0);
+    } else if (k === "←"){
+      var s = calcDisplay().textContent.slice(0, -1);
+      calcSet(s === "" || s === "-" ? 0 : s);
+    } else if (k === "%"){
+      calcSet(calcValue() / 100); calcFresh = true;
+    } else if (k === "="){
+      calcSet(calcApply()); calcAcc = null; calcOp = null; calcFresh = true;
+    } else {
+      var v = calcApply();
+      calcSet(v);
+      calcAcc = v;
+      calcOp = k;
+      calcFresh = true;
+    }
+  });
+
+  $("btn-calc").addEventListener("click", function(){
+    $("calc").hidden = !$("calc").hidden;
+  });
+  $("calc-close").addEventListener("click", function(){ $("calc").hidden = true; });
+
+  /* ==================================================================
+     NAVIGATION WIRING
+     ================================================================== */
+
+  $("btn-begin").addEventListener("click", function(){
+    candidateName = $("candidate").value.trim();
+    buildPaper();
+    sectionIndex = 0;
+    sectionResults = [];
+    finished = false;
+    showSectionIntro();
+  });
+
+  $("btn-start-section").addEventListener("click", startSection);
+
+  $("btn-prev").addEventListener("click", function(){
+    if (current > sectionRange().start){ current--; renderQuestion(); }
+  });
+
+  $("btn-next").addEventListener("click", function(){
+    if (current < sectionRange().end){ current++; renderQuestion(); }
+    else renderReview();
+  });
+
+  $("btn-review").addEventListener("click", renderReview);
+  $("btn-back-to-q").addEventListener("click", renderQuestion);
+
+  $("btn-goto-unanswered").addEventListener("click", function(){
+    var b = sectionRange();
+    for (var i = b.start; i <= b.end; i++){
+      if (answers[i] === null){ current = i; renderQuestion(); return; }
+    }
+    renderQuestion();
+  });
+
+  $("flag-check").addEventListener("change", function(){
+    marked[current] = $("flag-check").checked;
+    $("flag-label").classList.toggle("on", marked[current]);
+    $("q-flag").hidden = !marked[current];
+  });
+
+  $("btn-end-section").addEventListener("click", function(){
+    var b = sectionRange();
+    var unanswered = 0;
+    for (var i = b.start; i <= b.end; i++){ if (answers[i] === null) unanswered++; }
+    var isLast = sectionIndex === SECTIONS.length - 1;
+    var lines = [];
+    if (unanswered > 0){
+      lines.push("You have " + unanswered + " unanswered question" + (unanswered === 1 ? "" : "s") + ". Unanswered questions are scored as incorrect.");
+    }
+    lines.push(isLast
+      ? "Ending this section will submit your examination and generate your score report."
+      : "Once you end this section you cannot return to it.");
+    openModal(isLast ? "Submit Examination?" : "End Section?", lines, isLast ? "Submit Exam" : "End Section", function(){
+      endSection(false);
+    });
+  });
+
+  $("btn-review-answers").addEventListener("click", function(){
+    currentFilter = "all";
+    Array.prototype.forEach.call(document.querySelectorAll(".filter-btn"), function(b){
+      b.classList.toggle("on", b.getAttribute("data-filter") === "all");
+    });
+    renderAnswers();
+    showScreen("screen-answers");
+  });
+
+  $("btn-back-results").addEventListener("click", function(){ showScreen("screen-results"); });
+
+  Array.prototype.forEach.call(document.querySelectorAll(".filter-btn"), function(btn){
+    btn.addEventListener("click", function(){
+      currentFilter = btn.getAttribute("data-filter");
+      Array.prototype.forEach.call(document.querySelectorAll(".filter-btn"), function(b){
+        b.classList.toggle("on", b === btn);
+      });
+      renderAnswers();
+    });
+  });
+
+  function restart(){
+    $("calc").hidden = true;
+    $("section-name").textContent = "Practice Examination";
+    showScreen("screen-intro");
+    refreshLastAttempt();
+  }
+  $("btn-restart").addEventListener("click", restart);
+  $("btn-restart-2").addEventListener("click", restart);
+
+  // keyboard: A-D select, arrows navigate
+  document.addEventListener("keydown", function(ev){
+    if (!$("screen-question").classList.contains("active")) return;
+    if (ev.target.tagName === "INPUT" && ev.target.type === "text") return;
+    var k = ev.key.toUpperCase();
+    var idx = ["A","B","C","D"].indexOf(k);
+    if (idx > -1){
+      var item = paper[current];
+      if (idx < item.order.length){ answers[current] = idx; renderQuestion(); }
+    } else if (ev.key === "ArrowRight"){
+      $("btn-next").click();
+    } else if (ev.key === "ArrowLeft"){
+      if (!$("btn-prev").disabled) $("btn-prev").click();
+    }
+  });
+
+  window.addEventListener("beforeunload", function(ev){
+    if (!finished && paper.length && $("screen-question").classList.contains("active")){
+      ev.preventDefault();
+      ev.returnValue = "";
+    }
+  });
+
+  function refreshLastAttempt(){
+    var el = $("last-attempt");
+    try {
+      var raw = localStorage.getItem("txres_last");
+      if (!raw){ el.textContent = ""; return; }
+      var d = JSON.parse(raw);
+      var when = new Date(d.when);
+      el.textContent = "Previous attempt: " + d.total + " of 100 correct — " +
+        (d.passed ? "passed" : "did not pass") + " (" + when.toLocaleDateString() + ")";
+    } catch (e){ el.textContent = ""; }
+  }
+
+  refreshLastAttempt();
+
+})();
+</script>
+
+</body>
+</html>
