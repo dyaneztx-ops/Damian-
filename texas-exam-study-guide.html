@@ -1,0 +1,1425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Texas Exam Cram Kit</title>
+<meta name="description" content="A last-days study kit for the Texas real estate sales agent exam: spaced-repetition flashcards, a numbers cram sheet, easily-confused term pairs, math formulas, and an exam-day plan.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&display=swap" rel="stylesheet">
+<style>
+
+  /* ===================================================================
+     TEXAS EXAM CRAM KIT
+     Palette: cool paper + deep petrol teal, with amber reserved for
+     "needs work" and green for "known". Full light/dark support —
+     people cram at night.
+     =================================================================== */
+
+  :root{
+    --paper:      #f4f7f8;
+    --card:       #ffffff;
+    --card-2:     #eef3f4;
+    --ink:        #10262c;
+    --muted:      #55696f;
+    --line:       #d3dee0;
+    --line-soft:  #e6edee;
+    --teal:       #0f5c68;
+    --teal-deep:  #0a4049;
+    --teal-soft:  #e0eff1;
+    --amber:      #a35c12;
+    --amber-soft: #fbeddd;
+    --green:      #2c6b4d;
+    --green-soft: #e2f0e9;
+    --shadow:     0 1px 2px rgba(16,38,44,0.06), 0 8px 24px rgba(16,38,44,0.07);
+
+    --serif: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+    --sans: 'Public Sans', -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  }
+
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --paper:      #0d1c20;
+      --card:       #15282d;
+      --card-2:     #1b3238;
+      --ink:        #e7f1f2;
+      --muted:      #9ab2b7;
+      --line:       #2a444b;
+      --line-soft:  #21393f;
+      --teal:       #58b6c4;
+      --teal-deep:  #7fd0dc;
+      --teal-soft:  #14343c;
+      --amber:      #e0a05c;
+      --amber-soft: #38291a;
+      --green:      #6dbd93;
+      --green-soft: #17332a;
+      --shadow:     0 1px 2px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.35);
+    }
+  }
+
+  :root[data-theme="dark"]{
+    --paper:      #0d1c20;
+    --card:       #15282d;
+    --card-2:     #1b3238;
+    --ink:        #e7f1f2;
+    --muted:      #9ab2b7;
+    --line:       #2a444b;
+    --line-soft:  #21393f;
+    --teal:       #58b6c4;
+    --teal-deep:  #7fd0dc;
+    --teal-soft:  #14343c;
+    --amber:      #e0a05c;
+    --amber-soft: #38291a;
+    --green:      #6dbd93;
+    --green-soft: #17332a;
+    --shadow:     0 1px 2px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.35);
+  }
+
+  *, *::before, *::after{ box-sizing: border-box; }
+
+  @media (prefers-reduced-motion: reduce){
+    *, *::before, *::after{
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  body{
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  :focus-visible{ outline: 2px solid var(--teal); outline-offset: 2px; }
+
+  .wrap{
+    max-width: 940px;
+    margin: 0 auto;
+    padding: 0 20px 64px;
+  }
+
+  /* ---------- masthead ---------- */
+
+  header.masthead{
+    padding: 30px 0 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 18px;
+    flex-wrap: wrap;
+  }
+
+  .eyebrow{
+    font-size: 11.5px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--teal);
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+
+  h1{
+    font-family: var(--serif);
+    font-weight: 700;
+    font-size: clamp(30px, 5vw, 42px);
+    line-height: 1.1;
+    margin: 0 0 8px;
+    letter-spacing: -0.015em;
+    text-wrap: balance;
+  }
+
+  .sub{ color: var(--muted); font-size: 15px; max-width: 60ch; margin: 0; }
+
+  .theme-btn{
+    appearance: none;
+    background: var(--card);
+    border: 1px solid var(--line);
+    color: var(--muted);
+    font-family: var(--sans);
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    padding: 8px 12px;
+    border-radius: 999px;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  .theme-btn:hover{ border-color: var(--teal); color: var(--teal); }
+
+  /* ---------- tabs ---------- */
+
+  .tabs{
+    display: flex;
+    gap: 4px;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 26px;
+    overflow-x: auto;
+    scrollbar-width: thin;
+  }
+  .tab{
+    appearance: none;
+    background: none;
+    border: none;
+    border-bottom: 3px solid transparent;
+    color: var(--muted);
+    font-family: var(--sans);
+    font-size: 14.5px;
+    font-weight: 500;
+    padding: 12px 14px;
+    cursor: pointer;
+    white-space: nowrap;
+    margin-bottom: -1px;
+  }
+  .tab:hover{ color: var(--ink); }
+  .tab.on{ color: var(--teal); border-bottom-color: var(--teal); font-weight: 700; }
+
+  .view{ display: none; }
+  .view.on{ display: block; }
+
+  /* ---------- shared blocks ---------- */
+
+  h2{
+    font-family: var(--serif);
+    font-size: 23px;
+    font-weight: 700;
+    margin: 34px 0 6px;
+    letter-spacing: -0.01em;
+  }
+  h2:first-child{ margin-top: 0; }
+
+  h3{
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--teal);
+    font-weight: 700;
+    margin: 26px 0 10px;
+  }
+
+  .section-note{ color: var(--muted); font-size: 14.5px; margin: 0 0 16px; max-width: 68ch; }
+
+  .callout{
+    background: var(--amber-soft);
+    border-left: 3px solid var(--amber);
+    padding: 13px 16px;
+    font-size: 14px;
+    margin: 18px 0;
+    border-radius: 0 4px 4px 0;
+  }
+  .callout strong{ display: block; margin-bottom: 3px; color: var(--amber); }
+
+  table.data{
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14.5px;
+    margin-bottom: 8px;
+    background: var(--card);
+    box-shadow: var(--shadow);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  table.data th, table.data td{
+    text-align: left;
+    padding: 11px 14px;
+    border-bottom: 1px solid var(--line-soft);
+    vertical-align: top;
+  }
+  table.data tr:last-child td{ border-bottom: none; }
+  table.data th{
+    width: 44%;
+    font-weight: 600;
+    color: var(--ink);
+  }
+  table.data td{ color: var(--muted); }
+  table.data td b, table.data th b{
+    font-variant-numeric: tabular-nums;
+    color: var(--teal);
+    font-weight: 700;
+  }
+  .table-scroll{ overflow-x: auto; }
+
+  /* ---------- flashcards ---------- */
+
+  .deck-controls{
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+    align-items: center;
+  }
+  .chip{
+    appearance: none;
+    background: var(--card);
+    border: 1px solid var(--line);
+    color: var(--muted);
+    font-family: var(--sans);
+    font-size: 13px;
+    padding: 7px 13px;
+    border-radius: 999px;
+    cursor: pointer;
+  }
+  .chip:hover{ border-color: var(--teal); color: var(--teal); }
+  .chip.on{ background: var(--teal); border-color: var(--teal); color: var(--paper); font-weight: 600; }
+  :root[data-theme="dark"] .chip.on,
+  :root:not([data-theme="light"]) .chip.on{ color: #08222a; }
+
+  .progress-strip{
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 14px;
+  }
+  .pbar{
+    flex: 1 1 180px;
+    height: 7px;
+    background: var(--line-soft);
+    border-radius: 999px;
+    overflow: hidden;
+    min-width: 140px;
+  }
+  .pbar span{
+    display: block;
+    height: 100%;
+    background: var(--green);
+    width: 0%;
+    transition: width 0.35s ease;
+  }
+  .box-counts{ display: flex; gap: 12px; font-variant-numeric: tabular-nums; }
+  .box-counts i{ font-style: normal; }
+  .box-counts .b1{ color: var(--amber); }
+  .box-counts .b2{ color: var(--teal); }
+  .box-counts .b3{ color: var(--green); }
+
+  .flashcard{
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+    min-height: 300px;
+    padding: 30px 32px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    cursor: pointer;
+    position: relative;
+    transition: border-color 0.2s ease;
+  }
+  .flashcard:hover{ border-color: var(--teal); }
+
+  .card-deck-tag{
+    position: absolute;
+    top: 14px; left: 32px;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--teal);
+    font-weight: 600;
+  }
+  .card-box-tag{
+    position: absolute;
+    top: 14px; right: 32px;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.06em;
+  }
+
+  .card-front{
+    font-family: var(--serif);
+    font-size: clamp(21px, 3.4vw, 27px);
+    font-weight: 600;
+    line-height: 1.35;
+    text-wrap: balance;
+    margin: 0;
+  }
+
+  .card-back{
+    margin-top: 20px;
+    padding-top: 18px;
+    border-top: 1px solid var(--line-soft);
+  }
+  .card-back p{
+    margin: 0;
+    font-size: 16.5px;
+    line-height: 1.6;
+  }
+  .card-trap{
+    margin-top: 14px;
+    background: var(--amber-soft);
+    border-left: 3px solid var(--amber);
+    padding: 10px 13px;
+    font-size: 14px;
+    border-radius: 0 4px 4px 0;
+  }
+  .card-trap b{ color: var(--amber); }
+
+  .flip-hint{
+    margin-top: 22px;
+    font-size: 12.5px;
+    color: var(--muted);
+    letter-spacing: 0.03em;
+  }
+
+  .rating-row{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-top: 16px;
+  }
+  .rate{
+    appearance: none;
+    border: 1px solid var(--line);
+    background: var(--card);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 14.5px;
+    font-weight: 600;
+    padding: 14px 8px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: transform 0.12s ease, background-color 0.15s ease;
+  }
+  .rate:hover{ transform: translateY(-1px); }
+  .rate small{ display: block; font-weight: 400; font-size: 11.5px; color: var(--muted); margin-top: 2px; }
+  .rate.miss{ border-color: var(--amber); color: var(--amber); }
+  .rate.miss:hover{ background: var(--amber-soft); }
+  .rate.almost{ border-color: var(--teal); color: var(--teal); }
+  .rate.almost:hover{ background: var(--teal-soft); }
+  .rate.got{ border-color: var(--green); color: var(--green); }
+  .rate.got:hover{ background: var(--green-soft); }
+
+  .nav-row{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    margin-top: 14px;
+    flex-wrap: wrap;
+  }
+  .ghost-btn{
+    appearance: none;
+    background: none;
+    border: none;
+    color: var(--muted);
+    font-family: var(--sans);
+    font-size: 13px;
+    cursor: pointer;
+    padding: 6px 4px;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .ghost-btn:hover{ color: var(--teal); }
+
+  .done-panel{
+    background: var(--green-soft);
+    border: 1px solid var(--green);
+    border-radius: 8px;
+    padding: 28px 30px;
+    text-align: center;
+  }
+  .done-panel h3{ color: var(--green); margin-top: 0; }
+  .done-panel p{ margin: 0 0 14px; }
+
+  /* ---------- confusion pairs ---------- */
+
+  .pair{
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    box-shadow: var(--shadow);
+    padding: 16px 18px;
+    margin-bottom: 12px;
+  }
+  .pair h4{
+    margin: 0 0 10px;
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 600;
+  }
+  .pair-grid{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+  .pair-grid.three{ grid-template-columns: repeat(3, 1fr); }
+  .pair-item strong{
+    display: block;
+    font-family: var(--serif);
+    font-size: 17px;
+    color: var(--teal);
+    margin-bottom: 3px;
+  }
+  .pair-item span{ font-size: 14px; color: var(--muted); }
+
+  /* ---------- math ---------- */
+
+  .formula{
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--teal);
+    border-radius: 0 6px 6px 0;
+    padding: 15px 18px;
+    margin-bottom: 12px;
+    box-shadow: var(--shadow);
+  }
+  .formula h4{
+    margin: 0 0 6px;
+    font-size: 15.5px;
+    font-family: var(--serif);
+    font-weight: 700;
+  }
+  .formula .eq{
+    font-family: var(--serif);
+    font-size: 16px;
+    background: var(--teal-soft);
+    color: var(--teal-deep);
+    padding: 8px 12px;
+    border-radius: 4px;
+    display: inline-block;
+    margin-bottom: 8px;
+    font-variant-numeric: tabular-nums;
+  }
+  .formula .ex{ font-size: 14px; color: var(--muted); margin: 0; }
+  .formula .ex b{ color: var(--ink); font-variant-numeric: tabular-nums; }
+
+  /* ---------- plan ---------- */
+
+  .plan-block{
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 18px 20px;
+    margin-bottom: 14px;
+    box-shadow: var(--shadow);
+  }
+  .plan-block h4{
+    margin: 0 0 4px;
+    font-family: var(--serif);
+    font-size: 18px;
+  }
+  .plan-when{
+    font-size: 11.5px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--teal);
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .plan-block ul{ margin: 0; padding-left: 20px; }
+  .plan-block li{ margin-bottom: 6px; font-size: 15px; }
+  .plan-block li:last-child{ margin-bottom: 0; }
+
+  footer.foot{
+    margin-top: 42px;
+    padding-top: 18px;
+    border-top: 1px solid var(--line);
+    font-size: 12.5px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  @media (max-width: 640px){
+    .pair-grid, .pair-grid.three{ grid-template-columns: 1fr; gap: 10px; }
+    .flashcard{ padding: 28px 22px; min-height: 260px; }
+    .card-deck-tag, .card-box-tag{ left: 22px; right: 22px; position: static; display: inline-block; margin-bottom: 10px; }
+    .card-box-tag{ float: right; }
+    table.data th{ width: 50%; }
+    .rating-row{ grid-template-columns: 1fr; }
+  }
+
+  @media print{
+    .tabs, .theme-btn, .deck-controls, .rating-row, .nav-row, .progress-strip, #view-cards{ display: none !important; }
+    .view{ display: block !important; }
+    body{ background: #fff; color: #000; font-size: 11pt; }
+    .wrap{ max-width: none; padding: 0; }
+    table.data, .pair, .formula, .plan-block{ box-shadow: none; break-inside: avoid; }
+    h2{ break-after: avoid; }
+  }
+
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <header class="masthead">
+    <div>
+      <p class="eyebrow">Texas Sales Agent · Final Days</p>
+      <h1>Texas Exam Cram Kit</h1>
+      <p class="sub">The highest-yield material for the Texas real estate exam, in the order you should study it: drill the cards, memorize the numbers, learn the traps, know the math cold.</p>
+    </div>
+    <button class="theme-btn" id="theme-btn" type="button">Dark mode</button>
+  </header>
+
+  <nav class="tabs" id="tabs">
+    <button class="tab on" data-view="cards" type="button">Flashcards</button>
+    <button class="tab" data-view="numbers" type="button">Numbers to Memorize</button>
+    <button class="tab" data-view="confuse" type="button">Easy to Confuse</button>
+    <button class="tab" data-view="math" type="button">Math</button>
+    <button class="tab" data-view="plan" type="button">Exam-Day Plan</button>
+  </nav>
+
+  <!-- ================= FLASHCARDS ================= -->
+  <section class="view on" id="view-cards">
+
+    <div class="deck-controls" id="deck-controls"></div>
+
+    <div class="progress-strip">
+      <span id="queue-label">—</span>
+      <span class="pbar"><span id="pbar-fill"></span></span>
+      <span class="box-counts">
+        <i class="b1" id="c1">Learning 0</i>
+        <i class="b2" id="c2">Familiar 0</i>
+        <i class="b3" id="c3">Known 0</i>
+      </span>
+    </div>
+
+    <div id="card-area">
+      <div class="flashcard" id="flashcard">
+        <span class="card-deck-tag" id="card-deck">—</span>
+        <span class="card-box-tag" id="card-box"></span>
+        <p class="card-front" id="card-front">Loading…</p>
+        <div class="card-back" id="card-back" hidden>
+          <p id="card-answer"></p>
+          <div class="card-trap" id="card-trap" hidden></div>
+        </div>
+        <p class="flip-hint" id="flip-hint">Click the card or press Space to reveal</p>
+      </div>
+
+      <div class="rating-row" id="rating-row" hidden>
+        <button class="rate miss" data-rate="1" type="button">Missed it<small>see it again soon · 1</small></button>
+        <button class="rate almost" data-rate="2" type="button">Almost<small>one more pass · 2</small></button>
+        <button class="rate got" data-rate="3" type="button">Got it<small>retire the card · 3</small></button>
+      </div>
+
+      <div class="nav-row">
+        <button class="ghost-btn" id="btn-skip" type="button">Skip this card</button>
+        <button class="ghost-btn" id="btn-reset" type="button">Reset progress for this deck</button>
+      </div>
+    </div>
+
+    <div class="done-panel" id="done-panel" hidden>
+      <h3>Deck complete</h3>
+      <p id="done-text">You've worked through every card in this selection.</p>
+      <button class="chip on" id="btn-again" type="button">Run it again</button>
+    </div>
+  </section>
+
+  <!-- ================= NUMBERS ================= -->
+  <section class="view" id="view-numbers">
+    <h2>Numbers to Memorize</h2>
+    <p class="section-note">If you only review one page the morning of the exam, make it this one. These are the facts that are either right or wrong — no reasoning will save you.</p>
+
+    <div class="callout">
+      <strong>Verify before exam day</strong>
+      Education hours, CE requirements, and fee amounts are set by TREC and do change. Confirm anything here against the current TREC website and your Pearson VUE candidate handbook.
+    </div>
+
+    <h3>Texas licensing</h3>
+    <div class="table-scroll">
+    <table class="data">
+      <tr><th>Sales agent qualifying education</th><td><b>180 hours</b> (six 30-hour courses)</td></tr>
+      <tr><th>Broker qualifying education</th><td><b>270 hours</b> + <b>4 years</b> active experience in the past <b>5 years</b></td></tr>
+      <tr><th>Sales agent first renewal (SAE)</th><td><b>90 hours</b> of Sales Agent Apprentice Education</td></tr>
+      <tr><th>Continuing education each renewal</th><td><b>18 hours</b>, including <b>4-hr</b> Legal Update I and <b>4-hr</b> Legal Update II</td></tr>
+      <tr><th>License term</th><td><b>2 years</b></td></tr>
+      <tr><th>TREC membership</th><td><b>9 members</b> appointed by the Governor: <b>6</b> brokers + <b>3</b> public</td></tr>
+      <tr><th>Broker record retention</th><td><b>4 years</b></td></tr>
+      <tr><th>Governing law</th><td>TRELA = Occupations Code <b>Ch. 1101</b>; TREC rules = <b>22 TAC</b></td></tr>
+    </table>
+    </div>
+
+    <h3>Texas contracts &amp; deadlines</h3>
+    <div class="table-scroll">
+    <table class="data">
+      <tr><th>Option fee delivery</th><td>Within <b>3 days</b> of the effective date</td></tr>
+      <tr><th>Earnest money delivery</th><td>Within <b>3 days</b> of the effective date, to the escrow agent</td></tr>
+      <tr><th>Effective date</th><td>The date final acceptance is <b>communicated back</b> to the other party — every deadline runs from it</td></tr>
+      <tr><th>Seller's Disclosure Notice</th><td>Texas Property Code <b>§5.008</b></td></tr>
+      <tr><th>Title insurance rates</th><td>Promulgated by the <b>Texas Department of Insurance</b> — identical at every title company</td></tr>
+    </table>
+    </div>
+
+    <h3>Texas property &amp; homestead</h3>
+    <div class="table-scroll">
+    <table class="data">
+      <tr><th>Urban homestead</th><td>Up to <b>10 acres</b></td></tr>
+      <tr><th>Rural homestead</th><td><b>100 acres</b> single adult · <b>200 acres</b> family</td></tr>
+      <tr><th>Homestead conveyance</th><td><b>Both spouses</b> must sign, even if only one is on title</td></tr>
+      <tr><th>Home equity lending cap</th><td>All liens combined ≤ <b>80%</b> of fair market value</td></tr>
+      <tr><th>Homestead is NOT protected from</th><td>Property taxes · purchase-money loans · home improvement (mechanic's) liens · home equity loans · federal tax liens</td></tr>
+      <tr><th>State transfer tax</th><td><b>None.</b> Texas has no real property transfer tax and no state income tax</td></tr>
+    </table>
+    </div>
+
+    <h3>Texas foreclosure &amp; tenancy</h3>
+    <div class="table-scroll">
+    <table class="data">
+      <tr><th>Foreclosure sale day</th><td><b>First Tuesday</b> of the month, <b>10 a.m.–4 p.m.</b>, county courthouse</td></tr>
+      <tr><th>Notice of sale</th><td>At least <b>21 days</b> before the sale — posted, filed with the county clerk, and mailed to the debtor</td></tr>
+      <tr><th>Cure period (residential homestead)</th><td>Commonly <b>20 days</b> to cure default before the notice of sale</td></tr>
+      <tr><th>Tax sale redemption</th><td><b>2 years</b> homestead/agricultural · <b>180 days</b> other property</td></tr>
+      <tr><th>Property tax calendar</th><td>Assessed <b>Jan 1</b> · due <b>Jan 31</b> · delinquent <b>Feb 1</b></td></tr>
+      <tr><th>Security deposit refund</th><td><b>30 days</b> after surrender + forwarding address</td></tr>
+      <tr><th>Re-key security devices</th><td>Within <b>7 days</b> of a new tenant taking possession</td></tr>
+    </table>
+    </div>
+
+    <h3>Federal law</h3>
+    <div class="table-scroll">
+    <table class="data">
+      <tr><th>Fair housing protected classes</th><td><b>7:</b> race, color, religion, national origin, sex, familial status, disability</td></tr>
+      <tr><th>Fair housing timeline</th><td><b>1968</b> race/color/religion/national origin → <b>1974</b> sex → <b>1988</b> familial status + disability</td></tr>
+      <tr><th>Civil Rights Act of 1866</th><td>Bars <b>all</b> racial discrimination in property — <b>no exemptions</b></td></tr>
+      <tr><th>Lead-based paint</th><td>Housing built before <b>1978</b> · buyer gets <b>10 days</b> to inspect</td></tr>
+      <tr><th>TILA right of rescission</th><td><b>3 business days</b> — refinances of a principal residence, not purchases</td></tr>
+      <tr><th>Loan Estimate</th><td>Within <b>3 business days</b> of application</td></tr>
+      <tr><th>Closing Disclosure</th><td>At least <b>3 business days</b> before closing</td></tr>
+    </table>
+    </div>
+
+    <h3>Measurements</h3>
+    <div class="table-scroll">
+    <table class="data">
+      <tr><th>Acre</th><td><b>43,560</b> square feet</td></tr>
+      <tr><th>Mile</th><td><b>5,280</b> feet</td></tr>
+      <tr><th>Section</th><td><b>640 acres</b> = 1 square mile</td></tr>
+      <tr><th>Township</th><td><b>36 sections</b> = 6 miles × 6 miles</td></tr>
+      <tr><th>One discount point</th><td><b>1%</b> of the <b>loan</b> amount</td></tr>
+      <tr><th>One mill</th><td><b>$1 per $1,000</b> of assessed value</td></tr>
+      <tr><th>PMI threshold</th><td>Required when LTV exceeds <b>80%</b></td></tr>
+    </table>
+    </div>
+
+    <h3>Your exam</h3>
+    <div class="table-scroll">
+    <table class="data">
+      <tr><th>Total questions</th><td><b>125</b> — <b>85</b> national + <b>40</b> Texas state</td></tr>
+      <tr><th>Time</th><td><b>150 min</b> national + <b>90 min</b> state</td></tr>
+      <tr><th>To pass</th><td><b>56/85</b> national <em>and</em> <b>21/40</b> state — both, same sitting</td></tr>
+      <tr><th>Pacing</th><td>About <b>1 min 45 sec</b> per national question, <b>2 min 15 sec</b> per state question</td></tr>
+    </table>
+    </div>
+  </section>
+
+  <!-- ================= CONFUSIONS ================= -->
+  <section class="view" id="view-confuse">
+    <h2>Easy to Confuse</h2>
+    <p class="section-note">Most missed questions are not about facts you never learned — they're about two terms you know but blur together under time pressure. Read these until the distinction is instant.</p>
+    <div id="confuse-list"></div>
+  </section>
+
+  <!-- ================= MATH ================= -->
+  <section class="view" id="view-math">
+    <h2>Math You Must Know</h2>
+    <p class="section-note">Roughly one in eight national questions is math. Every one of them comes from this short list of formulas. Work each example by hand once and the whole category becomes free points.</p>
+
+    <div class="callout">
+      <strong>The T-method solves most of them</strong>
+      Draw a T. Total goes on top; the two pieces go on the bottom. Cover what you want: Part = Total × Rate · Rate = Part ÷ Total · Total = Part ÷ Rate.
+    </div>
+
+    <div id="math-list"></div>
+  </section>
+
+  <!-- ================= PLAN ================= -->
+  <section class="view" id="view-plan">
+    <h2>Exam-Day Plan</h2>
+    <p class="section-note">How to spend the time you have left, and how to actually take the test once you're in the chair.</p>
+    <div id="plan-list"></div>
+  </section>
+
+  <footer class="foot">
+    Study material only — not affiliated with TREC, Pearson VUE, or any licensing authority, and not legal advice. Rules, hour requirements, and contract forms change; confirm specifics against current TREC publications and your Pearson VUE candidate handbook. Your card progress is saved in this browser only.
+  </footer>
+
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ==================================================================
+     DECKS
+     ================================================================== */
+
+  var DECKS = [
+    { id:"own", label:"Estates & Ownership", group:"national" },
+    { id:"agy", label:"Agency", group:"national" },
+    { id:"con", label:"Contracts", group:"national" },
+    { id:"fin", label:"Financing", group:"national" },
+    { id:"val", label:"Valuation", group:"national" },
+    { id:"fai", label:"Fair Housing & Practice", group:"national" },
+    { id:"ttl", label:"Title & Closing", group:"national" },
+    { id:"txl", label:"TX · TREC & Licensing", group:"texas" },
+    { id:"txa", label:"TX · Agency & Intermediary", group:"texas" },
+    { id:"txc", label:"TX · Contracts & Forms", group:"texas" },
+    { id:"txp", label:"TX · Property Law", group:"texas" },
+    { id:"txf", label:"TX · Foreclosure & Finance", group:"texas" },
+    { id:"mth", label:"Math Formulas", group:"math" }
+  ];
+
+  /* ==================================================================
+     CARDS  — f: front, b: back, n: trap/note
+     ================================================================== */
+
+  var CARDS = [
+
+    /* ---- Estates & Ownership ---- */
+    { d:"own", f:"Real property vs. personal property", b:"Real property is land, everything permanently attached to it, and the bundle of rights that comes with it. Personal property (chattel) is movable.", n:"A fixture is personal property that became real property by attachment." },
+    { d:"own", f:"The bundle of rights", b:"Possess, Use, Transfer (dispose), Exclude, Encumber. Ownership is all five — always subject to government powers." },
+    { d:"own", f:"The fixture tests — MARIA", b:"Method of attachment, Adaptability, Relationship of the parties, Intent, Agreement.", n:"Intent of the party who attached it is the most important factor." },
+    { d:"own", f:"Trade fixture", b:"Personal property a commercial tenant installs to run their business. The tenant removes it before the lease ends — otherwise it becomes the landlord's by accession." },
+    { d:"own", f:"Emblements", b:"Annual crops planted by a tenant. The tenant has the right to return and harvest them even after the tenancy ends." },
+    { d:"own", f:"Fee simple absolute", b:"The highest and most complete form of ownership. Indefinite duration, freely transferable, inheritable." },
+    { d:"own", f:"Fee simple defeasible", b:"Ownership subject to a condition. If the condition is violated, the estate can be lost or revert to the grantor." },
+    { d:"own", f:"Life estate", b:"Ownership measured by someone's lifetime. \"Pur autre vie\" means it's measured by ANOTHER person's life.", n:"A life tenant may use and profit from the property but can't commit waste." },
+    { d:"own", f:"Remainder vs. reversion", b:"Remainder: a named third party receives the property when the life estate ends. Reversion: it returns to the grantor." },
+    { d:"own", f:"Estate for years", b:"A leasehold with a definite beginning AND ending date. No notice is required to terminate — it just ends.", n:"\"For years\" doesn't mean years — a 30-day lease with fixed dates qualifies." },
+    { d:"own", f:"Periodic estate", b:"A leasehold that renews automatically (month-to-month) until proper notice is given by either party." },
+    { d:"own", f:"Estate at will", b:"Possession with the landlord's permission for an indefinite period, terminable by either party at any time." },
+    { d:"own", f:"Estate at sufferance", b:"A holdover tenant who stays WITHOUT permission after the lease ends. The lowest estate in real property." },
+    { d:"own", f:"Severalty", b:"Ownership by one person or one entity alone — \"severed\" from all others." },
+    { d:"own", f:"Tenancy in common", b:"Two or more owners with undivided interests. Shares may be unequal. NO right of survivorship — an owner's share passes to their heirs." },
+    { d:"own", f:"Joint tenancy — the four unities", b:"Possession, Interest, Time, Title (PITT), plus the right of survivorship: a deceased owner's share passes automatically to the survivors." },
+    { d:"own", f:"Easement appurtenant", b:"Runs with the land and transfers with it. The dominant tenement benefits; the servient tenement is burdened." },
+    { d:"own", f:"Easement in gross", b:"Benefits a person or company rather than a parcel of land — utility easements are the classic example." },
+    { d:"own", f:"Easement by necessity", b:"Created by law so a landlocked parcel has ingress and egress." },
+    { d:"own", f:"Easement by prescription", b:"Created by long, open, continuous, hostile use for the statutory period.", n:"Prescription gives a right to USE. Adverse possession gives TITLE." },
+    { d:"own", f:"License (land use)", b:"Revocable personal permission to use land for a specific purpose. Not an interest in real property." },
+    { d:"own", f:"Encroachment", b:"An unauthorized physical intrusion onto a neighbor's land — a fence, driveway, or roofline crossing the boundary." },
+    { d:"own", f:"Lien vs. encumbrance", b:"A lien is a financial encumbrance securing a debt. Every lien is an encumbrance, but easements and restrictions are encumbrances that are not liens." },
+    { d:"own", f:"Lien priority", b:"Property tax and special assessment liens come FIRST — ahead of all others regardless of when they were recorded. Everything else is generally first-recorded, first-paid." },
+    { d:"own", f:"General vs. specific lien", b:"General: attaches to all of a debtor's property (judgments, IRS liens). Specific: attaches to one property (mortgage, mechanic's lien, property taxes)." },
+    { d:"own", f:"The four government powers — PETE", b:"Police power (regulate), Eminent domain (take with compensation), Taxation, Escheat (to the state when there's no will and no heirs)." },
+    { d:"own", f:"Police power", b:"The power to regulate land use for public health, safety, and welfare — zoning, building codes, environmental rules. No compensation is owed." },
+    { d:"own", f:"Eminent domain vs. condemnation", b:"Eminent domain is the government's POWER to take private property for public use with just compensation. Condemnation is the PROCESS of exercising it." },
+    { d:"own", f:"Adverse possession elements", b:"Open, notorious, continuous, hostile, and exclusive possession for the statutory period. Remember it as \"ONCHE\" or \"hostile, actual, open, continuous, exclusive.\"" },
+    { d:"own", f:"Riparian vs. littoral rights", b:"Riparian: land bordering flowing water (rivers, streams). Littoral: land bordering static water (lakes, oceans, seas)." },
+    { d:"own", f:"Accretion, erosion, avulsion", b:"Accretion: gradual addition of soil. Erosion: gradual loss. Avulsion: sudden, violent change — boundaries generally don't move with avulsion." },
+    { d:"own", f:"Variance vs. nonconforming use", b:"Variance: permission granted to deviate from zoning due to hardship. Legal nonconforming use: a use that was lawful before the zoning changed — \"grandfathered.\"" },
+    { d:"own", f:"Deed restrictions vs. zoning", b:"Deed restrictions (CC&Rs) are PRIVATE and enforced by the HOA or another owner. Zoning is PUBLIC. When they conflict, the MORE RESTRICTIVE one controls." },
+
+    /* ---- Agency ---- */
+    { d:"agy", f:"Fiduciary duties — OLD CAR", b:"Obedience, Loyalty, Disclosure, Confidentiality, Accounting, Reasonable care. Owed to the CLIENT (principal)." },
+    { d:"agy", f:"Duties owed to a customer (third party)", b:"Honesty, fair dealing, and disclosure of known material defects. Never fiduciary duties." },
+    { d:"agy", f:"Special vs. general vs. universal agent", b:"Special: one transaction, narrow authority (listing agent). General: ongoing authority over a range of matters (property manager). Universal: full authority in all matters (power of attorney)." },
+    { d:"agy", f:"Confidentiality — how long?", b:"It survives the end of the agency relationship. You may never reveal a former client's motivation or bottom-line price." },
+    { d:"agy", f:"Puffing vs. misrepresentation", b:"Puffing is opinion or exaggeration a reasonable person wouldn't rely on. Misrepresentation is a false statement of material fact — and it's actionable." },
+    { d:"agy", f:"Latent defect", b:"A hidden material defect not discoverable by a reasonable inspection. Known latent defects MUST be disclosed — confidentiality never covers them." },
+    { d:"agy", f:"Exclusive right to sell", b:"The listing broker is paid no matter who sells the property — including the seller." },
+    { d:"agy", f:"Exclusive agency listing", b:"The broker is paid unless the SELLER personally finds the buyer." },
+    { d:"agy", f:"Open listing", b:"Non-exclusive. Only the broker who actually procures the buyer is paid, and the seller may sell it themselves commission-free." },
+    { d:"agy", f:"Procuring cause", b:"The agent whose continuous efforts actually caused the sale. It determines who earns the commission when there's a dispute." },
+    { d:"agy", f:"\"Ready, willing, and able\" buyer", b:"When a broker produces one on the seller's exact terms, the commission is generally earned — even if the seller then refuses to close." },
+    { d:"agy", f:"How agency terminates", b:"Expiration, performance (closing), mutual agreement, revocation, death or incapacity of either party, destruction of the property, or bankruptcy." },
+    { d:"agy", f:"Vicarious liability", b:"A principal can be held liable for the acts of their agent performed within the scope of authority." },
+
+    /* ---- Contracts ---- */
+    { d:"con", f:"Elements of a valid contract", b:"Mutual assent (offer + acceptance), consideration, legal capacity, and a lawful object. Real estate contracts must also be in writing." },
+    { d:"con", f:"Void vs. voidable vs. unenforceable", b:"Void: no legal effect from the start (illegal purpose). Voidable: valid until the injured party rescinds (minor, fraud, duress). Unenforceable: valid but a court won't enforce it (not in writing)." },
+    { d:"con", f:"Executory vs. executed", b:"Executory: something is still to be done — a signed contract before closing. Executed: everyone has fully performed." },
+    { d:"con", f:"Bilateral vs. unilateral", b:"Bilateral: a promise for a promise (purchase contract). Unilateral: a promise for performance (option contract, open listing)." },
+    { d:"con", f:"Statute of Frauds", b:"Contracts for the sale of real estate must be in writing and signed by the party to be charged to be enforceable." },
+    { d:"con", f:"Counteroffer", b:"ANY change to the terms rejects the original offer and creates a new one. The original can no longer be accepted." },
+    { d:"con", f:"How an offer terminates", b:"Acceptance, rejection, counteroffer, revocation before acceptance, lapse of the stated time, or death/incapacity of a party." },
+    { d:"con", f:"Earnest money", b:"A good-faith deposit showing the buyer's intent. It is NOT required for a contract to be valid — consideration can be the mutual promises." },
+    { d:"con", f:"Liquidated damages", b:"An amount the parties agreed to in advance as the remedy if the buyer defaults — usually the earnest money." },
+    { d:"con", f:"Specific performance", b:"A court order forcing the actual conveyance, available because every parcel of land is legally unique." },
+    { d:"con", f:"Assignment vs. novation", b:"Assignment transfers rights and duties, but the original party may remain secondarily liable. Novation substitutes a new party AND releases the original." },
+    { d:"con", f:"Equitable title", b:"The buyer's interest in the property after the contract is signed but before closing. Legal title stays with the seller until the deed is delivered." },
+    { d:"con", f:"Option contract", b:"The optionee buys the RIGHT to purchase within a set period. The optionor is bound; the optionee is not." },
+    { d:"con", f:"\"Time is of the essence\"", b:"Stated deadlines must be met exactly. There's no implied grace period, and missing one is a breach." },
+
+    /* ---- Financing ---- */
+    { d:"fin", f:"Mortgage vs. deed of trust", b:"Mortgage: two parties (mortgagor/mortgagee), usually judicial foreclosure. Deed of trust: three parties (trustor, trustee, beneficiary), non-judicial foreclosure.", n:"Texas uses the DEED OF TRUST — expect this on the state portion." },
+    { d:"fin", f:"Promissory note vs. security instrument", b:"The note is the promise to repay — the debt itself. The mortgage or deed of trust is what pledges the property as collateral." },
+    { d:"fin", f:"Hypothecation", b:"Pledging property as security for a debt WITHOUT giving up possession of it." },
+    { d:"fin", f:"Acceleration clause", b:"On default, the lender may declare the entire unpaid balance immediately due." },
+    { d:"fin", f:"Alienation (due-on-sale) clause", b:"The balance becomes due if the property is transferred. It blocks an unapproved loan assumption." },
+    { d:"fin", f:"Defeasance clause", b:"Requires the lender to release the lien and return title once the debt is fully paid." },
+    { d:"fin", f:"Subordination", b:"An existing lienholder agrees to move to a lower priority position so a new loan can take first place." },
+    { d:"fin", f:"Amortization", b:"Regular payments of principal and interest that reduce the balance to zero by the end of the term.", n:"Early payments are mostly interest; the principal portion grows over time." },
+    { d:"fin", f:"Discount point", b:"1% of the LOAN amount, paid up front to buy down the interest rate.", n:"Points are a percentage of the loan, never of the sale price." },
+    { d:"fin", f:"Loan-to-value (LTV)", b:"Loan amount ÷ the LESSER of sale price or appraised value." },
+    { d:"fin", f:"PMI", b:"Private mortgage insurance, required on conventional loans when LTV exceeds 80% — that is, less than 20% down." },
+    { d:"fin", f:"FHA vs. VA", b:"FHA loans are INSURED by the FHA, allow low down payments, and require MIP. VA loans are GUARANTEED for eligible veterans, allow no down payment, and require a Certificate of Eligibility." },
+    { d:"fin", f:"Primary vs. secondary mortgage market", b:"Primary: lenders originate loans directly to borrowers. Secondary: Fannie Mae, Freddie Mac, and Ginnie Mae buy those loans, giving lenders liquidity to lend again." },
+    { d:"fin", f:"Usury", b:"Charging interest above the maximum rate allowed by law." },
+    { d:"fin", f:"TILA / Regulation Z", b:"Requires disclosure of the APR and the total cost of credit. Gives a 3-business-day right of rescission on refinances of a principal residence — NOT on purchases." },
+    { d:"fin", f:"RESPA", b:"Bans kickbacks and unearned fees for referrals of settlement services. Loan Estimate within 3 business days of application; Closing Disclosure at least 3 business days before closing." },
+    { d:"fin", f:"ECOA", b:"Prohibits credit discrimination based on race, color, religion, national origin, sex, marital status, age, or receipt of public assistance." },
+    { d:"fin", f:"Equity", b:"Current market value minus everything owed against the property." },
+    { d:"fin", f:"Balloon payment", b:"A large lump sum due at maturity because the loan wasn't fully amortized over its term." },
+    { d:"fin", f:"Purchase-money mortgage", b:"Seller financing — the seller takes back a note for part or all of the purchase price." },
+
+    /* ---- Valuation ---- */
+    { d:"val", f:"Value vs. price vs. cost", b:"Value is what it's worth in the market. Price is what someone actually paid. Cost is what it took to build or acquire. All three can differ." },
+    { d:"val", f:"Four characteristics of value — DUST", b:"Demand, Utility, Scarcity, Transferability. All four must be present for something to have market value." },
+    { d:"val", f:"Sales comparison approach", b:"Compares recent similar sales. Best for single-family residential resale.", n:"You adjust the COMPARABLES, never the subject property." },
+    { d:"val", f:"The adjustment rule", b:"If the comparable is BETTER than the subject, SUBTRACT. If it's WORSE, ADD.", n:"\"CBS\": Comp Better, Subtract." },
+    { d:"val", f:"Cost approach", b:"Land value + replacement or reproduction cost − accrued depreciation. Best for new construction and special-purpose property like schools and churches." },
+    { d:"val", f:"Income approach", b:"Value = Net Operating Income ÷ capitalization rate. Best for income-producing property." },
+    { d:"val", f:"Net Operating Income (NOI)", b:"Gross income − vacancy/collection loss − operating expenses.", n:"NOI is calculated BEFORE debt service. Mortgage payments are never an operating expense." },
+    { d:"val", f:"Physical deterioration", b:"Wear and tear on the improvements. May be curable (deferred maintenance) or incurable." },
+    { d:"val", f:"Functional obsolescence", b:"Loss in value from outdated design or layout INSIDE the property — a bad floor plan, one bathroom, obsolete fixtures." },
+    { d:"val", f:"External obsolescence", b:"Loss in value caused by something OUTSIDE the property line — a new landfill, highway noise, a declining neighborhood.", n:"Always incurable by the owner, because they can't fix what's off their property." },
+    { d:"val", f:"Progression vs. regression", b:"Progression: a modest home gains value surrounded by better ones. Regression: the best home on the block loses value surrounded by lesser ones." },
+    { d:"val", f:"Principle of substitution", b:"A buyer won't pay more than the cost of an equally desirable substitute. This is the foundation of the sales comparison approach." },
+    { d:"val", f:"Principle of contribution", b:"A component is worth what it ADDS to the whole property's value — not what it cost to install. A $60,000 pool may add $20,000." },
+    { d:"val", f:"Highest and best use", b:"The use that is legally permissible, physically possible, financially feasible, and maximally productive.", n:"All four must be satisfied — and it's often not the current use." },
+    { d:"val", f:"Assemblage vs. plottage", b:"Assemblage is the ACT of combining adjoining parcels. Plottage is the resulting INCREASE in value." },
+    { d:"val", f:"Reconciliation", b:"Weighing the value indications from the approaches to reach one final opinion.", n:"Never a simple average — the appraiser weights the most reliable approach." },
+    { d:"val", f:"CMA vs. appraisal vs. BPO", b:"A CMA is an agent's informal pricing opinion. An appraisal is a licensed appraiser's formal opinion of value. A BPO is a broker's price opinion, often for lenders." },
+
+    /* ---- Fair Housing & Practice ---- */
+    { d:"fai", f:"The 7 federal protected classes", b:"Race, color, religion, national origin, sex, familial status, and disability." },
+    { d:"fai", f:"Civil Rights Act of 1866", b:"Prohibits ALL racial discrimination in the sale or rental of property, with NO exemptions whatsoever." },
+    { d:"fai", f:"Steering", b:"Directing buyers toward or away from particular neighborhoods based on a protected class." },
+    { d:"fai", f:"Blockbusting", b:"Inducing owners to sell by suggesting that people of a protected class are moving into the neighborhood. Also called panic peddling." },
+    { d:"fai", f:"Redlining", b:"A lender refusing to make loans or offer services in an area based on its demographic makeup." },
+    { d:"fai", f:"Reasonable accommodation vs. modification", b:"Accommodation: a change in RULES or policies (allowing a service animal despite a no-pet policy) — landlord's cost. Modification: a PHYSICAL change (a ramp) — usually at the tenant's expense." },
+    { d:"fai", f:"Service and assistance animals", b:"Not pets. No pet deposits or pet fees may be charged, and no-pet policies must be waived as a reasonable accommodation." },
+    { d:"fai", f:"Discriminatory advertising", b:"No ad may state a preference or limitation based on a protected class — even if the owner would otherwise be exempt from the Fair Housing Act." },
+    { d:"fai", f:"The four antitrust violations", b:"Price fixing, market allocation, group boycotts, and tying arrangements. All are per se violations — intent and disclosure don't matter." },
+    { d:"fai", f:"Who sets commission rates?", b:"Nobody but the broker and their client. Rates are always negotiable — never set by an MLS, board, or law." },
+    { d:"fai", f:"Commingling vs. conversion", b:"Commingling: mixing client trust funds with the broker's own money. Conversion: actually using those funds. Both are serious license violations." },
+    { d:"fai", f:"Blind advertisement", b:"An ad that fails to identify the sponsoring brokerage. Prohibited — the public must know who they're dealing with." },
+    { d:"fai", f:"Stigmatized property", b:"Property affected by events rather than physical condition — a death, crime, or reputation.", n:"Texas: no duty to disclose a death by natural causes, suicide, or accident unrelated to the property, or that an occupant had HIV/AIDS." },
+
+    /* ---- Title & Closing ---- */
+    { d:"ttl", f:"General warranty deed", b:"The greatest protection for the grantee. Warrants against all title defects, including those arising before the grantor owned the property." },
+    { d:"ttl", f:"Special warranty deed", b:"Warrants only against defects that arose DURING the grantor's ownership — nothing before it." },
+    { d:"ttl", f:"Quitclaim deed", b:"Conveys whatever interest the grantor may have, with NO warranties. Commonly used to clear a cloud on title." },
+    { d:"ttl", f:"Requirements of a valid deed", b:"In writing, competent grantor, identifiable grantee, consideration, legal description, granting clause, grantor's signature, and delivery + acceptance." },
+    { d:"ttl", f:"What actually transfers title?", b:"DELIVERY and ACCEPTANCE of the deed.", n:"Not signing, not notarizing, and not recording — recording only gives notice." },
+    { d:"ttl", f:"Constructive vs. actual notice", b:"Constructive: the world is presumed to know because it's recorded. Actual: you genuinely know because you were told or saw it." },
+    { d:"ttl", f:"Title insurance", b:"Protects against title defects that existed BEFORE the policy date. Owner's policy protects the buyer; lender's policy protects the lender." },
+    { d:"ttl", f:"Cloud on title", b:"Any claim, encumbrance, or unreleased document that impairs marketable title until it's cleared." },
+    { d:"ttl", f:"Chain of title vs. abstract of title", b:"Chain of title: the succession of owners. Abstract: a summary of all recorded documents affecting the property." },
+    { d:"ttl", f:"Debit vs. credit at closing", b:"A debit is a charge to that party. A credit is money in their favor." },
+    { d:"ttl", f:"Proration of taxes paid in arrears", b:"The seller owes for the days they owned the property, so the seller is DEBITED and the buyer is CREDITED at closing." },
+    { d:"ttl", f:"Intestate vs. testate", b:"Testate: died with a valid will. Intestate: died without one, so state succession laws determine the heirs." },
+    { d:"ttl", f:"Probate", b:"The court process that validates a will, settles debts, and distributes the estate." },
+
+    /* ---- TX: TREC & Licensing ---- */
+    { d:"txl", f:"TRELA — what and where", b:"The Texas Real Estate License Act, codified as Chapter 1101 of the Texas Occupations Code. TREC's own rules live in Title 22 of the Texas Administrative Code." },
+    { d:"txl", f:"TREC composition", b:"Nine members appointed by the Governor with Senate consent: six licensed brokers and three members of the public who aren't in real estate." },
+    { d:"txl", f:"TALCB", b:"The Texas Appraiser Licensing and Certification Board — an independent subdivision of TREC that regulates appraisers." },
+    { d:"txl", f:"Sales agent education requirement", b:"180 hours of qualifying education (six 30-hour courses), a passing exam score, and a sponsoring broker to go active." },
+    { d:"txl", f:"First renewal — SAE", b:"90 hours of Sales Agent Apprentice Education must be completed before a sales agent's first renewal." },
+    { d:"txl", f:"Continuing education", b:"18 hours every two-year renewal period, including the 4-hour Legal Update I and 4-hour Legal Update II courses." },
+    { d:"txl", f:"Broker requirements", b:"270 hours of qualifying education plus four years of active experience as a license holder within the past five years." },
+    { d:"txl", f:"Who may pay a sales agent?", b:"ONLY their sponsoring broker. Never a client, another broker, or the title company directly." },
+    { d:"txl", f:"Inactive license", b:"With no sponsoring broker, a sales agent's license is inactive and no brokerage activity may be performed at all." },
+    { d:"txl", f:"Real Estate Recovery Trust Account", b:"Reimburses consumers for certain actual damages caused by a license holder's fraud or dishonesty when a court judgment against that licensee can't be collected." },
+    { d:"txl", f:"Record retention", b:"A Texas broker must keep transaction records for four years." },
+    { d:"txl", f:"Unlicensed activity consequence", b:"Beyond penalties, an unlicensed person cannot sue in Texas courts to collect a commission." },
+
+    /* ---- TX: Agency & Intermediary ---- */
+    { d:"txa", f:"Does Texas allow dual agency?", b:"No — not under that name. Texas uses INTERMEDIARY status instead.", n:"If an answer choice says \"dual agent\" on a Texas question, it's almost certainly wrong." },
+    { d:"txa", f:"Intermediary requirements", b:"Written consent from BOTH parties, obtained before the representation begins, stating the source of any expected compensation." },
+    { d:"txa", f:"Intermediary appointments", b:"The broker may appoint different associated license holders to work with and advise each party — but only with written consent from both." },
+    { d:"txa", f:"What an intermediary may NOT do", b:"May not disclose that a party will accept a price different from the one submitted in writing without written authorization, and may not treat one party more favorably." },
+    { d:"txa", f:"IABS — when is it delivered?", b:"The Information About Brokerage Services notice is given at the FIRST substantive communication about a specific property. It must also appear on a license holder's website." },
+    { d:"txa", f:"Who is the agent in Texas?", b:"The BROKER is always the agent. Sales agents act on the broker's behalf and under the broker's supervision." },
+    { d:"txa", f:"License holder buying or selling personally", b:"Must disclose in writing that they hold a real estate license when buying or selling for their own account." },
+
+    /* ---- TX: Contracts & Forms ---- */
+    { d:"txc", f:"Promulgated contract forms", b:"TREC promulgates the forms license holders must use. You fill in blanks only — drafting your own contract language is the unauthorized practice of law." },
+    { d:"txc", f:"The option fee", b:"Buys the buyer an UNRESTRICTED right to terminate the contract for any reason during the negotiated option period.", n:"Deliver it within 3 days of the effective date." },
+    { d:"txc", f:"Earnest money in Texas", b:"Delivered to the escrow agent named in the contract — usually the title company — within 3 days of the effective date." },
+    { d:"txc", f:"The effective date", b:"The date final acceptance is communicated back to the other party. Every contract deadline is counted from it.", n:"This is a heavily tested detail — deadlines don't run from the signature date." },
+    { d:"txc", f:"Which TREC contract form?", b:"1–4 Family Residential (Resale) for resale homes; New Home Contract for builder sales; Farm and Ranch for agricultural land; Unimproved Property for vacant lots; Residential Condominium for condos." },
+    { d:"txc", f:"Seller's Disclosure Notice", b:"Required by Texas Property Code §5.008 for most single-unit residential resales. Exemptions include foreclosure sales, estates, and certain transfers between relatives or spouses." },
+    { d:"txc", f:"MUD notice", b:"Required when the property sits in a Municipal Utility District, because the district levies taxes and carries bonded debt for water and sewer infrastructure." },
+    { d:"txc", f:"Texas title insurance rates", b:"Promulgated by the Texas Department of Insurance — the basic premium is identical at every title company, so shop on service, not price." },
+    { d:"txc", f:"Third Party Financing Addendum", b:"Makes the contract contingent on the buyer obtaining financing approval, and sets the deadline for that approval." },
+
+    /* ---- TX: Property Law ---- */
+    { d:"txp", f:"What homestead protection does", b:"Exempts the homestead from forced sale by most general, unsecured creditors." },
+    { d:"txp", f:"What homestead does NOT protect against", b:"Property taxes, purchase-money loans, home improvement (mechanic's) liens, home equity loans, and federal tax liens.", n:"This exception list is a classic exam question." },
+    { d:"txp", f:"Urban homestead size", b:"Up to 10 acres." },
+    { d:"txp", f:"Rural homestead size", b:"Up to 100 acres for a single adult, or 200 acres for a family." },
+    { d:"txp", f:"Conveying a Texas homestead", b:"BOTH spouses must join in the conveyance or mortgage, even if only one spouse's name appears on the title." },
+    { d:"txp", f:"Community property presumption", b:"Property acquired by either spouse during the marriage is presumed to be community property." },
+    { d:"txp", f:"Separate property in Texas", b:"Property owned before the marriage, or acquired during it by gift, devise, or descent (inheritance)." },
+    { d:"txp", f:"Texas groundwater — rule of capture", b:"A landowner may generally pump groundwater beneath their land with limited liability to neighbors, subject to groundwater conservation district rules." },
+    { d:"txp", f:"Texas surface water", b:"Owned by the state. Using it generally requires a permit — it's not the landowner's to take freely.", n:"Groundwater = rule of capture. Surface water = state-owned and permitted." },
+    { d:"txp", f:"The mineral estate in Texas", b:"When severed from the surface, the mineral estate is DOMINANT — it carries an implied right to use as much of the surface as reasonably necessary to produce the minerals." },
+    { d:"txp", f:"Texas transfer tax", b:"There is none. Texas imposes no state real property transfer tax and no state income tax — only recording fees." },
+
+    /* ---- TX: Foreclosure & Finance ---- */
+    { d:"txf", f:"How Texas forecloses", b:"Non-judicially, through a trustee's sale under a deed of trust containing a power of sale. No court proceeding is required." },
+    { d:"txf", f:"Foreclosure sale day and time", b:"The first Tuesday of the month, between 10 a.m. and 4 p.m., at the county courthouse." },
+    { d:"txf", f:"Notice of foreclosure sale", b:"At least 21 days before the sale, the notice must be posted at the courthouse, filed with the county clerk, and mailed to the debtor." },
+    { d:"txf", f:"Home equity lending cap", b:"All liens against a Texas homestead combined generally may not exceed 80% of its fair market value." },
+    { d:"txf", f:"Tax sale redemption periods", b:"Two years for homestead, agricultural, and mineral property. 180 days for other property." },
+    { d:"txf", f:"Texas property tax calendar", b:"Value is assessed January 1, bills are due by January 31 of the following year, and taxes become delinquent February 1." },
+    { d:"txf", f:"Security deposit refund", b:"Within 30 days after the tenant surrenders the premises and gives a forwarding address." },
+    { d:"txf", f:"Re-keying rental property", b:"The landlord must re-key or change security devices within 7 days after a new tenant takes possession." },
+
+    /* ---- Math ---- */
+    { d:"mth", f:"Commission calculation", b:"Sale price × commission rate = total commission. Then apply the brokerage split, then the agent's split of that.", n:"Work it in order and don't stop at the total — the question usually wants the agent's take." },
+    { d:"mth", f:"Seller's net formula", b:"Sale price = Net needed ÷ (100% − commission rate).", n:"Never multiply the net by the rate — that's the trap answer." },
+    { d:"mth", f:"Percent of profit", b:"Profit ÷ ORIGINAL cost. Divide by what they paid, not what they sold it for." },
+    { d:"mth", f:"Loan-to-value", b:"Loan ÷ the lesser of sale price or appraised value. Down payment = value − loan." },
+    { d:"mth", f:"Discount points", b:"1 point = 1% of the LOAN amount. Points × loan × 0.01 = cost." },
+    { d:"mth", f:"Simple interest", b:"Interest = Principal × Rate × Time. One month's interest = (balance × annual rate) ÷ 12." },
+    { d:"mth", f:"Capitalization", b:"Value = NOI ÷ cap rate. Cap rate = NOI ÷ value. NOI = value × cap rate." },
+    { d:"mth", f:"Gross rent multiplier", b:"GRM = Price ÷ gross rent. Multiply a comparable's GRM by the subject's rent to estimate value." },
+    { d:"mth", f:"Area conversions", b:"1 acre = 43,560 sq ft. 1 mile = 5,280 ft. 1 section = 640 acres = 1 sq mile. 1 township = 36 sections." },
+    { d:"mth", f:"Proration", b:"Annual amount ÷ 365 (or 360 for a banker's year) = daily rate. Daily rate × days owned = that party's share." },
+    { d:"mth", f:"Mill rate", b:"1 mill = $1 per $1,000 of assessed value = 0.001. Taxes = assessed value × mills ÷ 1,000." },
+    { d:"mth", f:"The T-method", b:"Total on top, the two parts below. Part = Total × Rate. Rate = Part ÷ Total. Total = Part ÷ Rate.", n:"Cover the value you want and the T shows you the operation." }
+  ];
+
+  /* ==================================================================
+     CONFUSION PAIRS
+     ================================================================== */
+
+  var CONFUSIONS = [
+    { title:"The three fair housing violations", items:[
+      { t:"Steering", d:"Directing buyers TOWARD or AWAY FROM neighborhoods based on a protected class." },
+      { t:"Blockbusting", d:"Scaring owners into SELLING by claiming a protected class is moving in." },
+      { t:"Redlining", d:"A LENDER refusing loans or services in an area based on its demographics." }
+    ]},
+    { title:"Value influenced by the neighbors", items:[
+      { t:"Progression", d:"A LESSER home GAINS value from better surrounding homes." },
+      { t:"Regression", d:"A BETTER home LOSES value from lesser surrounding homes." }
+    ]},
+    { title:"Combining parcels", items:[
+      { t:"Assemblage", d:"The ACT of combining adjoining parcels into one." },
+      { t:"Plottage", d:"The INCREASE IN VALUE that results from doing it." }
+    ]},
+    { title:"Contract validity", items:[
+      { t:"Void", d:"Never had legal effect — illegal purpose, no capacity at all." },
+      { t:"Voidable", d:"Valid until the injured party chooses to rescind — minor, fraud, duress." },
+      { t:"Unenforceable", d:"Valid on its face, but a court won't enforce it — not in writing." }
+    ]},
+    { title:"Loan clauses that make money due", items:[
+      { t:"Acceleration", d:"Triggered by DEFAULT — the whole balance becomes due." },
+      { t:"Alienation (due-on-sale)", d:"Triggered by TRANSFER of the property." }
+    ]},
+    { title:"Substituting parties", items:[
+      { t:"Assignment", d:"Transfers rights and duties. The original party may STAY liable." },
+      { t:"Novation", d:"Substitutes a new party AND RELEASES the original one." }
+    ]},
+    { title:"Rights to use someone's land", items:[
+      { t:"Easement", d:"A legal RIGHT to use part of another's land. Runs with the land if appurtenant." },
+      { t:"License", d:"Revocable PERMISSION. Not an interest in real property." },
+      { t:"Encroachment", d:"An UNAUTHORIZED physical intrusion — the fence over the line." }
+    ]},
+    { title:"Water rights", items:[
+      { t:"Riparian", d:"FLOWING water — rivers and streams." },
+      { t:"Littoral", d:"STATIC water — lakes, oceans, seas." }
+    ]},
+    { title:"Attached and unattached property", items:[
+      { t:"Fixture", d:"Personal property permanently attached — becomes REAL property and conveys." },
+      { t:"Trade fixture", d:"A commercial TENANT's business equipment — tenant removes it." },
+      { t:"Emblements", d:"A tenant's annual CROPS — tenant may return to harvest." }
+    ]},
+    { title:"Co-ownership", items:[
+      { t:"Tenancy in common", d:"Unequal shares allowed. NO survivorship — passes to heirs." },
+      { t:"Joint tenancy", d:"Four unities required. WITH survivorship — passes to co-owners." }
+    ]},
+    { title:"Levels of agent authority", items:[
+      { t:"Special agent", d:"ONE transaction, narrow authority — a listing agent." },
+      { t:"General agent", d:"ONGOING authority over a range of matters — a property manager." },
+      { t:"Universal agent", d:"ALL matters — a power of attorney." }
+    ]},
+    { title:"The three appraisal approaches", items:[
+      { t:"Sales comparison", d:"Residential RESALE. Adjust the comps, not the subject." },
+      { t:"Cost", d:"NEW or SPECIAL-PURPOSE — churches, schools, libraries." },
+      { t:"Income", d:"INCOME-PRODUCING property. Value = NOI ÷ cap rate." }
+    ]},
+    { title:"Types of depreciation", items:[
+      { t:"Physical", d:"Wear and tear. Curable or incurable." },
+      { t:"Functional", d:"Bad design INSIDE the property — outdated layout or fixtures." },
+      { t:"External", d:"Caused OUTSIDE the property line. Always incurable by the owner." }
+    ]},
+    { title:"Zoning relief", items:[
+      { t:"Variance", d:"Permission to DEVIATE from a rule due to hardship." },
+      { t:"Nonconforming use", d:"Was legal BEFORE the zoning changed — grandfathered." },
+      { t:"Special use permit", d:"An otherwise-allowed use needing specific APPROVAL — a church in a residential zone." }
+    ]},
+    { title:"Government powers over property", items:[
+      { t:"Police power", d:"REGULATE use. No compensation — zoning, codes." },
+      { t:"Eminent domain", d:"TAKE for public use WITH just compensation." },
+      { t:"Escheat", d:"To the STATE when there's no will and no heirs." }
+    ]},
+    { title:"Texas agency — the big one", items:[
+      { t:"Dual agency", d:"The term used in other states. NOT used in Texas." },
+      { t:"Intermediary", d:"Texas's version. Requires WRITTEN consent from both parties, and appointments require written consent too." }
+    ]},
+    { title:"Texas water", items:[
+      { t:"Groundwater", d:"RULE OF CAPTURE — pump it with limited liability, subject to district rules." },
+      { t:"Surface water", d:"Owned by the STATE — requires a permit." }
+    ]},
+    { title:"Security instruments", items:[
+      { t:"Mortgage", d:"Two parties. Usually JUDICIAL foreclosure." },
+      { t:"Deed of trust", d:"Three parties, power of sale, NON-JUDICIAL foreclosure. This is what TEXAS uses." }
+    ]}
+  ];
+
+  /* ==================================================================
+     MATH FORMULAS
+     ================================================================== */
+
+  var FORMULAS = [
+    { t:"Commission", eq:"Sale price × rate = total commission", ex:"A $425,000 sale at 6% = <b>$25,500</b>. Split 50/50 between brokerages = $12,750 each. The agent's 60% of their brokerage's share = <b>$7,650</b>." },
+    { t:"Seller's net", eq:"Price = Net ÷ (100% − commission rate)", ex:"Seller must net $200,000 after a 5% commission: $200,000 ÷ 0.95 = <b>$210,526</b>. Multiplying by 5% instead gives $210,000 — the wrong answer they'll offer you." },
+    { t:"Percent of profit", eq:"Profit ÷ original cost", ex:"Bought at $180,000, sold at $216,000. Profit is $36,000. $36,000 ÷ $180,000 = <b>20%</b>. Dividing by the sale price gives 16.7% — the trap." },
+    { t:"Loan-to-value and down payment", eq:"LTV = loan ÷ value · Down payment = value − loan", ex:"$360,000 home at 80% LTV: loan = $288,000, down payment = <b>$72,000</b>." },
+    { t:"Discount points", eq:"1 point = 1% of the loan", ex:"2 points on a $240,000 loan = 2% × $240,000 = <b>$4,800</b>." },
+    { t:"Monthly interest", eq:"(Balance × annual rate) ÷ 12", ex:"$250,000 at 6%: $15,000 per year ÷ 12 = <b>$1,250</b> for the first month." },
+    { t:"Capitalization", eq:"Value = NOI ÷ cap rate", ex:"$36,000 NOI at a 9% cap rate = $36,000 ÷ 0.09 = <b>$400,000</b>. Remember NOI excludes debt service." },
+    { t:"Gross rent multiplier", eq:"GRM = price ÷ gross rent", ex:"A comp sold for $240,000 with $2,000 monthly rent: GRM = 120. Subject rents for $2,200 → 120 × $2,200 = <b>$264,000</b>." },
+    { t:"Area and acreage", eq:"1 acre = 43,560 sq ft", ex:"250 ft × 174.24 ft = 43,560 sq ft = exactly <b>1 acre</b>. A 120 × 90 lot = <b>10,800 sq ft</b>." },
+    { t:"Proration", eq:"Annual ÷ 365 (or 360) × days", ex:"$4,380 in annual taxes ÷ 365 = $12/day. At 120 days into the year, the seller owes <b>$1,440</b>." },
+    { t:"Property taxes with mills", eq:"Assessed value × mills ÷ 1,000", ex:"$180,000 assessed at 25 mills = $180,000 × 25 ÷ 1,000 = <b>$4,500</b>. Same as 2.5%." },
+    { t:"Transfer/percentage problems", eq:"Part = Total × Rate", ex:"Closing costs of $8,400 on a $280,000 purchase: $8,400 ÷ $280,000 = <b>3%</b>." }
+  ];
+
+  /* ==================================================================
+     STUDY PLAN
+     ================================================================== */
+
+  var PLAN = [
+    { when:"Right now — first session", t:"Find your weak spots, don't review what you know", items:[
+      "Run the Flashcards tab straight through on <strong>All decks</strong>. Be honest with the ratings — cards you mark \"Got it\" disappear, so over-rating only cheats you.",
+      "Anything you rate \"Missed\" comes back first. Two or three passes through the Texas decks is worth more than one pass through everything.",
+      "Take a full practice exam in the simulator to see where you actually stand and which content areas score below 70%."
+    ]},
+    { when:"Tomorrow — the heavy day", t:"Texas law and math, in that order", items:[
+      "The state portion has the fewest questions but the highest failure rate, because it's pure memorization. Drill the four TX decks until they're automatic.",
+      "Work every formula on the Math tab by hand, once, on paper. Math is the most reliably winnable category on the exam.",
+      "Read the <strong>Easy to Confuse</strong> tab twice. Those pairs are where most lost points actually come from.",
+      "Take a second practice exam. Compare content-area scores to yesterday's."
+    ]},
+    { when:"Tuesday night — the night before", t:"Taper, don't cram", items:[
+      "One pass through the <strong>Numbers to Memorize</strong> tab. Nothing new after this point — new material the night before only shakes your confidence.",
+      "Lay out your ID, confirm your test center address and report time, and set two alarms.",
+      "Sleep. A rested brain outperforms an extra two hours of review, and this exam rewards careful reading more than recall."
+    ]},
+    { when:"Wednesday morning", t:"Before you walk in", items:[
+      "Skim the Numbers tab one final time — acreage limits, the 21-day notice, first Tuesday, 180/90/18 hours, the 80% caps.",
+      "Eat something. The national and state portions together run about four hours.",
+      "Arrive early. Bring valid government-issued photo ID matching your registration exactly."
+    ]},
+    { when:"During the exam", t:"How to actually take it", items:[
+      "<strong>Read the last line of the question first</strong> when the stem is long — it tells you what's actually being asked.",
+      "<strong>Circle EXCEPT, NOT, LEAST, and MOST</strong> in your head. Missing a negative word is the single most common careless error.",
+      "<strong>Eliminate two answers</strong> before choosing. Absolutes like \"always,\" \"never,\" and \"all\" are usually wrong.",
+      "<strong>Flag and move on.</strong> Never burn four minutes on one question — there are no bonus points for hard ones, and the clock is the real opponent.",
+      "<strong>On Texas questions, if an answer says \"dual agency,\" it's almost certainly wrong.</strong> Texas uses intermediary.",
+      "<strong>Answer every single question.</strong> There's no penalty for guessing, and a blank is a guaranteed zero.",
+      "<strong>Don't second-guess.</strong> Change an answer only if you find a concrete reason — your first instinct is right more often than not."
+    ]}
+  ];
+
+  /* ==================================================================
+     RENDERING — static tabs
+     ================================================================== */
+
+  function el(tag, cls, html){
+    var n = document.createElement(tag);
+    if (cls) n.className = cls;
+    if (html !== undefined) n.innerHTML = html;
+    return n;
+  }
+
+  (function renderConfusions(){
+    var host = document.getElementById("confuse-list");
+    CONFUSIONS.forEach(function(c){
+      var box = el("div", "pair");
+      box.appendChild(el("h4", null, c.title));
+      var grid = el("div", "pair-grid" + (c.items.length === 3 ? " three" : ""));
+      c.items.forEach(function(it){
+        var item = el("div", "pair-item");
+        item.appendChild(el("strong", null, it.t));
+        item.appendChild(el("span", null, it.d));
+        grid.appendChild(item);
+      });
+      box.appendChild(grid);
+      host.appendChild(box);
+    });
+  })();
+
+  (function renderFormulas(){
+    var host = document.getElementById("math-list");
+    FORMULAS.forEach(function(f){
+      var box = el("div", "formula");
+      box.appendChild(el("h4", null, f.t));
+      box.appendChild(el("div", "eq", f.eq));
+      box.appendChild(el("p", "ex", f.ex));
+      host.appendChild(box);
+    });
+  })();
+
+  (function renderPlan(){
+    var host = document.getElementById("plan-list");
+    PLAN.forEach(function(p){
+      var box = el("div", "plan-block");
+      box.appendChild(el("div", "plan-when", p.when));
+      box.appendChild(el("h4", null, p.t));
+      var ul = el("ul");
+      p.items.forEach(function(i){ ul.appendChild(el("li", null, i)); });
+      box.appendChild(ul);
+      host.appendChild(box);
+    });
+  })();
+
+  /* ==================================================================
+     TABS + THEME
+     ================================================================== */
+
+  document.getElementById("tabs").addEventListener("click", function(ev){
+    var btn = ev.target.closest(".tab");
+    if (!btn) return;
+    var view = btn.getAttribute("data-view");
+    Array.prototype.forEach.call(document.querySelectorAll(".tab"), function(t){
+      t.classList.toggle("on", t === btn);
+    });
+    Array.prototype.forEach.call(document.querySelectorAll(".view"), function(v){
+      v.classList.toggle("on", v.id === "view-" + view);
+    });
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+
+  var themeBtn = document.getElementById("theme-btn");
+  function currentlyDark(){
+    var stamp = document.documentElement.getAttribute("data-theme");
+    if (stamp) return stamp === "dark";
+    return window.matchMedia("(prefers-color-scheme: dark)").matches;
+  }
+  function syncThemeBtn(){
+    themeBtn.textContent = currentlyDark() ? "Light mode" : "Dark mode";
+  }
+  themeBtn.addEventListener("click", function(){
+    document.documentElement.setAttribute("data-theme", currentlyDark() ? "light" : "dark");
+    try { localStorage.setItem("txck_theme", document.documentElement.getAttribute("data-theme")); } catch (e) {}
+    syncThemeBtn();
+  });
+  try {
+    var savedTheme = localStorage.getItem("txck_theme");
+    if (savedTheme) document.documentElement.setAttribute("data-theme", savedTheme);
+  } catch (e) {}
+  syncThemeBtn();
+
+  /* ==================================================================
+     FLASHCARD ENGINE (Leitner, 3 boxes)
+     ================================================================== */
+
+  var STORE_KEY = "txck_progress_v1";
+  var progress = loadProgress();
+  var filter = "all";           // all | national | texas | math | <deckId>
+  var queue = [];
+  var currentCard = null;
+  var revealed = false;
+
+  function cardId(c){
+    // stable id from deck + front text
+    var s = c.d + "|" + c.f;
+    var h = 0;
+    for (var i = 0; i < s.length; i++){
+      h = ((h << 5) - h) + s.charCodeAt(i);
+      h |= 0;
+    }
+    return c.d + "_" + Math.abs(h).toString(36);
+  }
+
+  CARDS.forEach(function(c){ c.id = cardId(c); });
+
+  function loadProgress(){
+    try {
+      var raw = localStorage.getItem(STORE_KEY);
+      return raw ? JSON.parse(raw) : {};
+    } catch (e) { return {}; }
+  }
+  function saveProgress(){
+    try { localStorage.setItem(STORE_KEY, JSON.stringify(progress)); } catch (e) {}
+  }
+
+  function boxOf(c){ return progress[c.id] || 1; }
+
+  function selectedCards(){
+    return CARDS.filter(function(c){
+      if (filter === "all") return true;
+      var deck = DECKS.find(function(d){ return d.id === c.d; });
+      if (filter === "national" || filter === "texas" || filter === "math"){
+        return deck && deck.group === filter;
+      }
+      return c.d === filter;
+    });
+  }
+
+  function shuffle(a){
+    var arr = a.slice();
+    for (var i = arr.length - 1; i > 0; i--){
+      var j = Math.floor(Math.random() * (i + 1));
+      var t = arr[i]; arr[i] = arr[j]; arr[j] = t;
+    }
+    return arr;
+  }
+
+  function buildQueue(){
+    var pool = selectedCards().filter(function(c){ return boxOf(c) < 3; });
+    // box 1 first, then box 2 — shuffled within each box
+    var b1 = shuffle(pool.filter(function(c){ return boxOf(c) === 1; }));
+    var b2 = shuffle(pool.filter(function(c){ return boxOf(c) === 2; }));
+    queue = b1.concat(b2);
+  }
+
+  function renderDeckControls(){
+    var host = document.getElementById("deck-controls");
+    host.innerHTML = "";
+    var groups = [
+      { id:"all", label:"All decks" },
+      { id:"national", label:"National only" },
+      { id:"texas", label:"Texas only" },
+      { id:"math", label:"Math only" }
+    ];
+    groups.concat(DECKS.map(function(d){ return { id:d.id, label:d.label }; })).forEach(function(g){
+      var b = el("button", "chip" + (filter === g.id ? " on" : ""), g.label);
+      b.type = "button";
+      b.addEventListener("click", function(){
+        filter = g.id;
+        renderDeckControls();
+        buildQueue();
+        nextCard();
+      });
+      host.appendChild(b);
+    });
+  }
+
+  function updateStats(){
+    var sel = selectedCards();
+    var b1 = 0, b2 = 0, b3 = 0;
+    sel.forEach(function(c){
+      var b = boxOf(c);
+      if (b === 1) b1++; else if (b === 2) b2++; else b3++;
+    });
+    document.getElementById("c1").textContent = "Learning " + b1;
+    document.getElementById("c2").textContent = "Familiar " + b2;
+    document.getElementById("c3").textContent = "Known " + b3;
+    var pct = sel.length ? Math.round(b3 / sel.length * 100) : 0;
+    document.getElementById("pbar-fill").style.width = pct + "%";
+    document.getElementById("queue-label").textContent =
+      queue.length + " card" + (queue.length === 1 ? "" : "s") + " left · " + pct + "% known";
+  }
+
+  function nextCard(){
+    revealed = false;
+    if (!queue.length) buildQueue();
+
+    if (!queue.length){
+      document.getElementById("card-area").hidden = true;
+      document.getElementById("done-panel").hidden = false;
+      var sel = selectedCards();
+      document.getElementById("done-text").textContent =
+        "You've marked all " + sel.length + " cards in this selection as known. Switch decks above, or run it again to keep the material fresh.";
+      updateStats();
+      return;
+    }
+
+    document.getElementById("card-area").hidden = false;
+    document.getElementById("done-panel").hidden = true;
+
+    currentCard = queue[0];
+    var deck = DECKS.find(function(d){ return d.id === currentCard.d; });
+    document.getElementById("card-deck").textContent = deck ? deck.label : "";
+    var b = boxOf(currentCard);
+    document.getElementById("card-box").textContent = b === 1 ? "Learning" : (b === 2 ? "Familiar" : "Known");
+    document.getElementById("card-front").textContent = currentCard.f;
+    document.getElementById("card-answer").textContent = currentCard.b;
+
+    var trap = document.getElementById("card-trap");
+    if (currentCard.n){
+      trap.innerHTML = "<b>Watch out:</b> " + currentCard.n;
+      trap.hidden = false;
+    } else {
+      trap.hidden = true;
+    }
+
+    document.getElementById("card-back").hidden = true;
+    document.getElementById("rating-row").hidden = true;
+    document.getElementById("flip-hint").hidden = false;
+    updateStats();
+  }
+
+  function reveal(){
+    if (revealed || !currentCard) return;
+    revealed = true;
+    document.getElementById("card-back").hidden = false;
+    document.getElementById("rating-row").hidden = false;
+    document.getElementById("flip-hint").hidden = true;
+  }
+
+  function rate(level){
+    if (!currentCard) return;
+    if (!revealed){ reveal(); return; }
+    progress[currentCard.id] = level;   // 1 = miss, 2 = almost, 3 = known
+    saveProgress();
+    queue.shift();
+    if (level === 1) queue.splice(Math.min(4, queue.length), 0, currentCard);
+    else if (level === 2) queue.push(currentCard);
+    nextCard();
+  }
+
+  document.getElementById("flashcard").addEventListener("click", reveal);
+
+  document.getElementById("rating-row").addEventListener("click", function(ev){
+    var b = ev.target.closest(".rate");
+    if (b) rate(parseInt(b.getAttribute("data-rate"), 10));
+  });
+
+  document.getElementById("btn-skip").addEventListener("click", function(){
+    if (!queue.length) return;
+    var c = queue.shift();
+    queue.push(c);
+    nextCard();
+  });
+
+  document.getElementById("btn-reset").addEventListener("click", function(){
+    selectedCards().forEach(function(c){ delete progress[c.id]; });
+    saveProgress();
+    buildQueue();
+    nextCard();
+  });
+
+  document.getElementById("btn-again").addEventListener("click", function(){
+    selectedCards().forEach(function(c){ progress[c.id] = 1; });
+    saveProgress();
+    buildQueue();
+    nextCard();
+  });
+
+  document.addEventListener("keydown", function(ev){
+    if (!document.getElementById("view-cards").classList.contains("on")) return;
+    if (ev.target.tagName === "INPUT" || ev.target.tagName === "TEXTAREA") return;
+    if (ev.code === "Space" || ev.key === "Enter"){
+      ev.preventDefault();
+      reveal();
+    } else if (ev.key === "1" || ev.key === "2" || ev.key === "3"){
+      rate(parseInt(ev.key, 10));
+    }
+  });
+
+  renderDeckControls();
+  buildQueue();
+  nextCard();
+
+})();
+</script>
+
+</body>
+</html>
