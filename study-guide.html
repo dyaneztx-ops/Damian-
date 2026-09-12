@@ -1,0 +1,1048 @@
+<title>Hormones, Blood &amp; Heart</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=IBM+Plex+Mono:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap">
+<style>
+:root{
+  --ground:#EEF0F2; --surface:#FFFFFF; --surface-2:#E5E9EC; --sunk:#DFE4E8;
+  --ink:#15191C; --ink-2:#49555D; --ink-3:#7A878F;
+  --rule:#D2D9DE; --rule-strong:#B6C0C7;
+  --ch13:#9C6412; --ch14:#9C2434; --ch15:#1B5C70;
+  --ch13-soft:#F2E3CA; --ch14-soft:#F4D8DB; --ch15-soft:#D3E5EB;
+  --accent:#3A4750; --accent-soft:#DDE3E7;
+  --good:#2F6B4F; --warn:#8A5A12;
+  --shadow:0 1px 2px rgba(20,30,38,.06), 0 8px 24px -12px rgba(20,30,38,.22);
+  --sans:"Bricolage Grotesque","Helvetica Neue",Arial,sans-serif;
+  --serif:"Newsreader",Georgia,"Times New Roman",serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ground:#0F1317; --surface:#171D22; --surface-2:#1E262C; --sunk:#131A1F;
+    --ink:#E9EEF1; --ink-2:#A2B0B9; --ink-3:#71818B;
+    --rule:#2A343B; --rule-strong:#3B474F;
+    --ch13:#E2A54C; --ch14:#E8788A; --ch15:#63B4CC;
+    --ch13-soft:#3A2E19; --ch14-soft:#3B2126; --ch15-soft:#17323C;
+    --accent:#AFBCC4; --accent-soft:#242D34;
+    --good:#6CBB92; --warn:#D9A24E;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 28px -14px rgba(0,0,0,.7);
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#0F1317; --surface:#171D22; --surface-2:#1E262C; --sunk:#131A1F;
+  --ink:#E9EEF1; --ink-2:#A2B0B9; --ink-3:#71818B;
+  --rule:#2A343B; --rule-strong:#3B474F;
+  --ch13:#E2A54C; --ch14:#E8788A; --ch15:#63B4CC;
+  --ch13-soft:#3A2E19; --ch14-soft:#3B2126; --ch15-soft:#17323C;
+  --accent:#AFBCC4; --accent-soft:#242D34;
+  --good:#6CBB92; --warn:#D9A24E;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 28px -14px rgba(0,0,0,.7);
+}
+[data-ch="13"]{--accent:var(--ch13); --accent-soft:var(--ch13-soft);}
+[data-ch="14"]{--accent:var(--ch14); --accent-soft:var(--ch14-soft);}
+[data-ch="15"]{--accent:var(--ch15); --accent-soft:var(--ch15-soft);}
+
+*{box-sizing:border-box}
+body{background:var(--ground); color:var(--ink); font-family:var(--serif); margin:0;
+  font-size:16px; line-height:1.55; -webkit-font-smoothing:antialiased;}
+.wrap{max-width:1060px; margin:0 auto; padding-inline:20px;}
+h1,h2,h3,h4{font-family:var(--sans); font-weight:700; text-wrap:balance; margin:0; letter-spacing:-.015em;}
+a{color:var(--accent)}
+.lab{font-family:var(--mono); font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-3); font-weight:500;}
+button{font-family:var(--sans); font-size:14px; color:inherit; cursor:pointer;}
+:focus-visible{outline:2px solid var(--accent); outline-offset:2px; border-radius:3px;}
+
+/* ---------- header ---------- */
+header{position:sticky; top:0; z-index:20; background:color-mix(in srgb, var(--ground) 92%, transparent);
+  backdrop-filter:blur(10px); border-bottom:1px solid var(--rule);}
+.bar{display:flex; align-items:center; gap:16px; flex-wrap:wrap; padding-block:12px;}
+.mark{display:flex; flex-direction:column; gap:1px; margin-right:auto;}
+.mark b{font-family:var(--sans); font-size:17px; font-weight:800; letter-spacing:-.03em; line-height:1.1;}
+.mark span{font-family:var(--mono); font-size:10.5px; letter-spacing:.08em; color:var(--ink-3); text-transform:uppercase;}
+.modes{display:flex; background:var(--sunk); border:1px solid var(--rule); border-radius:7px; padding:3px; gap:2px;}
+.modes button{background:none; border:0; padding:6px 14px; border-radius:5px; font-weight:600; color:var(--ink-2);}
+.modes button[aria-selected="true"]{background:var(--surface); color:var(--ink); box-shadow:0 1px 2px rgba(0,0,0,.12);}
+.chips{display:flex; gap:8px; flex-wrap:wrap; padding-bottom:12px; align-items:center;}
+.chip{display:inline-flex; align-items:center; gap:8px; background:var(--surface); border:1px solid var(--rule);
+  border-radius:6px; padding:5px 11px 5px 8px; font-family:var(--sans); font-size:13px; font-weight:600; color:var(--ink-2);}
+.chip i{width:8px; height:8px; border-radius:2px; background:var(--dot,var(--ink-3)); display:block; flex:none;}
+.chip[aria-pressed="true"]{border-color:var(--accent); color:var(--ink); background:var(--accent-soft);}
+.chip .n{font-family:var(--mono); font-size:11px; color:var(--ink-3); font-weight:500;}
+.spacer{flex:1}
+.ghosted{font-family:var(--mono); font-size:11px; color:var(--ink-3);}
+
+main{padding-block:28px 72px;}
+.panel[hidden]{display:none !important}
+
+/* ---------- flashcards ---------- */
+.deckhead{display:flex; align-items:flex-end; gap:14px; flex-wrap:wrap; margin-bottom:14px;}
+.rail{flex:1; min-width:180px;}
+.rail .track{height:5px; background:var(--sunk); border-radius:3px; overflow:hidden; border:1px solid var(--rule);}
+.rail .fill{height:100%; background:var(--accent); width:0%; transition:width .25s ease;}
+.rail .meta{display:flex; justify-content:space-between; gap:10px; margin-bottom:6px;}
+.stack{position:relative; margin-bottom:18px;}
+.stack::before,.stack::after{content:""; position:absolute; inset:0; border-radius:12px; background:var(--surface);
+  border:1px solid var(--rule); z-index:-1;}
+.stack::before{transform:translateY(7px) scale(.985); opacity:.7}
+.stack::after{transform:translateY(14px) scale(.97); opacity:.4}
+.card{position:relative; background:var(--surface); border:1px solid var(--rule); border-radius:12px;
+  box-shadow:var(--shadow); padding:26px 30px 24px; min-height:248px; display:flex; flex-direction:column;
+  cursor:pointer; overflow:hidden;}
+.card::before{content:""; position:absolute; left:0; top:0; bottom:0; width:4px; background:var(--accent);}
+.card .top{display:flex; align-items:center; gap:10px; margin-bottom:18px; flex-wrap:wrap;}
+.tag{font-family:var(--mono); font-size:10.5px; letter-spacing:.07em; text-transform:uppercase;
+  border:1px solid var(--rule-strong); color:var(--ink-2); border-radius:4px; padding:2px 7px;}
+.tag.acc{border-color:var(--accent); color:var(--accent);}
+.q{font-family:var(--sans); font-size:clamp(20px,3.4vw,27px); font-weight:700; line-height:1.22; letter-spacing:-.02em;}
+.a{font-family:var(--serif); font-size:clamp(16px,2.2vw,18.5px); line-height:1.6; color:var(--ink-2);
+  border-top:1px solid var(--rule); margin-top:18px; padding-top:18px;}
+.a strong{color:var(--ink); font-weight:600;}
+.a em{font-style:italic; color:var(--accent);}
+.a ul{margin:8px 0 0; padding-left:18px;}
+.a li{margin-bottom:4px;}
+.hint{margin-top:auto; padding-top:18px; font-family:var(--mono); font-size:11px; color:var(--ink-3);}
+.controls{display:flex; gap:10px; flex-wrap:wrap; align-items:center;}
+.btn{background:var(--surface); border:1px solid var(--rule-strong); border-radius:7px; padding:9px 16px; font-weight:600;
+  display:inline-flex; align-items:center; gap:8px;}
+.btn:hover{border-color:var(--accent)}
+.btn kbd{font-family:var(--mono); font-size:10px; color:var(--ink-3); border:1px solid var(--rule); border-radius:3px; padding:1px 4px;}
+.btn.primary{background:var(--accent); color:var(--surface); border-color:var(--accent);}
+:root[data-theme="dark"] .btn.primary, :root:not([data-theme="light"]) .btn.primary{color:var(--ground)}
+@media (prefers-color-scheme: light){:root:not([data-theme="dark"]) .btn.primary{color:#fff}}
+.btn.ghost{background:none; border-color:var(--rule);}
+.btn:disabled{opacity:.4; cursor:not-allowed;}
+.switch{display:inline-flex; align-items:center; gap:7px; font-family:var(--sans); font-size:13px; color:var(--ink-2); cursor:pointer;}
+.done{text-align:center; padding:60px 20px; border:1px dashed var(--rule-strong); border-radius:12px; background:var(--surface);}
+.done h3{font-size:22px; margin-bottom:8px;}
+
+/* ---------- cram sheets ---------- */
+.sheet{margin-bottom:44px;}
+.sheet > h2{font-size:clamp(24px,4vw,34px); font-weight:800; letter-spacing:-.03em; display:flex; align-items:baseline; gap:12px; flex-wrap:wrap;}
+.sheet > h2 .num{font-family:var(--mono); font-size:13px; font-weight:600; color:var(--accent); letter-spacing:.05em;}
+.sheet > p.dek{color:var(--ink-2); max-width:62ch; margin:6px 0 20px; font-size:17px;}
+.grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(290px,1fr)); gap:16px;}
+.blk{background:var(--surface); border:1px solid var(--rule); border-radius:10px; padding:18px 20px;}
+.blk h3{font-size:15px; margin-bottom:10px; display:flex; align-items:flex-start; gap:8px;}
+.blk h3::before{content:""; width:6px; height:6px; border-radius:50%; background:var(--accent); flex:none; margin-top:7px;}
+.blk ul{margin:0; padding-left:17px;}
+.blk li{margin-bottom:7px; font-size:15.5px; line-height:1.5;}
+.blk li b{font-family:var(--sans); font-weight:600; font-size:14.5px;}
+.blk p{margin:0 0 8px; font-size:15.5px;}
+.flow{font-family:var(--mono); font-size:12.5px; line-height:1.9; color:var(--ink-2); background:var(--sunk);
+  border:1px solid var(--rule); border-radius:7px; padding:12px 14px; overflow-x:auto;}
+.flow b{color:var(--ink); font-weight:600;}
+.tblwrap{overflow-x:auto; border:1px solid var(--rule); border-radius:10px; background:var(--surface);}
+table{border-collapse:collapse; width:100%; font-size:14.5px; min-width:440px;}
+th,td{text-align:left; padding:9px 14px; border-bottom:1px solid var(--rule); vertical-align:top;}
+th{font-family:var(--mono); font-size:10.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-3); font-weight:500;
+  background:var(--sunk); position:sticky; top:0;}
+tr:last-child td{border-bottom:0}
+td.v{font-family:var(--mono); font-variant-numeric:tabular-nums; font-weight:500; color:var(--ink); white-space:nowrap;}
+.vitals{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:12px; margin-bottom:18px;}
+.vital{background:var(--surface); border:1px solid var(--rule); border-left:3px solid var(--accent); border-radius:8px; padding:12px 14px;}
+.vital b{display:block; font-family:var(--mono); font-size:21px; font-weight:600; letter-spacing:-.02em;
+  font-variant-numeric:tabular-nums; margin-bottom:2px;}
+.vital span{font-size:13px; color:var(--ink-2); line-height:1.35; display:block; font-family:var(--sans);}
+.callout{border:1px solid var(--rule); border-left:3px solid var(--warn); background:var(--surface); border-radius:8px;
+  padding:14px 18px; margin:16px 0; font-size:15.5px;}
+.callout b{font-family:var(--sans); font-weight:700;}
+.pairs{display:grid; grid-template-columns:auto 1fr; gap:4px 14px; font-size:15px; align-items:baseline;}
+.pairs dt{font-family:var(--mono); font-size:12px; color:var(--accent); text-transform:uppercase; letter-spacing:.05em; padding-top:3px;}
+.pairs dd{margin:0;}
+
+/* ---------- quiz ---------- */
+.qitem{background:var(--surface); border:1px solid var(--rule); border-radius:10px; padding:16px 18px; margin-bottom:12px;}
+.qitem .num{font-family:var(--mono); font-size:11px; color:var(--ink-3); letter-spacing:.06em;}
+.qitem .stem{font-family:var(--sans); font-weight:600; font-size:16px; line-height:1.4; margin:4px 0 10px; letter-spacing:-.01em;}
+.reveal{background:none; border:1px dashed var(--rule-strong); border-radius:6px; padding:6px 12px; font-size:13px; font-weight:600; color:var(--ink-2);}
+.ans{border-top:1px solid var(--rule); margin-top:12px; padding-top:12px; font-size:15.5px; color:var(--ink-2);}
+.ans .key{font-family:var(--sans); font-weight:700; color:var(--good); display:block; margin-bottom:4px; font-size:15px;}
+.ans .why{display:block;}
+.flag{border-left-color:var(--warn) !important; border-left-width:3px !important;}
+.flagnote{font-family:var(--sans); font-size:13.5px; color:var(--warn); font-weight:600; margin-top:8px; display:block;}
+.qtools{display:flex; gap:10px; align-items:center; flex-wrap:wrap; margin-bottom:18px;}
+
+.sechead{margin:0 0 18px;}
+.sechead h2{font-size:clamp(22px,3.5vw,30px); font-weight:800; letter-spacing:-.03em;}
+.sechead p{color:var(--ink-2); margin:6px 0 0; max-width:64ch;}
+footer{border-top:1px solid var(--rule); margin-top:40px; padding-block:22px 0; color:var(--ink-3); font-size:13.5px;}
+
+@media (max-width:560px){
+  .card{padding:22px 20px; min-height:260px;}
+  .bar{gap:10px}
+  .mark{width:100%; margin-right:0}
+  .modes{width:100%}
+  .modes button{flex:1; padding:8px 6px;}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none !important; animation:none !important}}
+</style>
+
+<header>
+  <div class="wrap">
+    <div class="bar">
+      <div class="mark">
+        <b>Hormones, Blood &amp; Heart</b>
+        <span>Hole's Essentials 15e &middot; Ch 13&ndash;15 &middot; Exam cram</span>
+      </div>
+      <div class="modes" role="tablist" aria-label="Study mode">
+        <button id="m-cards" role="tab" aria-selected="true" data-mode="cards">Flashcards</button>
+        <button id="m-cram" role="tab" aria-selected="false" data-mode="cram">Cram sheets</button>
+        <button id="m-quiz" role="tab" aria-selected="false" data-mode="quiz">Test bank</button>
+      </div>
+    </div>
+    <div class="chips">
+      <button class="chip" id="f-all" data-ch="all" aria-pressed="true"><i style="--dot:var(--ink-3)"></i>All three <span class="n" id="n-all"></span></button>
+      <button class="chip" id="f-13" data-ch="13" aria-pressed="false"><i style="--dot:var(--ch13)"></i>13 Endocrine <span class="n" id="n-13"></span></button>
+      <button class="chip" id="f-14" data-ch="14" aria-pressed="false"><i style="--dot:var(--ch14)"></i>14 Blood <span class="n" id="n-14"></span></button>
+      <button class="chip" id="f-15" data-ch="15" aria-pressed="false"><i style="--dot:var(--ch15)"></i>15 Cardiovascular <span class="n" id="n-15"></span></button>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+<!-- ============ FLASHCARDS ============ -->
+<section class="panel" id="panel-cards">
+  <div class="deckhead">
+    <div class="rail">
+      <div class="meta"><span class="lab" id="deck-pos">Card 1 of 1</span><span class="lab" id="deck-known">0 marked known</span></div>
+      <div class="track"><div class="fill" id="deck-fill"></div></div>
+    </div>
+    <label class="switch"><input type="checkbox" id="only-weak"> Drill only what I missed</label>
+  </div>
+
+  <div class="stack">
+    <div class="card" id="card" tabindex="0" role="button" aria-label="Flashcard, press space to reveal the answer">
+      <div class="top">
+        <span class="tag acc" id="card-ch">Ch 13</span>
+        <span class="tag" id="card-tag">Topic</span>
+        <span class="spacer"></span>
+        <span class="lab" id="card-status"></span>
+      </div>
+      <div class="q" id="card-q">Loading&hellip;</div>
+      <div class="a" id="card-a" hidden></div>
+      <div class="hint" id="card-hint">Click the card or press <b>space</b> to flip &middot; <b>&larr; &rarr;</b> to move &middot; <b>1</b> missed it, <b>2</b> got it</div>
+    </div>
+  </div>
+
+  <div class="controls">
+    <button class="btn ghost" id="prev">&larr; Back</button>
+    <button class="btn" id="flip">Flip <kbd>space</kbd></button>
+    <button class="btn ghost" id="miss">Missed it <kbd>1</kbd></button>
+    <button class="btn primary" id="got">Got it <kbd>2</kbd></button>
+    <span class="spacer"></span>
+    <button class="btn ghost" id="shuffle">Shuffle</button>
+    <button class="btn ghost" id="reset">Reset progress</button>
+  </div>
+</section>
+
+<!-- ============ CRAM SHEETS ============ -->
+<section class="panel" id="panel-cram" hidden>
+
+  <div class="sheet" data-sheet="13">
+    <h2><span class="num">CH 13</span> Endocrine System</h2>
+    <p class="dek">Everything here reduces to three questions: <em>what kind of signal is it, what receptor does it hit, and which way does the feedback loop run?</em></p>
+
+    <div class="vitals">
+      <div class="vital"><b>12.5%</b><span>Left after 3 half-lives (20&nbsp;min half-life, 1&nbsp;hour)</span></div>
+      <div class="vital"><b>cAMP</b><span>Second messenger made from ATP by adenylate cyclase</span></div>
+      <div class="vital"><b>I&#8315;</b><span>Iodine &mdash; the element only the thyroid traps from blood</span></div>
+      <div class="vital"><b>Ca&sup2;&#8314;</b><span>The ion PTH raises and calcitonin lowers</span></div>
+    </div>
+
+    <div class="grid">
+      <div class="blk">
+        <h3>Four kinds of chemical signal</h3>
+        <dl class="pairs">
+          <dt>Self</dt><dd><b>Autocrine</b> &mdash; affects the very cell that secreted it.</dd>
+          <dt>Near</dt><dd><b>Paracrine</b> &mdash; affects only nearby cells through interstitial fluid (sonic hedgehog, prostaglandins).</dd>
+          <dt>Far</dt><dd><b>Hormone</b> &mdash; into the bloodstream, acts on distant target cells bearing its receptor.</dd>
+          <dt>Outside</dt><dd><b>Pheromone</b> &mdash; released outside the body, affects another member of the same species.</dd>
+        </dl>
+        <p style="margin-top:10px"><b>Exocrine</b> glands use ducts to a surface or cavity (sweat, salivary). <b>Endocrine</b> = "internal secretion," ductless, straight into interstitial fluid then blood.</p>
+      </div>
+
+      <div class="blk">
+        <h3>Two hormone classes, two mechanisms</h3>
+        <p><b>Steroid &amp; steroid-like</b> (lipid soluble: cortisol, aldosterone, estradiol, testosterone, thyroid hormones):</p>
+        <div class="flow">diffuses <b>through</b> the membrane &rarr; binds an <b>intracellular</b> receptor &rarr; complex binds DNA &rarr; <b>directly activates gene transcription</b> &rarr; new protein</div>
+        <p style="margin-top:10px"><b>Nonsteroid</b> (water soluble: amines, peptides, proteins, glycoproteins):</p>
+        <div class="flow">binds a <b>surface</b> receptor &rarr; G protein &rarr; <b>adenylate cyclase</b> &rarr; ATP becomes <b>cAMP</b> (second messenger) &rarr; protein kinases &rarr; cascade of existing enzymes</div>
+      </div>
+
+      <div class="blk">
+        <h3>Receptor regulation &amp; feedback</h3>
+        <ul>
+          <li><b>Up-regulation</b> = MORE receptors, caused by a prolonged <em>drop</em> in hormone level.</li>
+          <li><b>Down-regulation</b> = FEWER receptors, caused by a prolonged <em>rise</em> in hormone level.</li>
+          <li><b>Negative feedback</b> controls hormone concentration &mdash; the response shuts off the stimulus.</li>
+          <li><b>Positive feedback</b> is the exception: oxytocin in labor. Pressure on the cervix &rarr; more oxytocin &rarr; stronger contractions &rarr; more pressure.</li>
+          <li><b>Half-life</b> = time to clear half the molecules. Long half-life = long-lasting effect.</li>
+          <li><b>Tropic hormone</b> = stimulates <em>another endocrine gland</em> to secrete (TSH, ACTH, FSH, LH).</li>
+        </ul>
+      </div>
+
+      <div class="blk">
+        <h3>Hypothalamus &rarr; pituitary wiring</h3>
+        <p>The <b>hypothalamus</b> (never the thalamus) controls the pituitary two different ways:</p>
+        <div class="flow">ANTERIOR: releasing hormones travel the <b>hypophyseal portal veins</b>; target cells are in the <b>anterior lobe</b>
+POSTERIOR: <b>neurosecretory cells</b> in the hypothalamus make ADH &amp; oxytocin; axons carry them down to be stored and released</div>
+        <p style="margin-top:10px">So posterior-lobe hormones are <em>synthesized in the hypothalamus</em>. The <b>intermediate lobe (pars intermedia)</b> makes MSH.</p>
+      </div>
+    </div>
+
+    <h3 style="font-family:var(--sans); font-size:15px; margin:24px 0 10px">Gland by gland &mdash; hormone, action, what goes wrong</h3>
+    <div class="tblwrap"><table>
+      <thead><tr><th>Gland</th><th>Hormone</th><th>Main action</th><th>Disorder</th></tr></thead>
+      <tbody>
+        <tr><td class="v">Ant. pituitary</td><td>GH</td><td>Moves amino acids into cells; signals the <b>liver</b> to release <b>IGF-1</b>; rises at puberty, levels off after adolescence</td><td>Pituitary dwarfism / gigantism / acromegaly</td></tr>
+        <tr><td class="v">Ant. pituitary</td><td>TSH, ACTH, FSH, LH</td><td>Tropic &mdash; drive thyroid, adrenal cortex, and gonads. Low FSH &rarr; low estrogen, skipped periods, no ovulation</td><td>&mdash;</td></tr>
+        <tr><td class="v">Ant. pituitary</td><td>Prolactin</td><td>Milk production; <b>inhibited by dopamine</b> from the hypothalamus</td><td>&mdash;</td></tr>
+        <tr><td class="v">Interm. lobe</td><td>MSH</td><td>Regulates melanin formation (skin and eye color)</td><td>&mdash;</td></tr>
+        <tr><td class="v">Post. pituitary</td><td>ADH (vasopressin)</td><td>Kidneys conserve water; alcohol <b>inhibits</b> its secretion &rarr; you urinate</td><td><b>Diabetes insipidus</b> = ADH deficiency</td></tr>
+        <tr><td class="v">Post. pituitary</td><td>Oxytocin</td><td>Uterine contractions + milk ejection; given after childbirth</td><td>Weak or absent labor contractions</td></tr>
+        <tr><td class="v">Thyroid</td><td>T&#8323; &amp; T&#8324; (thyroxine)</td><td>Raise metabolic rate, enhance protein synthesis. <b>T&#8324; has the higher free plasma concentration; T&#8323; is more potent</b></td><td>Graves (autoimmune, most common hyper&hyphen;, hallmark <b>goiter</b> + exophthalmos); infantile hypothyroidism = deficiency at birth</td></tr>
+        <tr><td class="v">Thyroid</td><td>Calcitonin</td><td><b>Lowers</b> blood calcium by depositing it into bone</td><td>Simple goiter where soil lacks <b>iodine</b></td></tr>
+        <tr><td class="v">Parathyroid</td><td>PTH</td><td><b>Raises</b> blood calcium (osteoclasts resorb bone), lowers phosphate. Controlled directly by <b>blood calcium concentration</b></td><td>Hyper&hyphen; usually a <b>tumor</b>; hypo&hyphen; &rarr; low Ca, high phosphate, <b>muscle cramps/tetany</b></td></tr>
+        <tr><td class="v">Adrenal cortex</td><td>Aldosterone</td><td>Kidneys <b>conserve sodium, excrete potassium</b></td><td><b>Addison</b> = hyposecretion &rarr; low blood sodium</td></tr>
+        <tr><td class="v">Adrenal cortex</td><td>Cortisol</td><td>Glucose from noncarbohydrates (gluconeogenesis); controls inflammation by <b>decreasing capillary permeability</b></td><td><b>Cushing</b> = hypersecretion of cortical hormones</td></tr>
+        <tr><td class="v">Adrenal cortex</td><td>Sex hormones</td><td>Primarily <b>androgens</b></td><td>&mdash;</td></tr>
+        <tr><td class="v">Adrenal medulla</td><td>Epinephrine, norepinephrine</td><td><b>Amines.</b> Fight-or-flight: raises BP, heart rate, breathing rate. Cells are modified neurons on <b>sympathetic preganglionic</b> fibers</td><td>&mdash;</td></tr>
+        <tr><td class="v">Pancreas (islets)</td><td>Insulin (beta) / glucagon (alpha)</td><td>Insulin <b>lowers</b> blood glucose; glucagon <b>raises</b> it. The pancreas is both endocrine <em>and</em> exocrine (digestive)</td><td>Type 1 = <b>autoimmune</b> destruction of beta cells; type 2 = <b>cell insensitivity</b> to insulin</td></tr>
+        <tr><td class="v">Pineal</td><td>Melatonin</td><td>Circadian rhythm. Attached to the thalamus / roof of the third ventricle, deep between the cerebral hemispheres</td><td>Night-shift sleep disruption</td></tr>
+        <tr><td class="v">Thymus</td><td>Thymosins</td><td>Production and differentiation of <b>white blood cells</b> (T lymphocytes)</td><td>&mdash;</td></tr>
+        <tr><td class="v">Kidneys</td><td>EPO</td><td>Increases red blood cell number &mdash; why athletes abuse it</td><td>&mdash;</td></tr>
+      </tbody>
+    </table></div>
+
+    <div class="callout"><b>Diabetes mellitus, exam version.</b> Untreated type 1: cells can't take up glucose, so fat is burned &mdash; <b>fatty acids and ketone bodies accumulate in the blood</b>. Glucose spills into urine, so the urine is of <b>high osmotic pressure</b>, pulling water with it (polyuria, then polydipsia).</div>
+
+    <div class="grid">
+      <div class="blk">
+        <h3>Stress &amp; aging</h3>
+        <ul>
+          <li>The <b>stimulus</b> is the thing that frightens you; <b>stress</b> is the condition it produces.</li>
+          <li>General stress response: <b>epinephrine AND cortisol both rise</b>, blood pressure increases.</li>
+          <li>A stressed person has <b>lowered resistance to infection</b>.</li>
+          <li>With age: <b>GH decreases, ADH increases</b>. hGH supplements decrease fat and increase muscle mass but <em>do not improve strength</em>.</li>
+        </ul>
+      </div>
+      <div class="blk">
+        <h3>Nervous vs. endocrine &mdash; don't flip them</h3>
+        <div class="flow">NERVOUS: releases <b>neurotransmitters</b> into <b>synapses</b> &rarr; fast, brief
+ENDOCRINE: releases <b>hormones</b> into the <b>bloodstream</b> &rarr; slower, <b>longer lasting</b></div>
+        <p style="margin-top:10px">All hormones are <b>organic compounds</b>. Nonsteroid hormones include peptides, proteins, glycoproteins and amines.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="sheet" data-sheet="14">
+    <h2><span class="num">CH 14</span> Blood</h2>
+    <p class="dek">Blood is a <em>connective</em> tissue. Most of this chapter is counts, colors and the clotting cascade &mdash; memorize the numbers cold, because they're free points.</p>
+
+    <div class="vitals">
+      <div class="vital"><b>45%</b><span>Hematocrit &mdash; percent red blood cells</span></div>
+      <div class="vital"><b>5,000&ndash;10,000</b><span>Normal WBC per &micro;L. Below 5,000 = leukopenia</span></div>
+      <div class="vital"><b>130k&ndash;360k</b><span>Platelets per &micro;L. Low = thrombocytopenia</span></div>
+      <div class="vital"><b>~5 L</b><span>Adult blood volume; varies with body fat content</span></div>
+    </div>
+
+    <div class="grid">
+      <div class="blk">
+        <h3>What's in the tube</h3>
+        <div class="flow">PLASMA <b>~55%</b> &mdash; 92% water + proteins, gases, nutrients, electrolytes, NPNs, hormones
+FORMED ELEMENTS <b>~45%</b> &mdash; <b>red cells, white cells and platelets</b> (mostly red cells)</div>
+        <p style="margin-top:10px"><b>Serum = plasma minus fibrinogen</b> and the other clotting factors. Plasma contains fibrinogen; serum does not.</p>
+      </div>
+      <div class="blk">
+        <h3>Red blood cells</h3>
+        <ul>
+          <li><b>Biconcave disc</b> &mdash; thin near the center, thick around the rim, <b>no nucleus</b> when mature.</li>
+          <li>Made in <b>red bone marrow</b>; controlled by <b>EPO</b> from the kidneys when oxygen runs low.</li>
+          <li>Line: hematopoietic stem cell &rarr; <b>erythroblast &rarr; reticulocyte &rarr; erythrocyte</b>.</li>
+          <li>Needs <b>iron</b> (for hemoglobin) plus <b>vitamin B&#8321;&#8322; and folic acid</b> for <b>DNA synthesis</b> &mdash; B&#8321;&#8322; is absorbed only with <b>intrinsic factor</b> from the stomach.</li>
+          <li><b>Tannic acid</b> in tea binds iron and blocks absorption of iron supplements.</li>
+        </ul>
+      </div>
+      <div class="blk">
+        <h3>Hemoglobin breakdown &mdash; follow the colors</h3>
+        <div class="flow">old RBC &rarr; macrophages in liver &amp; spleen split hemoglobin
+<b>heme</b> &rarr; <b>iron</b> (recycled) + <b>biliverdin (GREENISH)</b>
+biliverdin &rarr; <b>bilirubin (ORANGE)</b> &rarr; bile &rarr; intestine &rarr; brown feces</div>
+        <p style="margin-top:10px">Hemoglobin contains <b>iron</b>. <b>Cyanosis</b> = too much <b>deoxyhemoglobin</b>.</p>
+      </div>
+      <div class="blk">
+        <h3>Plasma proteins &amp; NPNs</h3>
+        <ul>
+          <li><b>Albumin</b> &mdash; most abundant; its key job is maintaining <b>colloid osmotic pressure</b>.</li>
+          <li><b>Alpha &amp; beta globulins</b> &mdash; transport <b>lipids and fat-soluble vitamins</b>. <b>Gamma globulins = antibodies</b>.</li>
+          <li><b>Fibrinogen</b> &mdash; clotting.</li>
+          <li>Starvation or a protein-poor diet &rarr; blood protein falls &rarr; water leaves the blood &rarr; <b>edema</b>, tissues swell.</li>
+          <li><b>NPNs</b>: urea, uric acid, creatine, <b>creatinine</b>, amino acids. High urea + no urination &rarr; the <b>kidneys</b> are failing.</li>
+          <li><b>Electrolytes</b>: sodium, potassium, calcium, magnesium, chloride, bicarbonate, phosphate, sulfate.</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3 style="font-family:var(--sans); font-size:15px; margin:24px 0 10px">The five white blood cells &mdash; learn the percentages</h3>
+    <div class="tblwrap"><table>
+      <thead><tr><th>Cell</th><th>Type</th><th>% of WBCs</th><th>Identify it / what it does</th></tr></thead>
+      <tbody>
+        <tr><td class="v">Neutrophil</td><td>Granulocyte</td><td class="v">54&ndash;62%</td><td><b>Most common; most active phagocyte.</b> First to arrive &mdash; elevated in bacterial infection such as MRSA</td></tr>
+        <tr><td class="v">Lymphocyte</td><td>Agranulocyte</td><td class="v">25&ndash;33%</td><td>T and B cells; act against foreign substances. <b>B cells make antibodies</b></td></tr>
+        <tr><td class="v">Monocyte</td><td>Agranulocyte</td><td class="v">3&ndash;9%</td><td><b>Largest blood cell</b> (2&ndash;3&times; an RBC), big <b>kidney-shaped nucleus</b>; becomes a macrophage</td></tr>
+        <tr><td class="v">Eosinophil</td><td>Granulocyte</td><td class="v">1&ndash;3%</td><td>Parasitic infections and allergic reactions</td></tr>
+        <tr><td class="v">Basophil</td><td>Granulocyte</td><td class="v">&lt;1% <em>(fewest)</em></td><td>Releases <b>heparin</b> (anticoagulant) and <b>histamine</b> (drives the inflammatory reaction that recruits other leukocytes)</td></tr>
+      </tbody>
+    </table></div>
+    <p style="font-size:15px; color:var(--ink-2); margin-top:10px"><b>Myeloblasts</b> give rise to the granulocytes; monoblasts &rarr; monocytes; lymphoblasts &rarr; lymphocytes. <b>Diapedesis</b> = white cells squeezing between endothelial cells to leave the circulation, then following chemicals by positive chemotaxis. <b>Pus</b> = bacteria + white blood cells + damaged cells. A <b>differential</b> WBC count reports the percentage of each type.</p>
+
+    <div class="grid" style="margin-top:18px">
+      <div class="blk">
+        <h3>Hemostasis &mdash; three steps, in order</h3>
+        <div class="flow">1. <b>Blood vessel spasm</b> &mdash; triggered by <b>serotonin</b> released from platelets
+2. <b>Platelet plug</b> &mdash; platelets stick to collagen and to each other
+3. <b>Coagulation</b> &mdash; the fibrin clot</div>
+        <p style="margin-top:10px"><b>Platelets</b> are cytoplasmic fragments of megakaryocytes &mdash; no nucleus.</p>
+      </div>
+      <div class="blk">
+        <h3>The clotting cascade</h3>
+        <div class="flow"><b>EXTRINSIC</b> &mdash; damaged tissue releases <b>tissue thromboplastin</b>; fast; measured by <b>prothrombin time (PT)</b>
+<b>INTRINSIC</b> &mdash; blood contacts collagen/foreign surface (factor XII); <b>hemophilia A</b> lacks <b>factor VIII</b>, stalling the factor IX step
+&darr; both converge
+<b>prothrombin activator</b> + Ca&sup2;&#8314;
+prothrombin &rarr; <b>thrombin</b>
+<b>fibrinogen &rarr; fibrin</b> &mdash; the basic event of clot formation</div>
+        <p style="margin-top:10px"><b>Vitamin K</b> is needed by the liver to make <b>prothrombin</b>.</p>
+      </div>
+      <div class="blk">
+        <h3>Preventing and dissolving clots</h3>
+        <ul>
+          <li><b>Prostacyclin (PGI&#8322;)</b> from healthy endothelium keeps platelets from sticking to the vessel wall.</li>
+          <li><b>Heparin</b> blocks formation of prothrombin activator and thrombin's action on fibrinogen.</li>
+          <li><b>Plasminogen &rarr; plasmin</b> digests fibrin &mdash; no plasminogen means clots never dissolve.</li>
+          <li>Clot-busting drugs: <b>urokinase and streptokinase</b>.</li>
+          <li><b>Thrombus</b> = clot formed abnormally <em>in place</em>. <b>Embolus</b> = clot that broke loose and travels. A <b>pulmonary embolism</b> is a clot reaching the lung through a pulmonary artery.</li>
+          <li><b>DVT</b>: avoid long stretches of holding still &mdash; move on long flights.</li>
+          <li><b>Thrombocytopenia</b> &rarr; easy bleeding and <b>petechiae</b>, small red bruise-like spots.</li>
+        </ul>
+      </div>
+      <div class="blk">
+        <h3>Anemias &amp; other disorders</h3>
+        <dl class="pairs">
+          <dt>Iron def.</dt><dd>Lack of dietary iron &mdash; the most common anemia.</dd>
+          <dt>Pernicious</dt><dd>No intrinsic factor, so B&#8321;&#8322; isn't absorbed.</dd>
+          <dt>Aplastic</dt><dd>Damaged red bone marrow.</dd>
+          <dt>Sickle cell</dt><dd>Caused by a <b>mutation</b>; <b>hydroxyurea</b> treats it by switching fetal hemoglobin back on.</dd>
+          <dt>Leukemia</dt><dd>Cancer of blood-forming tissue &mdash; too many abnormal white cells crowd out everything else, so you see <b>fatigue, easy bruising, repeated infections, headaches, nosebleeds</b>.</dd>
+          <dt>Leukopenia</dt><dd>Abnormally low WBC count (HIV, aplastic anemia).</dd>
+        </dl>
+      </div>
+    </div>
+
+    <h3 style="font-family:var(--sans); font-size:15px; margin:24px 0 10px">Blood typing &mdash; the whole table</h3>
+    <div class="tblwrap"><table>
+      <thead><tr><th>Type</th><th>Antigen on RBC</th><th>Antibody in plasma</th><th>Can donate to</th><th>Can receive from</th></tr></thead>
+      <tbody>
+        <tr><td class="v">A</td><td>A</td><td>anti-B</td><td class="v">A, AB</td><td class="v">A, O</td></tr>
+        <tr><td class="v">B</td><td>B</td><td>anti-A</td><td class="v">B, AB</td><td class="v">B, O</td></tr>
+        <tr><td class="v">AB</td><td>A and B</td><td><b>none</b></td><td class="v">AB</td><td class="v">A, B, AB, O &mdash; <b>universal recipient</b></td></tr>
+        <tr><td class="v">O</td><td><b>none</b></td><td>anti-A and anti-B</td><td class="v">A, B, AB, O &mdash; <b>universal donor</b></td><td class="v">O</td></tr>
+      </tbody>
+    </table></div>
+    <div class="callout"><b>Rh and the second pregnancy.</b> Rh&#8314; means the D antigen is present; about <b>15% of Caucasians and 5% of African Americans are Rh&#8315;</b>. An Rh&#8315; woman is sensitized by her first Rh&#8314; fetus and makes anti-Rh antibodies, so <b>erythroblastosis fetalis threatens the second Rh&#8314; fetus</b>. The same trap appears in transfusion questions: a first transfusion carrying Rh antigens can sensitize an Rh&#8315; patient, so the <em>second</em> transfusion agglutinates even though the ABO type matched. A reaction looks like flushing, chest pain, trouble breathing and jaundice &mdash; the RBCs are <b>agglutinating</b>. <b>AB is the rarest ABO type in the US; O is the most common.</b> Korean Americans run roughly equal O, A and B with about 10% AB; Native Americans are mostly O with AB very rare.</div>
+  </div>
+
+  <div class="sheet" data-sheet="15">
+    <h2><span class="num">CH 15</span> Cardiovascular System</h2>
+    <p class="dek">Two circuits, one four-chamber pump, one conduction pathway, and a long list of named vessels. If you can trace a drop of blood and read an ECG strip, you have most of the chapter.</p>
+
+    <div class="vitals">
+      <div class="vital"><b>7,000 L</b><span>Pumped per day; ~2.5 billion beats in a lifetime</span></div>
+      <div class="vital"><b>CO = SV &times; HR</b><span>Cardiac output &mdash; never stroke volume &times; blood pressure</span></div>
+      <div class="vital"><b>145 / 140 / 70</b><span>Heart rate: fetus / newborn / adult</span></div>
+      <div class="vital"><b>5th ICS</b><span>Where the apex points; apical beat 7.5 cm left of midline</span></div>
+    </div>
+
+    <div class="grid">
+      <div class="blk">
+        <h3>Two circuits</h3>
+        <div class="flow"><b>PULMONARY</b> (right side): sends <b>oxygen-poor</b> blood to the <b>lungs</b>
+<b>SYSTEMIC</b> (left side): sends <b>oxygen-rich</b> blood to the <b>tissues</b></div>
+        <p style="margin-top:10px">Circulation matters because it <b>supplies oxygen and nutrients to tissues and carries wastes away</b>. The <b>aorta</b> is the largest artery of the systemic circuit &mdash; not the pulmonary circuit.</p>
+      </div>
+      <div class="blk">
+        <h3>Wall layers, inside &rarr; out</h3>
+        <div class="flow"><b>endocardium</b> &mdash; inner lining of chambers and valves
+<b>myocardium</b> &mdash; cardiac muscle, does the pumping
+<b>epicardium</b> (= visceral pericardium) &mdash; covers the heart surface
+pericardial cavity &rarr; <b>parietal pericardium</b> &rarr; <b>fibrous pericardium</b> (the loose-fitting outer sac)</div>
+        <p style="margin-top:10px">The <b>skeleton of the heart</b> is fibrous connective tissue encircling the atrioventricular and semilunar orifices &mdash; it anchors the valves and blocks impulses.</p>
+      </div>
+      <div class="blk">
+        <h3>Trace the blood</h3>
+        <div class="flow">vena cavae + <b>coronary sinus</b> &rarr; <b>right atrium</b>
+&rarr; <b>tricuspid</b> &rarr; right ventricle &rarr; <b>pulmonary valve</b>
+&rarr; pulmonary trunk (divides <b>5 cm</b> up) &rarr; lungs
+&rarr; pulmonary veins &rarr; <b>left atrium</b>
+&rarr; <b>mitral</b> &rarr; left ventricle &rarr; <b>aortic valve</b> &rarr; aorta</div>
+        <p style="margin-top:10px">When the ventricles contract, <b>both AV valves close</b> (first sound, "lubb") and the semilunar valves open. Tricuspid is loudest just right of the lower sternum; mitral at the apex.</p>
+      </div>
+      <div class="blk">
+        <h3>Coronary circulation</h3>
+        <ul>
+          <li>Right and left <b>coronary arteries are the first branches of the aorta</b>; smaller branches have <b>anastomoses</b>.</li>
+          <li>The <b>coronary sinus drains into the RIGHT atrium</b>, not the left.</li>
+          <li>Narrowing the <b>right coronary artery</b> starves the right side of the myocardium &rarr; <b>ischemia</b>.</li>
+          <li><b>Angina pectoris</b> = pain from blockage of an artery supplying the <b>heart</b>; a full blockage kills tissue &rarr; <b>myocardial infarction</b>.</li>
+          <li><b>Mitral valve prolapse</b>: a cusp bulges back into the left atrium <em>during ventricular contraction</em>.</li>
+          <li><b>ANP</b> from the atria <b>inhibits renin and aldosterone</b> &mdash; it lowers blood pressure.</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3 style="font-family:var(--sans); font-size:15px; margin:24px 0 10px">Conduction and the ECG</h3>
+    <div class="grid">
+      <div class="blk">
+        <h3>The pathway</h3>
+        <div class="flow"><b>SA node</b> (pacemaker, right atrial wall)
+&rarr; <b>AV node</b>
+&rarr; <b>AV bundle</b> (bundle of His, interventricular septum)
+&rarr; bundle branches &rarr; <b>Purkinje fibers</b></div>
+        <p style="margin-top:10px">The <b>AV node and the Purkinje fibers</b> can both act as a secondary pacemaker. Once SA node cells reach threshold, <b>an action potential is triggered</b>.</p>
+      </div>
+      <div class="blk">
+        <h3>Reading the strip</h3>
+        <dl class="pairs">
+          <dt>P</dt><dd><b>Atrial depolarization</b></dd>
+          <dt>QRS</dt><dd><b>Ventricular depolarization</b> (atrial repolarization hides inside it)</dd>
+          <dt>T</dt><dd><b>Ventricular repolarization</b></dd>
+          <dt>PQ</dt><dd>Time for the impulse to travel from the <b>SA node through the AV node</b></dd>
+        </dl>
+      </div>
+      <div class="blk">
+        <h3>Rate control</h3>
+        <ul>
+          <li>Cardiac control center: <b>medulla oblongata</b>.</li>
+          <li><b>Vagus nerve = parasympathetic = decreases heart rate.</b> Sympathetic accelerator nerves increase rate and force.</li>
+          <li><b>Baroreceptors</b> in the aortic arch and carotid sinuses sense stretch &rarr; parasympathetic signals &rarr; heart rate drops.</li>
+          <li><b>Chemoreceptors</b> live in the <b>aortic bodies and carotid bodies</b> &mdash; they read O&#8322;, CO&#8322; and pH.</li>
+          <li>Conducting cells are most sensitive to <b>potassium</b>: excess K&#8314; <b>decreases both rate and force</b> of contraction. Excess Ca&sup2;&#8314; prolongs contraction.</li>
+        </ul>
+      </div>
+      <div class="blk">
+        <h3>Arrhythmias</h3>
+        <dl class="pairs">
+          <dt>Brady</dt><dd>Abnormally <b>slow</b> rate. A runner at 53 bpm has <b>sinus bradycardia</b> &mdash; and a very healthy heart.</dd>
+          <dt>Tachy</dt><dd>Abnormally fast rate.</dd>
+          <dt>Flutter</dt><dd>Very rapid but still coordinated.</dd>
+          <dt>Fib</dt><dd>Small areas of myocardium contracting <b>chaotically</b>. <b>Ventricular fibrillation is the most life-threatening.</b></dd>
+        </dl>
+      </div>
+    </div>
+
+    <h3 style="font-family:var(--sans); font-size:15px; margin:24px 0 10px">Vessels and capillary exchange</h3>
+    <div class="tblwrap"><table>
+      <thead><tr><th>Vessel</th><th>Structure</th><th>Job</th></tr></thead>
+      <tbody>
+        <tr><td class="v">Artery</td><td>Thick, strong, elastic &mdash; tunica interna / media / externa</td><td>Carries blood <b>away from</b> the heart under high pressure</td></tr>
+        <tr><td class="v">Arteriole</td><td>Smooth muscle, heavily innervated</td><td>Vasoconstriction here raises <b>peripheral resistance</b> and blood pressure</td></tr>
+        <tr><td class="v">Capillary</td><td><b>A single layer of squamous epithelial cells</b></td><td>All exchange between blood and tissue fluid</td></tr>
+        <tr><td class="v">Metarteriole</td><td>Connects arteriole straight to venule</td><td>Lets blood <b>bypass</b> the capillary bed</td></tr>
+        <tr><td class="v">Precapillary sphincter</td><td>Ring of smooth muscle at the capillary entrance</td><td>Opens and closes per the needs of the cells that capillary feeds &mdash; this is what <b>distributes</b> blood</td></tr>
+        <tr><td class="v">Vein</td><td>Thinner wall, has <b>valves</b></td><td>Returns blood to the atria; veins hold the <b>greatest volume</b> of blood in the body</td></tr>
+      </tbody>
+    </table></div>
+
+    <div class="callout"><b>The capillary exchange question, every time.</b> Fluid leaves at the <b>arteriolar end</b> because <b>hydrostatic pressure is higher than osmotic pressure</b>; fluid re-enters at the <b>venular end</b> because <b>osmotic pressure is higher than hydrostatic pressure</b>. Since net inward pressure at the venular end is <em>less</em> than net outward pressure at the arteriolar end, <b>more fluid leaves than returns</b> &mdash; lymphatic vessels pick up the difference. Plasma proteins (albumin) <b>maintain</b> that osmotic pressure. <b>Histamine</b> increases permeability &rarr; edema and pain. Lipid-soluble substances diffuse straight through the membranes; water-soluble ones use channels and slits between the cells.</div>
+
+    <div class="grid">
+      <div class="blk">
+        <h3>Blood pressure</h3>
+        <ul>
+          <li><b>Systolic</b> = ventricular contraction (highest arterial pressure); <b>diastolic</b> = ventricular relaxation. <b>Pulse pressure = systolic &minus; diastolic.</b></li>
+          <li>Measured with a <b>sphygmomanometer</b>.</li>
+          <li>Determined by cardiac output, blood volume, <b>peripheral resistance</b> and viscosity. Arterial smooth muscle contracts &rarr; <b>BP rises</b>.</li>
+          <li><b>Frank-Starling law</b>: the volume discharged equals the volume that entered &mdash; more stretch, more forceful contraction.</li>
+          <li><b>Sympathetic stimulation increases stroke volume.</b></li>
+          <li>Kidney disease raises BP by activating the <b>renin-angiotensin</b> mechanism; <b>angiotensin II raises peripheral resistance</b>.</li>
+          <li><b>Nitric oxide</b> is the gas released by endothelium &mdash; it <b>relaxes vessel smooth muscle</b>, which is why warming up feels like a rush to the fingers and toes.</li>
+        </ul>
+      </div>
+      <div class="blk">
+        <h3>Getting blood back to the heart</h3>
+        <ul>
+          <li><b>Contracting skeletal muscles</b> squeeze the veins; the valves make it a one-way pump. This is why you flex your ankles on a long flight.</li>
+          <li>Breathing: <b>negative</b> intrathoracic pressure pulls blood toward the chest.</li>
+          <li>When venous pressure drops too low, <b>sympathetic reflexes</b> constrict the smooth muscle in vein walls.</li>
+          <li><b>Central venous pressure</b> is the pressure in the <b>right atrium</b>.</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3 style="font-family:var(--sans); font-size:15px; margin:24px 0 10px">Named vessels they actually ask about</h3>
+    <div class="tblwrap"><table>
+      <thead><tr><th>Vessel</th><th>Supplies / drains</th></tr></thead>
+      <tbody>
+        <tr><td class="v">Branches of the aorta</td><td>Coronary arteries, brachiocephalic, left common carotid, left subclavian. The <b>pulmonary artery is NOT a branch of the aorta</b> &mdash; it leaves the right ventricle</td></tr>
+        <tr><td class="v">Common carotid</td><td>Head and neck &mdash; pump ink here and the <b>neck and head</b> light up</td></tr>
+        <tr><td class="v">External carotid</td><td><b>Neck and face</b> (internal carotid &rarr; brain and eyes)</td></tr>
+        <tr><td class="v">Celiac artery</td><td><b>Liver, spleen</b> and upper gastrointestinal tract</td></tr>
+        <tr><td class="v">Superior mesenteric</td><td><b>Small intestine and proximal large intestine</b> &mdash; the intestinal tract injection</td></tr>
+        <tr><td class="v">Inferior mesenteric</td><td>Colon and rectum</td></tr>
+        <tr><td class="v">Thyrocervical</td><td><b>Thyroid and parathyroid</b> glands &mdash; not the thymus</td></tr>
+        <tr><td class="v">Radial artery</td><td>Forearm; the <b>pulse point at the wrist near the thumb</b></td></tr>
+        <tr><td class="v">Popliteal artery</td><td>Behind the knee</td></tr>
+        <tr><td class="v">Radial + ulnar veins</td><td>Merge to form the <b>brachial vein</b></td></tr>
+        <tr><td class="v">External jugular</td><td>Drains the <b>face and scalp</b> (internal jugular drains the brain)</td></tr>
+        <tr><td class="v">Great saphenous</td><td>The <b>longest vein in the body</b></td></tr>
+      </tbody>
+    </table></div>
+
+    <div class="grid" style="margin-top:18px">
+      <div class="blk">
+        <h3>Exercise, aging, athletes</h3>
+        <ul>
+          <li>Exercise: heart rate up, ventricular contraction up, flow to skeletal muscle up &mdash; and flow to the <b>abdominal viscera DOWN</b>.</li>
+          <li>Aging: the <b>tunica interna thickens</b>, arteries grow <b>more</b> rigid, resting cardiac output falls.</li>
+          <li>An endurance runner with an enlarged heart and low resting rate and pressure has a <b>very healthy cardiovascular system</b>.</li>
+        </ul>
+      </div>
+      <div class="blk">
+        <h3>Disorders</h3>
+        <dl class="pairs">
+          <dt>Athero</dt><dd>Plaque in artery walls &rarr; raised risk of a <b>thrombus or embolus</b>. Risks: smoking, inactivity, <b>high</b> blood pressure, diabetes, saturated fat. <em>Unsaturated</em> fat and low blood pressure are not risks.</dd>
+          <dt>Arrest</dt><dd>Sudden cardiac arrest can come from <b>scar tissue left by an earlier heart attack</b>.</dd>
+          <dt>LVAD</dt><dd>Maintains cardiac function <b>until a donor heart is available</b>.</dd>
+          <dt>Phlebitis</dt><dd><b>Inflammation of the veins.</b></dd>
+          <dt>VEGF</dt><dd>Stimulates capillary <b>growth</b>. Blocking it stops leaky vessels in wet macular degeneration; as an <b>angiogenesis inhibitor</b> it <b>starves tumors by cutting off their blood supply</b>.</dd>
+        </dl>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TEST BANK ============ -->
+<section class="panel" id="panel-quiz" hidden>
+  <div class="sechead">
+    <h2>Questions straight off the test banks</h2>
+    <p>The application and scenario items from your three files &mdash; the ones that aren't pure recall. Answer first, then reveal. Items with an amber edge are ones where <b>the uploaded answer key disagrees with the textbook</b>; check those with your instructor before the exam.</p>
+  </div>
+  <div class="qtools">
+    <button class="btn ghost" id="reveal-all">Reveal all answers</button>
+    <button class="btn ghost" id="hide-all">Hide all</button>
+    <label class="switch"><input type="checkbox" id="only-flagged"> Show only the disputed answers</label>
+  </div>
+  <div id="quiz-list"></div>
+</section>
+
+<footer class="wrap">
+  <p>Built from the Chapter 13, 14 and 15 test banks for <i>Hole's Human Anatomy &amp; Physiology</i>, 15e (Shier). Progress is saved in this browser only.</p>
+</footer>
+</main>
+
+<script>
+const CARDS = [
+/* ---------------- CH 13 ENDOCRINE ---------------- */
+{c:13,t:"Signal types",q:"What is a hormone, and what makes a cell its target?",a:"A hormone is a <strong>secreted molecule carried in the bloodstream</strong> that has a metabolic effect on another cell. A cell is a target only if it <strong>bears receptors specific for that hormone</strong> &mdash; that receptor specificity is the entire source of hormone specificity."},
+{c:13,t:"Signal types",q:"Autocrine, paracrine, endocrine, pheromone &mdash; what distinguishes each?",a:"<ul><li><strong>Autocrine</strong> &mdash; affects the cell that secreted it.</li><li><strong>Paracrine</strong> &mdash; affects only nearby cells.</li><li><strong>Endocrine (hormone)</strong> &mdash; travels in blood to distant targets.</li><li><strong>Pheromone</strong> &mdash; released outside the body; affects another member of the <em>same species</em>.</li></ul>"},
+{c:13,t:"Signal types",q:"Sonic hedgehog is released from a cell and travels a short gradient through interstitial fluid to nearby cells only. What kind of signal is it?",a:"<strong>Paracrine.</strong> Short range through interstitial fluid, no bloodstream, nearby cells only."},
+{c:13,t:"Signal types",q:"Growth hormone is released by the pituitary and travels via the bloodstream to targets all over the body. Autocrine or not?",a:"<strong>Not autocrine &mdash; that is a classic endocrine (hormone) secretion.</strong> Autocrine would mean it acted back on the pituitary cell that made it."},
+{c:13,t:"Glands",q:"How do exocrine glands differ from endocrine glands?",a:"<strong>Exocrine glands secrete through ducts or tubes</strong> onto a body surface or into a cavity &mdash; a sweat gland is the standard example. Endocrine glands are ductless and secrete into interstitial fluid, then blood. <em>&quot;Endocrine&quot; literally means internal secretion.</em>"},
+{c:13,t:"Comparison",q:"Compared with the nervous system, how does the endocrine system act?",a:"Slower to start but it <strong>may have a longer-lasting effect</strong>. The nervous system releases <strong>neurotransmitters into synapses</strong>; the endocrine system releases <strong>hormones into the bloodstream</strong> &mdash; don't let a test item flip those."},
+{c:13,t:"Chemistry",q:"All hormones belong to what chemical category, and what are the two functional classes?",a:"All hormones are <strong>organic compounds</strong>. Two classes: <strong>steroid (and steroid-like)</strong> hormones, which are <em>soluble in lipids</em>, and <strong>nonsteroid</strong> hormones &mdash; amines, peptides, proteins and glycoproteins."},
+{c:13,t:"Mechanism",q:"How does a steroid hormone act on a target cell?",a:"It <strong>diffuses through the plasma membrane</strong>, binds an <strong>intracellular receptor</strong>, and the hormone-receptor complex acts on DNA to <strong>directly cause protein synthesis</strong> &mdash; a change in gene expression."},
+{c:13,t:"Mechanism",q:"How does a nonsteroid hormone act on a target cell?",a:"It binds a receptor <strong>on the cell surface</strong>, which <strong>activates adenylate cyclase</strong>, causing <strong>synthesis of a second messenger</strong> &mdash; cAMP &mdash; which activates protein kinases inside the cell."},
+{c:13,t:"Mechanism",q:"Adenylate cyclase converts what into what?",a:"It causes <strong>ATP molecules to become cAMP</strong> molecules &mdash; cyclic AMP, the second messenger."},
+{c:13,t:"Mechanism",q:"Amylin is a long chain of amino acids that cannot cross the cell membrane and binds a surface receptor. Which hormone class?",a:"A <strong>peptide hormone</strong> &mdash; a nonsteroid. Water-soluble, so it must signal from the outside via a second messenger."},
+{c:13,t:"Mechanism",q:"Estradiol is built from carbon-hydrogen rings and is a lipid but not a prostaglandin. Predict how it triggers a response.",a:"As a <strong>steroid</strong>, estradiol <strong>passes directly through the plasma membrane and binds an intracellular receptor, changing gene expression</strong>."},
+{c:13,t:"Mechanism",q:"What are prostaglandins and what do they do?",a:"<strong>Paracrine substances</strong> (lipids) with powerful regulating effects on <strong>cellular responses to hormones</strong>. They act locally, not through the bloodstream."},
+{c:13,t:"Receptors",q:"What is up-regulation, and what causes it?",a:"An <strong>increase in the number of receptors available for binding</strong>. It happens in response to a <strong>prolonged decrease</strong> in hormone level &mdash; the cell compensates by listening harder."},
+{c:13,t:"Receptors",q:"What is down-regulation, and what causes it?",a:"A <strong>decrease in receptors</strong>, in response to a <strong>prolonged increase</strong> in hormone level."},
+{c:13,t:"Feedback",q:"What controls hormone concentrations?",a:"<strong>Negative feedback.</strong> Rising hormone (or its effect) shuts off the signal that caused its release."},
+{c:13,t:"Feedback",q:"Cervical pressure during labor drives hormone release, which strengthens contractions, which increases pressure. What kind of loop is this?",a:"<strong>Positive feedback</strong> &mdash; the oxytocin loop. It's the standard exam item for <em>not</em> a negative feedback loop. It ends only when the stimulus (pressure) ends."},
+{c:13,t:"Kinetics",q:"A hormone has a 20-minute half-life. What percentage remains after one hour?",a:"<strong>12.5%.</strong> One hour = three half-lives: 100 &rarr; 50 &rarr; 25 &rarr; 12.5. A hormone whose effect lasts days has a <strong>long half-life</strong>."},
+{c:13,t:"Pituitary",q:"What does a tropic hormone do?",a:"It <strong>stimulates another endocrine gland to secrete its hormones</strong> &mdash; TSH, ACTH, FSH and LH. (It does not prevent release.)"},
+{c:13,t:"Pituitary",q:"Which structure controls secretion of the pituitary hormones?",a:"The <strong>hypothalamus</strong> &mdash; not the thalamus. Releasing hormones reach the anterior lobe through portal veins; neurosecretory axons reach the posterior lobe directly."},
+{c:13,t:"Pituitary",q:"Where are the target cells of releasing hormones?",a:"In the <strong>anterior pituitary gland</strong>."},
+{c:13,t:"Pituitary",q:"Where are the hormones of the posterior pituitary actually made, and by what cells?",a:"In the <strong>hypothalamus</strong>, by <strong>neurosecretory cells</strong>. The posterior lobe only stores and releases them: <strong>ADH and oxytocin</strong>. Nerve fibers in the posterior lobe secrete <strong>antidiuretic hormone</strong>."},
+{c:13,t:"Pituitary",q:"What does growth hormone do, and what does it signal the liver to release?",a:"It <strong>enhances movement of amino acids into cells</strong> and stimulates growth. It signals the <strong>liver to release IGF-1</strong>. Blood GH <strong>rises at puberty and levels off after adolescence</strong>."},
+{c:13,t:"Pituitary",q:"A 78-year-old takes hGH to regain youthful strength. What does the evidence show?",a:"It <strong>decreases fat and increases muscle mass but does not improve strength</strong>."},
+{c:13,t:"Pituitary",q:"What inhibits the secretion of prolactin?",a:"<strong>Dopamine from the hypothalamus</strong> (prolactin release-inhibiting hormone). Prolactin is also the anterior-lobe hormone the test bank uses for &quot;requires a releasing hormone.&quot;"},
+{c:13,t:"Pituitary",q:"A woman skips periods, has low estrogen and does not ovulate. Which hormone is most likely out of balance?",a:"<strong>Follicle-stimulating hormone (FSH)</strong> &mdash; it drives follicle maturation and estrogen production."},
+{c:13,t:"Pituitary",q:"Which pituitary region produces MSH, and what does it regulate?",a:"The <strong>intermediate lobe (pars intermedia)</strong> produces <strong>melanocyte-stimulating hormone</strong>, which regulates <strong>formation of melanin</strong> &mdash; lacking it looks like albinism."},
+{c:13,t:"Pituitary",q:"A cyst compresses only the posterior lobe of the pituitary. What symptom should you predict?",a:"An <strong>oxytocin deficit</strong>: abnormal, high-risk labor with weak or missing contractions, likely forcing a C-section. (An ADH deficit would also give diabetes insipidus.)"},
+{c:13,t:"ADH",q:"What is another name for ADH, and what does it do?",a:"<strong>Vasopressin.</strong> It makes the <strong>kidneys conserve water</strong> and constricts blood vessels."},
+{c:13,t:"ADH",q:"Jerry drinks a few beers and quickly has to urinate. Why?",a:"Alcohol has <strong>inhibited the secretion of ADH</strong>, so the kidneys stop conserving water."},
+{c:13,t:"ADH",q:"What causes diabetes insipidus?",a:"<strong>ADH deficiency</strong> &mdash; huge volumes of dilute urine. Do not confuse it with diabetes <em>mellitus</em>, which is about insulin."},
+{c:13,t:"Oxytocin",q:"Why is oxytocin administered to women after childbirth?",a:"To stimulate <strong>uterine contractions</strong> (it also causes milk ejection). It does <em>not</em> make the kidneys conserve water &mdash; that's ADH."},
+{c:13,t:"Thyroid",q:"Compare T3 and T4 in the plasma.",a:"<strong>T4 (thyroxine) has the higher free concentration in plasma</strong>; T3 (triiodothyronine) is present in smaller amounts but is more potent. Both are secreted by the <strong>thyroid gland</strong>."},
+{c:13,t:"Thyroid",q:"What does thyroxine do to protein metabolism?",a:"It <strong>enhances the rate at which proteins are synthesized</strong>, along with raising overall metabolic rate."},
+{c:13,t:"Thyroid",q:"Which element does the thyroid uniquely remove from the blood, and what happens without it?",a:"<strong>Iodine.</strong> Where soil lacks iodine, <strong>simple goiter</strong> is prevalent &mdash; the gland enlarges trying to make hormone it can't."},
+{c:13,t:"Thyroid",q:"Maxwell has a very high metabolic rate, is very thin, and has protruding eyes. Diagnosis?",a:"<strong>Hyperthyroidism.</strong> Its most common form is <strong>Graves' disease</strong>, an <strong>autoimmune disorder</strong> whose hallmark is <strong>goiter</strong> (with exophthalmos)."},
+{c:13,t:"Thyroid",q:"What causes infantile hypothyroidism?",a:"A <strong>deficiency of thyroid hormones at birth</strong>."},
+{c:13,t:"Thyroid",q:"After a total thyroidectomy, which hormone will a patient NOT need supplemented: T3, T4, calcitonin, or cholecalciferol?",a:"<strong>Cholecalciferol</strong> (vitamin D3) &mdash; it comes from skin and diet, not the thyroid. She will need <strong>T3, T4 and calcitonin</strong>."},
+{c:13,t:"Calcium",q:"Which hormone stimulates calcium deposition into bone, and where is it made?",a:"<strong>Calcitonin</strong>, produced in the <strong>thyroid gland</strong> (by extrafollicular C cells). It <em>lowers</em> blood calcium."},
+{c:13,t:"Calcium",q:"What controls PTH secretion, and what does PTH do?",a:"Secretion is controlled by the <strong>concentration of blood calcium</strong> directly. PTH <strong>raises blood calcium</strong> &mdash; it stimulates bone-resorbing <strong>osteoclasts</strong> (not osteoblasts) &mdash; and lowers blood phosphate."},
+{c:13,t:"Calcium",q:"A defect stops PTH secretion entirely. What happens to blood calcium and phosphate?",a:"<strong>Calcium decreases and phosphate increases.</strong> Besides the calcium drop, the giveaway symptom of hypoparathyroidism is <strong>muscle cramps</strong> and tetany."},
+{c:13,t:"Calcium",q:"What usually causes hyperparathyroidism?",a:"A <strong>tumor</strong>."},
+{c:13,t:"Adrenal",q:"What does the adrenal medulla secrete, what chemical class, and what nerves control it?",a:"<strong>Epinephrine and norepinephrine &mdash; both amines.</strong> Its cells are modified neurons associated with <strong>preganglionic fibers of the SYMPATHETIC division</strong>. Losing it would affect <strong>blood pressure, heart rate and breathing rate</strong>."},
+{c:13,t:"Adrenal",q:"What does aldosterone do?",a:"It promotes ion homeostasis by causing the kidneys to <strong>conserve sodium and excrete potassium</strong> (water follows the sodium)."},
+{c:13,t:"Adrenal",q:"What are cortisol's two exam-relevant actions?",a:"It <strong>stimulates production of glucose from noncarbohydrates</strong> (gluconeogenesis), and it controls inflammation by <strong>decreasing the permeability of capillaries</strong>."},
+{c:13,t:"Adrenal",q:"Addison disease vs. Cushing syndrome &mdash; which is which?",a:"<strong>Addison</strong> = <em>hypo</em>secretion from the adrenal cortex &rarr; <strong>decreased blood sodium</strong>. <strong>Cushing</strong> = <em>hyper</em>secretion of cortical hormones. The cortex's sex hormones are primarily <strong>androgens</strong>."},
+{c:13,t:"Pancreas",q:"What do insulin and glucagon each do to blood glucose?",a:"<strong>Insulin decreases</strong> blood glucose; <strong>glucagon increases</strong> it. The pancreas is the organ with <strong>both endocrine and exocrine</strong> functions &mdash; it belongs to the endocrine and the <strong>digestive</strong> systems."},
+{c:13,t:"Pancreas",q:"What causes type 1 diabetes mellitus, and what accumulates if it's untreated?",a:"A <strong>disorder of the immune system</strong> destroying beta cells. Untreated, <strong>fatty acids and ketone bodies accumulate in the blood</strong>."},
+{c:13,t:"Pancreas",q:"What causes type 2 diabetes mellitus?",a:"<strong>Insensitivity of cells to insulin</strong> &mdash; the insulin is there, the cells stop answering."},
+{c:13,t:"Pancreas",q:"How does diabetes mellitus change the urine?",a:"Glucose spills into it, so the <strong>urine is of high osmotic pressure</strong> &mdash; it drags water out with it, causing frequent urination and thirst."},
+{c:13,t:"Pineal / thymus",q:"Where is the pineal gland and what does it secrete?",a:"<strong>Attached to the thalamus</strong>, deep between the cerebral hemispheres at the roof of the third ventricle. It secretes <strong>melatonin</strong>."},
+{c:13,t:"Pineal / thymus",q:"A night-shift worker exposed to bright light day and night can't sleep. What's disturbed?",a:"Their <strong>circadian rhythm</strong>, which controls the release of <strong>melatonin</strong>."},
+{c:13,t:"Pineal / thymus",q:"What does the thymus secrete and what does it control?",a:"<strong>Thymosins</strong>, which <strong>control the production and differentiation of white blood cells</strong> (T lymphocytes)."},
+{c:13,t:"Other glands",q:"Why do athletes abuse erythropoietin?",a:"EPO &mdash; from the kidneys &mdash; <strong>increases the number of red blood cells</strong>, delivering more oxygen to muscle."},
+{c:13,t:"Stress",q:"What happens to epinephrine and cortisol in the general stress response?",a:"<strong>Both rise.</strong> Blood pressure increases, and a stressed person has <strong>lowered resistance to infection</strong>."},
+{c:13,t:"Stress",q:"A friend in a mask jumps out at you and you release epinephrine. In stress vocabulary, what is the friend?",a:"The <strong>stimulus</strong>. <strong>Stress</strong> is the condition produced by factors that threaten the body's internal environment."},
+{c:13,t:"Aging",q:"What happens to GH and ADH with age?",a:"<strong>GH levels decrease, but ADH increases.</strong>"},
+
+/* ---------------- CH 14 BLOOD ---------------- */
+{c:14,t:"Composition",q:"What tissue type is blood, and what are the formed elements?",a:"Blood is a <strong>connective tissue</strong> &mdash; never epithelial. The <strong>formed elements are blood cells and platelets</strong>, and they are <strong>mostly red blood cells</strong>."},
+{c:14,t:"Composition",q:"What is hematocrit and what is the normal value?",a:"The <strong>percentage of red blood cells in a blood sample</strong> &mdash; normally about <strong>45%</strong>. Plasma makes up the other ~55%."},
+{c:14,t:"Composition",q:"Blood volume varies with what?",a:"<strong>Body size and body fat content</strong> (plus electrolyte and water concentrations). Adipose tissue holds less blood per kilogram."},
+{c:14,t:"RBC",q:"Describe a mature red blood cell.",a:"A <strong>biconcave disc</strong> &mdash; <em>thin near the center and thicker around the rim</em> &mdash; that <strong>lacks a nucleus</strong> when mature, leaving more room for hemoglobin."},
+{c:14,t:"RBC",q:"Give the differentiation sequence for a red blood cell.",a:"<strong>Hematopoietic stem cell &rarr; erythroblast &rarr; reticulocyte &rarr; erythrocyte.</strong>"},
+{c:14,t:"RBC",q:"Where are red blood cells made in an adult, and what hormone drives production?",a:"In the <strong>red bone marrow</strong>, under the control of <strong>erythropoietin (EPO)</strong> released from the <strong>kidneys</strong> when oxygen is low."},
+{c:14,t:"RBC",q:"Why is vitamin B12 needed for red cell production, and what does its absorption require?",a:"B12 (with folic acid) is required for <strong>DNA synthesis</strong> &mdash; <em>not</em> for making intrinsic factor. It is poorly absorbed without <strong>intrinsic factor</strong> from the stomach; that deficiency causes pernicious anemia."},
+{c:14,t:"RBC",q:"Trace the breakdown of hemoglobin, with colors.",a:"Macrophages in the liver and spleen split it. <strong>Heme &rarr; iron (recycled) + biliverdin, which is GREENISH</strong>; biliverdin is converted to <strong>bilirubin, which is ORANGE</strong>. Bilirubin is secreted in bile and turns brown in the intestines &mdash; the color of feces."},
+{c:14,t:"RBC",q:"What element is in a hemoglobin molecule?",a:"<strong>Iron.</strong> (Cobalt belongs to vitamin B12 &mdash; a common distractor.)"},
+{c:14,t:"RBC",q:"What causes cyanosis?",a:"An increased blood concentration of <strong>deoxyhemoglobin</strong>."},
+{c:14,t:"Anemia",q:"What causes sickle cell disease, and how does hydroxyurea treat it?",a:"A <strong>mutation</strong> in the hemoglobin gene. <strong>Hydroxyurea activates production of the hemoglobin normally made only in a fetus</strong>, which doesn't sickle."},
+{c:14,t:"Anemia",q:"Alice takes iron supplements for iron deficiency anemia but stays symptomatic. What drink is the likely culprit, and why?",a:"<strong>Tea.</strong> The <strong>tannic acid</strong> in it binds iron and reduces how much is absorbed."},
+{c:14,t:"WBC",q:"What is the normal white blood cell count, and what is leukopenia?",a:"About <strong>5,000&ndash;10,000 cells per microliter</strong>. <strong>Leukopenia</strong> is an abnormally <em>low</em> count &mdash; below about 5,000, so a result like <strong>3,000/&micro;L</strong> qualifies. Causes include HIV and aplastic anemia."},
+{c:14,t:"WBC",q:"Which leukocytes are granulocytes and which are agranulocytes?",a:"<strong>Granulocytes:</strong> neutrophils, eosinophils, basophils. <strong>Agranulocytes:</strong> <strong>monocytes</strong> and lymphocytes."},
+{c:14,t:"WBC",q:"A patient has suspected MRSA. Which blood component rises?",a:"<strong>Neutrophils</strong> &mdash; the most numerous leukocyte and the <strong>most active phagocytes</strong>, first on the scene in a bacterial infection."},
+{c:14,t:"WBC",q:"Basophils drop to near zero. What is directly lost?",a:"The <strong>inflammatory reaction at wounds</strong> that recruits other defensive leukocytes &mdash; basophils release <strong>histamine</strong> (promotes inflammation) and <strong>heparin</strong> (anticoagulant)."},
+{c:14,t:"WBC",q:"You see a purple-stained cell 2&ndash;3&times; the size of a red blood cell with a large kidney-shaped nucleus. What is it?",a:"A <strong>monocyte</strong> &mdash; the largest blood cell. It leaves the blood to become a macrophage."},
+{c:14,t:"WBC",q:"What is the primary function of lymphocytes?",a:"To <strong>act against foreign substances</strong>. <strong>B cells produce antibodies</strong>, the proteins that attack foreign molecules."},
+{c:14,t:"WBC",q:"Which mature cells descend from myeloblasts?",a:"The <strong>granulocytes</strong> &mdash; neutrophils, eosinophils and basophils. (Monocytes come from monoblasts, lymphocytes from lymphoblasts.)"},
+{c:14,t:"WBC",q:"What is diapedesis, and what is pus made of?",a:"<strong>Diapedesis</strong> is the movement of white blood cells <strong>out of the circulation</strong>, squeezing between capillary cells. <strong>Pus</strong> = <strong>bacteria, white blood cells and damaged cells</strong>."},
+{c:14,t:"WBC",q:"What does a differential white blood cell count report?",a:"The <strong>percentages of the various types of leukocytes</strong> in a sample."},
+{c:14,t:"Platelets",q:"What are platelets, and what do they release?",a:"<strong>Cytoplasmic fragments of cells</strong> (megakaryocytes), with no nucleus. They release <strong>serotonin</strong>, which causes the <strong>blood vessel spasm</strong> that follows an injury, plus ADP that recruits more platelets."},
+{c:14,t:"Hemostasis",q:"What are the three steps of hemostasis, in order?",a:"<strong>1. Blood vessel spasm</strong> (serotonin from platelets) &rarr; <strong>2. platelet plug formation</strong> &rarr; <strong>3. blood coagulation</strong>. <em>Hemostasis</em> is the general term for stopping bleeding by any of these means."},
+{c:14,t:"Clotting",q:"What triggers the extrinsic clotting mechanism, and what test evaluates it?",a:"The release of <strong>tissue thromboplastin</strong> from damaged tissue. It is evaluated by <strong>prothrombin time (PT)</strong>."},
+{c:14,t:"Clotting",q:"Hemophilia lacks factor VIII and stalls the cascade at the factor IX step. Which pathway is broken?",a:"The <strong>intrinsic clotting mechanism</strong> &mdash; the one triggered by blood contacting collagen or a foreign surface."},
+{c:14,t:"Clotting",q:"What is the basic event of blood clot formation?",a:"The change of <strong>fibrinogen into fibrin</strong>. Getting there: prothrombin activator + Ca&sup2;&#8314; converts <strong>prothrombin &rarr; thrombin</strong>, and thrombin converts <strong>fibrinogen &rarr; fibrin</strong>, which forms the mesh."},
+{c:14,t:"Clotting",q:"Why would someone on a blood thinner be told to take vitamin K?",a:"<strong>Vitamin K is essential for the liver's synthesis of prothrombin</strong>, without which the cascade cannot reach thrombin."},
+{c:14,t:"Clotting",q:"How does heparin prevent clotting?",a:"By <strong>inhibiting formation of prothrombin activator and blocking thrombin's action on fibrinogen</strong>."},
+{c:14,t:"Clotting",q:"A child is born with no plasminogen. What happens to hemostasis?",a:"<strong>Clots will form but never dissolve</strong> &mdash; plasminogen is converted to plasmin, the clot-dissolving enzyme that digests fibrin."},
+{c:14,t:"Clotting",q:"Tom's endothelium cannot secrete prostacyclin (PGI2). Consequence?",a:"<strong>Prostacyclin normally keeps platelets from sticking to healthy vessel walls</strong>, so Tom will have <strong>clotting and general narrowing of his blood vessels</strong>."},
+{c:14,t:"Clotting",q:"Name two substances used to dissolve blood clots.",a:"<strong>Urokinase and streptokinase.</strong>"},
+{c:14,t:"Clotting",q:"Thrombus vs. embolus &mdash; and what causes a pulmonary embolism?",a:"A <strong>thrombus</strong> is a clot that forms abnormally <em>in a vessel</em>; an <strong>embolus</strong> is a clot that <strong>breaks loose and travels</strong> in the blood. A <strong>pulmonary embolism</strong> is a clot reaching a lung <strong>through a pulmonary artery</strong>."},
+{c:14,t:"Clotting",q:"Why does a man exercise in the aisle every two hours on a transcontinental flight?",a:"To prevent <strong>deep vein thrombosis (DVT)</strong>. The single best preventive measure is to <strong>avoid prolonged periods of staying still in one position</strong>."},
+{c:14,t:"Platelets",q:"A chemotherapy patient bleeds easily and develops tiny red bruise-like spots. What is it, and what are the spots called?",a:"<strong>Thrombocytopenia</strong> &mdash; a deficiency of <strong>platelets</strong>. The spots are <strong>petechiae</strong>."},
+{c:14,t:"Plasma",q:"Name the three classes of plasma protein and what each does.",a:"<ul><li><strong>Albumin</strong> &mdash; most abundant; maintains colloid osmotic pressure.</li><li><strong>Globulins</strong> &mdash; alpha and beta <strong>transport lipids and fat-soluble vitamins</strong>; gamma globulins are <strong>antibodies</strong>.</li><li><strong>Fibrinogen</strong> &mdash; clotting.</li></ul>"},
+{c:14,t:"Plasma",q:"What is the difference between plasma and serum?",a:"<strong>Plasma contains fibrinogen; serum does not.</strong> Serum is what's left after the clotting factors are used up."},
+{c:14,t:"Plasma",q:"What happens to blood protein and body fluids in starvation?",a:"Blood protein concentration <strong>decreases</strong>, osmotic pressure falls, and <strong>water accumulates in tissue spaces</strong> &mdash; <strong>edema</strong>, in which tissues swell with fluid."},
+{c:14,t:"Plasma",q:"Name the nonprotein nitrogenous substances, and what high urea means.",a:"<strong>Urea</strong> (about half), <strong>uric acid, creatine, creatinine</strong> and amino acids. High NPNs with pain, nausea and no urination points at the <strong>kidneys</strong>."},
+{c:14,t:"Plasma",q:"Which ions are the plasma electrolytes?",a:"<strong>Bicarbonate, magnesium, chloride and potassium</strong>, plus sodium, calcium, phosphate and sulfate."},
+{c:14,t:"Blood types",q:"What is on the red cells and in the plasma for each ABO type?",a:"<strong>A</strong>: antigen A, anti-B antibodies. <strong>B</strong>: antigen B, anti-A. <strong>AB</strong>: <strong>antigens A and B</strong>, no antibodies. <strong>O</strong>: no antigens, both antibodies."},
+{c:14,t:"Blood types",q:"Who can a type A person donate to, and what can a type AB person receive?",a:"Type A donates to <strong>A and AB</strong>. Type AB is the <strong>universal recipient</strong> &mdash; it can receive from <strong>all four</strong> ABO types."},
+{c:14,t:"Blood types",q:"Which ABO type is rarest in the US, and how do Korean Americans and Native Americans compare?",a:"<strong>AB is rarest</strong> (O is most common). <strong>Korean Americans</strong> have roughly equal O, A and B with about <strong>10% AB</strong>; <strong>Native Americans</strong> are mostly <strong>type O</strong> with AB very rare."},
+{c:14,t:"Rh",q:"When does erythroblastosis fetalis occur, and what fraction of the population is Rh negative?",a:"In a <strong>second Rh-positive fetus carried by an Rh-negative woman</strong> &mdash; the first pregnancy sensitized her. About <strong>15% of Caucasians and 5% of African Americans</strong> are Rh negative."},
+{c:14,t:"Rh",q:"A type A patient's first transfusion goes fine; the second causes illness and agglutination. What happened?",a:"The <strong>first transfusion carried Rh antigens</strong>, so the Rh-negative patient made <strong>anti-Rh antibodies</strong> that attacked the second unit. ABO matching alone doesn't cover Rh."},
+{c:14,t:"Rh",q:"A transfusion patient flushes, has chest pain and breathing trouble, then turns jaundiced. What are their RBCs doing?",a:"<strong>Agglutinating</strong> &mdash; clumping and then hemolyzing, which releases the hemoglobin that causes the jaundice."},
+{c:14,t:"Disorders",q:"Stacy is tired, bruises easily, has had three respiratory infections, headaches and nosebleeds. What should be checked?",a:"<strong>Leukemia.</strong> Abnormal white cells crowd out normal marrow production, which explains the infections, the bruising and the bleeding together."},
+{c:14,t:"Safety",q:"What are universal precautions?",a:"Treating <strong>every person's blood and body fluids as if they were infectious</strong> &mdash; gloves, safe sharps handling, barrier protection &mdash; regardless of known diagnosis."},
+
+/* ---------------- CH 15 CARDIOVASCULAR ---------------- */
+{c:15,t:"Overview",q:"How much blood does the heart pump per day, and how many times does it beat in a lifetime?",a:"About <strong>7,000 liters a day</strong> and roughly <strong>2.5 billion contractions</strong> in a lifetime."},
+{c:15,t:"Overview",q:"Why is circulation vital?",a:"It <strong>supplies oxygen and nutrients to tissues and removes wastes from them</strong>."},
+{c:15,t:"Overview",q:"What does the pulmonary circuit do, and what does the systemic circuit do?",a:"<strong>Pulmonary: sends oxygen-poor blood to the lungs.</strong> <strong>Systemic: sends oxygen-rich blood to the tissues.</strong>"},
+{c:15,t:"Anatomy",q:"Where is the heart, and where does the apex point?",a:"In the mediastinum behind the sternum. The <strong>apex points downward and to the left, at about the 5th intercostal space</strong>; the apical heartbeat is heard between the fifth and sixth ribs about <strong>7.5 cm left of the midline</strong>. It is roughly 14 cm long and 9 cm wide."},
+{c:15,t:"Anatomy",q:"What is the loose-fitting sac around the heart, and which membrane covers the heart's surface?",a:"The <strong>fibrous pericardium</strong> is the loose-fitting outer sac. The <strong>visceral pericardium (epicardium) covers the heart's surface</strong>, while the <strong>parietal pericardium lines the sac</strong> &mdash; test items love to swap those two."},
+{c:15,t:"Anatomy",q:"Name the layers of the heart from the inside out.",a:"<strong>Endocardium &rarr; myocardium &rarr; epicardium &rarr; pericardial cavity &rarr; parietal pericardium &rarr; fibrous pericardium.</strong>"},
+{c:15,t:"Anatomy",q:"Match each layer to its job: epicardium, myocardium, endocardium.",a:"<strong>Myocardium</strong> &mdash; cardiac muscle tissue that <strong>pumps blood out of the chambers</strong>. <strong>Endocardium</strong> &mdash; protective <em>inner</em> lining of chambers and valves. <strong>Epicardium</strong> &mdash; protective <em>outer</em> covering."},
+{c:15,t:"Anatomy",q:"What is the skeleton of the heart?",a:"<strong>Fibrous connective tissue encircling the atrioventricular orifices</strong> (and the semilunar openings). It anchors valves, prevents overdilation, and electrically insulates atria from ventricles."},
+{c:15,t:"Anatomy",q:"What empties directly into the right atrium?",a:"The <strong>superior vena cava, inferior vena cava, and the coronary sinus</strong>."},
+{c:15,t:"Blood flow",q:"Give the sequence from vena cava to the lungs.",a:"<strong>Right atrium &rarr; tricuspid valve &rarr; right ventricle &rarr; pulmonary valve</strong> &rarr; pulmonary trunk &rarr; pulmonary arteries &rarr; lungs."},
+{c:15,t:"Valves",q:"Match each valve to what it permits.",a:"<strong>Tricuspid</strong>: right atrium &rarr; right ventricle. <strong>Pulmonary</strong>: right ventricle &rarr; pulmonary trunk. <strong>Mitral (bicuspid)</strong>: left atrium &rarr; left ventricle. <strong>Aortic</strong>: left ventricle &rarr; aorta."},
+{c:15,t:"Valves",q:"What do the valves do when the ventricular walls contract?",a:"The <strong>mitral and tricuspid valves close</strong> (making the first heart sound) while the semilunar valves open."},
+{c:15,t:"Valves",q:"Listening just right of the lower end of the sternum, which valve do you hear?",a:"The <strong>tricuspid valve</strong>. The mitral is loudest at the apex; aortic and pulmonary at the second intercostal space, right and left."},
+{c:15,t:"Valves",q:"What happens in mitral valve prolapse?",a:"A cusp <strong>bulges into the left atrium during ventricular contraction</strong>."},
+{c:15,t:"Coronary",q:"Where does angina pectoris pain come from?",a:"A blockage in an artery that supplies the <strong>heart</strong> itself &mdash; even though the pain is referred to the left arm, shoulder, neck or jaw."},
+{c:15,t:"Coronary",q:"Constriction of the right coronary artery causes what?",a:"Decreased blood flow to the right side of the heart muscle, resulting in <strong>ischemia</strong> (and, if complete, myocardial infarction)."},
+{c:15,t:"Coronary",q:"Where does the coronary sinus drain, and do coronary branches interconnect?",a:"Into the <strong>right atrium</strong> &mdash; not the left. And <strong>yes</strong>: smaller branches of the coronary arteries have <strong>anastomoses</strong> between vessels, which provide collateral routes."},
+{c:15,t:"Hormone",q:"What does atrial natriuretic peptide do?",a:"ANP is released by the atria when blood volume rises and it <strong>inhibits the release of renin and aldosterone</strong>, promoting sodium and water loss &mdash; it <em>lowers</em> blood pressure."},
+{c:15,t:"Conduction",q:"Give the correct order of the cardiac conduction system.",a:"<strong>SA node &rarr; AV node &rarr; AV bundle &rarr; Purkinje fibers.</strong> The <strong>SA node is the normal pacemaker</strong>; the AV bundle runs in the interventricular septum."},
+{c:15,t:"Conduction",q:"What can serve as a secondary pacemaker?",a:"<strong>Both the AV node and the Purkinje fibers</strong> &mdash; each has its own slower intrinsic rhythm."},
+{c:15,t:"Conduction",q:"Which ion are the conducting cells most sensitive to, and what does an excess do?",a:"<strong>Potassium.</strong> Excess K&#8314; causes <strong>decreased rate AND decreased force of contraction</strong> &mdash; which is why it can be used against a racing heart. (Excess calcium instead prolongs contraction.)"},
+{c:15,t:"Conduction",q:"What happens once SA node cells reach threshold?",a:"<strong>An action potential is triggered</strong>, and it spreads across the atria."},
+{c:15,t:"ECG",q:"What does each ECG wave represent?",a:"<strong>P wave = depolarization of the atria. QRS complex = depolarization of the ventricles. T wave = repolarization of the ventricles.</strong>"},
+{c:15,t:"ECG",q:"What does the PQ interval measure?",a:"How long the cardiac impulse takes to travel from the <strong>SA node through the AV node</strong>."},
+{c:15,t:"Regulation",q:"What do impulses carried by the vagus nerve do to the heart?",a:"They are <strong>parasympathetic and decrease heart rate</strong>. Sympathetic accelerator fibers do the opposite."},
+{c:15,t:"Regulation",q:"The aortic baroreceptor senses the aorta stretching. What does the nervous system do?",a:"Sends <strong>parasympathetic signals to decrease heart rate</strong> &mdash; stretch means pressure is high, so slow down."},
+{c:15,t:"Regulation",q:"Which structures hold the chemoreceptors that read blood oxygen and carbon dioxide?",a:"The <strong>aortic bodies and carotid bodies</strong>. (Baroreceptors sense stretch; these sense chemistry.)"},
+{c:15,t:"Arrhythmia",q:"Define bradycardia, fibrillation, and name the most life-threatening arrhythmia.",a:"<strong>Bradycardia</strong> = abnormally slow heart rate. <strong>Fibrillation</strong> = small areas of myocardium contracting chaotically. <strong>Ventricular fibrillation is the most life-threatening.</strong>"},
+{c:15,t:"Arrhythmia",q:"A distance runner's pulse is 53 bpm. What is this called?",a:"<strong>Sinus bradycardia</strong> &mdash; and in a trained athlete it signals a <strong>very healthy cardiovascular system</strong>, alongside an enlarged heart and low blood pressure."},
+{c:15,t:"Vessels",q:"What are arteries, and what do veins do?",a:"Arteries are <strong>strong, elastic vessels that carry blood AWAY from the heart</strong>. Venules continue from capillaries into <strong>veins, which return blood to the atria</strong> and contain valves."},
+{c:15,t:"Vessels",q:"What is a capillary wall made of?",a:"A <strong>single layer of squamous epithelial cells</strong> (endothelium), across which substances in blood are exchanged for substances in tissue fluid."},
+{c:15,t:"Vessels",q:"What are metarterioles and precapillary sphincters?",a:"<strong>Metarterioles</strong> connect arterioles directly to venules, letting blood <strong>bypass the capillaries</strong>. <strong>Precapillary sphincters</strong> open and close according to the needs of the cells the capillary feeds &mdash; they control the <strong>distribution of blood through capillary pathways</strong>."},
+{c:15,t:"Vessels",q:"Which vessel type holds the greatest volume of blood?",a:"<strong>Veins</strong> &mdash; they act as the body's blood reservoir."},
+{c:15,t:"Vessels",q:"What gas does endothelium release, and what does it do?",a:"<strong>Nitric oxide</strong>, which <strong>relaxes the smooth muscle in the blood vessel wall</strong> &mdash; vasodilation, and the warm rush you feel when you warm up after being cold."},
+{c:15,t:"Exchange",q:"Why do water and solutes leave the arteriolar end of a capillary and re-enter at the venular end?",a:"They leave because <strong>hydrostatic pressure is higher than osmotic pressure</strong> there; they re-enter because <strong>osmotic pressure is higher than hydrostatic pressure</strong> at the venular end."},
+{c:15,t:"Exchange",q:"Net inward pressure at the venular end is less than net outward pressure at the arteriolar end. So what?",a:"<strong>More fluid leaves the capillaries than returns to them</strong> &mdash; the lymphatic vessels collect the surplus, which is why lymphatic blockage causes swelling."},
+{c:15,t:"Exchange",q:"What do plasma proteins do in capillaries, and what does histamine do?",a:"Plasma proteins <strong>maintain the osmotic pressure of the blood</strong>, pulling fluid back in. <strong>Histamine increases capillary permeability</strong>, producing an edematous, painful area."},
+{c:15,t:"Exchange",q:"How do lipid-soluble and water-soluble substances cross a capillary wall?",a:"<strong>Lipid-soluble</strong> substances diffuse <strong>through the cell membranes themselves</strong>; <strong>lipid-insoluble</strong> substances pass through <strong>membrane channels and the slits between cells</strong> &mdash; the reverse of that statement is a classic false item."},
+{c:15,t:"Exchange",q:"How do VEGF inhibitors treat wet macular degeneration and cancer?",a:"<strong>VEGF stimulates growth of capillaries</strong>, so blocking it <strong>stops weak, leaky new capillaries from growing</strong> in the eye. Used as an <strong>angiogenesis inhibitor</strong> in cancer, it <strong>starves tumors by cutting off their blood supply</strong>."},
+{c:15,t:"Output",q:"State the Frank-Starling law of the heart.",a:"The <strong>volume of blood discharged from the heart equals the volume entering its chambers</strong> &mdash; the more the fibers are stretched, the more forcefully they contract."},
+{c:15,t:"Output",q:"How is cardiac output calculated, and what does sympathetic stimulation increase?",a:"<strong>Cardiac output = stroke volume &times; heart rate</strong> (<em>not</em> stroke volume &times; blood pressure). <strong>Sympathetic stimulation increases stroke volume.</strong>"},
+{c:15,t:"Blood pressure",q:"What happens to blood pressure when arterial smooth muscle contracts?",a:"<strong>Blood pressure increases</strong> &mdash; vasoconstriction raises peripheral resistance."},
+{c:15,t:"Blood pressure",q:"When is arterial pressure greatest, and how is pulse pressure calculated?",a:"Greatest during <strong>ventricular systole</strong> (ventricular contraction). <strong>Pulse pressure = systolic &minus; diastolic.</strong> Measured with a <strong>sphygmomanometer</strong>."},
+{c:15,t:"Blood pressure",q:"How does angiotensin II raise blood pressure, and how does kidney disease cause hypertension?",a:"Angiotensin II raises it by <strong>increasing peripheral resistance</strong> (vasoconstriction) and driving aldosterone release. Kidney disease causes hypertension by <strong>activating the renin-angiotensin mechanism</strong>."},
+{c:15,t:"Venous return",q:"What helps return blood to the heart?",a:"<strong>Contracting skeletal muscles</strong> squeezing the veins against their one-way valves, breathing movements, and &mdash; when venous pressure falls too low &mdash; <strong>sympathetic reflexes</strong> that constrict the smooth muscle in vein walls. This is why you flex your ankles on a long flight."},
+{c:15,t:"Venous return",q:"What is central venous pressure?",a:"The pressure in the <strong>right atrium</strong> &mdash; not somewhere in the abdomen."},
+{c:15,t:"Arteries",q:"Which of these is NOT a branch of the aorta: right coronary, pulmonary, brachiocephalic, left subclavian?",a:"The <strong>pulmonary artery</strong> &mdash; it leaves the right ventricle. The aorta is also the largest artery of the <strong>systemic</strong>, not pulmonary, circuit. The pulmonary trunk divides into right and left pulmonary arteries about <strong>5 cm</strong> above its origin."},
+{c:15,t:"Arteries",q:"What does the celiac artery supply, and what do the external carotids supply?",a:"<strong>Celiac</strong>: <strong>liver, spleen</strong> and the upper gastrointestinal tract. <strong>External carotid</strong>: structures of the <strong>neck and face</strong>."},
+{c:15,t:"Arteries",q:"Ink is pumped into the superior mesenteric artery, and separately into the common carotid. What shows up?",a:"Superior mesenteric &rarr; the <strong>small intestine and portions of the large intestine</strong>. Common carotid &rarr; the <strong>neck and head</strong>."},
+{c:15,t:"Arteries",q:"Which artery is mismatched: inferior mesenteric&ndash;colon and rectum, thyrocervical&ndash;thymus, celiac&ndash;liver and spleen, popliteal&ndash;behind the knee?",a:"<strong>Thyrocervical</strong> &mdash; it supplies the <strong>thyroid and parathyroid glands</strong> and nearby neck structures, not the thymus."},
+{c:15,t:"Arteries",q:"Which artery is felt for a pulse at the wrist near the thumb?",a:"The <strong>radial artery</strong>."},
+{c:15,t:"Veins",q:"The radial and ulnar veins merge into what? What drains the face and scalp? What is the longest vein?",a:"They merge into the <strong>brachial vein</strong>. The <strong>external jugular vein</strong> drains the face and scalp. The <strong>great saphenous vein</strong> is the longest vein in the body."},
+{c:15,t:"Life span",q:"What are the typical heart rates for a fetus, a newborn, and an adult?",a:"About <strong>145 in a fetus, 140 in a newborn, and 70 in an adult</strong>."},
+{c:15,t:"Life span",q:"What happens to blood vessels with age?",a:"The <strong>tunica interna thickens</strong>, arteries become <em>more</em> rigid, and resting cardiac output declines."},
+{c:15,t:"Disorders",q:"What happens in atherosclerosis, and which factors raise the risk?",a:"Plaque builds in the artery wall, so the <strong>risk of a thrombus or embolus forming increases</strong>. Risk factors: smoking, lack of exercise, high blood pressure, diabetes, saturated fat. <strong>A diet high in UNsaturated fats and low blood pressure are not risk factors.</strong>"},
+{c:15,t:"Disorders",q:"What can cause sudden cardiac arrest, what does an LVAD do, and what is phlebitis?",a:"Sudden cardiac arrest can result from <strong>scar tissue from a previous heart attack</strong>. A <strong>left ventricular assist device maintains cardiac function until a donor heart becomes available</strong>. <strong>Phlebitis</strong> is <strong>inflammation of the veins</strong>."},
+{c:15,t:"Exercise",q:"Which change is NOT a normal response to exercise?",a:"<strong>Increased blood flow to the abdominal viscera</strong> &mdash; that flow is <em>reduced</em> and diverted to skeletal muscle. Heart rate, force of ventricular contraction and muscle blood flow all increase."}
+];
+
+const QUIZ = [
+/* --- 13 --- */
+{c:13,n:"13&nbsp;&middot;&nbsp;Q3",q:"Sonic hedgehog is released from a cell and travels in a small gradient through interstitial fluid only to nearby cells, establishing the path of nervous system and limb development. It must be what kind of signal?",k:"Paracrine",w:"Short range, interstitial fluid, nearby cells only. Endocrine would require the bloodstream; autocrine would act on the secreting cell itself."},
+{c:13,n:"13&nbsp;&middot;&nbsp;Q15",q:"Amylin, which a diabetic pancreas fails to produce along with insulin, is a long chain of amino acids that cannot cross the cell membrane and binds a surface receptor. Which hormone class?",k:"A peptide hormone",w:"Amino acid chain + water soluble + surface receptor = nonsteroid, specifically peptide. It has to use a second messenger."},
+{c:13,n:"13&nbsp;&middot;&nbsp;Q16",q:"Estradiol's structure is carbon-hydrogen rings; it is a lipid but not a prostaglandin. How does it cause a response in a target cell?",k:"It enters through the plasma membrane and binds an intracellular receptor, changing gene expression",w:"Ring structure + lipid = steroid. Steroids skip the second messenger entirely and act on DNA."},
+{c:13,n:"13&nbsp;&middot;&nbsp;Q22",q:"Which does NOT demonstrate a negative feedback loop?",k:"The labor scenario: cervical pressure receptors trigger a hormone that causes contractions, causing more pressure and more hormone",w:"That is positive feedback (oxytocin) &mdash; the response amplifies the stimulus until the stimulus is removed."},
+{c:13,n:"13&nbsp;&middot;&nbsp;Q24",q:"A hormone has a half-life of 20 minutes. After an hour, what percentage of the original molecules remains?",k:"12.5%",w:"Three half-lives in 60 minutes: 100 &rarr; 50 &rarr; 25 &rarr; 12.5."},
+{c:13,n:"13&nbsp;&middot;&nbsp;Q27",q:"A cyst in the pars intermedia grows to press only on the posterior lobe of the pituitary. Which symptom would you predict?",k:"Abnormal/high-risk labor with weak or missing contractions, possibly requiring a C-section",w:"The posterior lobe releases only ADH and oxytocin. Loss of oxytocin removes the uterine contraction signal."},
+{c:13,n:"13&nbsp;&middot;&nbsp;Q29",q:"A patient skips menstrual periods due to low estrogen and misses ovulation. Which hormone is most likely imbalanced?",k:"Follicle-stimulating hormone",w:"FSH matures the follicle, and the follicle makes estrogen. No FSH, no follicle, no estrogen, no ovulation."},
+{c:13,n:"13&nbsp;&middot;&nbsp;Q35",q:"Jerry drinks a few beers and soon has to urinate. Why?",k:"The alcohol has inhibited secretion of ADH",w:"Without ADH the kidneys stop reabsorbing water, so urine volume jumps."},
+{c:13,n:"13&nbsp;&middot;&nbsp;Q43",q:"Kristin has her entire thyroid removed. Which hormone will she NOT need supplemented?",k:"Cholecalciferol",w:"Vitamin D3 comes from skin and diet. She will need T3, T4 and calcitonin."},
+{c:13,n:"13&nbsp;&middot;&nbsp;Q52",q:"A parathyroid defect prevents PTH secretion. What happens to calcium and phosphate?",k:"Blood calcium decreases and phosphate increases",w:"PTH normally raises calcium (via osteoclasts) and promotes phosphate excretion, so losing it reverses both."},
+{c:13,n:"13&nbsp;&middot;&nbsp;Q67",q:"A night-shift worker exposed to bright light day and night can't fall asleep. What is disturbed, and which hormone?",k:"Circadian rhythm; melatonin",w:"Light suppresses pineal melatonin release; erratic light wrecks the rhythm that times it."},
+{c:13,n:"13&nbsp;&middot;&nbsp;Q75",q:"Diane has type 1 diabetes mellitus. Which physiological effect does she likely experience?",k:"Fatty acids and ketone bodies accumulate in her blood if she skips treatment",w:"Without insulin, cells can't use glucose and switch to burning fat, producing ketones &mdash; ketoacidosis."},
+{c:13,n:"13&nbsp;&middot;&nbsp;Q77",q:"How does diabetes mellitus affect Dave's bodily fluids?",k:"His urine is of high osmotic pressure",w:"Unreabsorbed glucose in the filtrate holds water in the tubules, so he loses large volumes of urine and gets thirsty."},
+{c:13,n:"13&nbsp;&middot;&nbsp;Q102",q:"A fetus lacks melanocyte-stimulating hormone, resulting in absent skin and eye coloration. Which pituitary structure is malformed?",k:"The intermediate lobe (pars intermedia)",w:"Heads up: the uploaded key writes &quot;anterior pituitary&quot; here. MSH is produced by the intermediate lobe &mdash; which some texts count as part of the anterior pituitary, which is probably why. Know both framings.",flag:true},
+
+/* --- 14 --- */
+{c:14,n:"14&nbsp;&middot;&nbsp;Q2",q:"Which white blood cell count suggests leukopenia?",k:"3,000 WBCs per microliter",w:"Normal is roughly 5,000&ndash;10,000/&micro;L; leukopenia is below that range."},
+{c:14,n:"14&nbsp;&middot;&nbsp;Q3",q:"A patient has suspected MRSA. Which blood component would be elevated?",k:"Neutrophils",w:"Neutrophils are the most numerous leukocyte and the first phagocytes to answer a bacterial infection."},
+{c:14,n:"14&nbsp;&middot;&nbsp;Q4",q:"Basophil numbers drop drastically. What directly results?",k:"Wound areas won't produce an inflammatory reaction to attract other defensive leukocytes",w:"Basophils release histamine, which drives the inflammatory response, and heparin, which keeps blood flowing at the site."},
+{c:14,n:"14&nbsp;&middot;&nbsp;Q5",q:"A purple-stained cell two to three times larger than a red blood cell has a large kidney-shaped nucleus. What is it?",k:"A monocyte",w:"Largest of the leukocytes, agranulocyte, kidney-bean nucleus; it becomes a macrophage in tissue."},
+{c:14,n:"14&nbsp;&middot;&nbsp;Q33&ndash;34",q:"Alice's iron supplements aren't working. Which drink is interfering, and what in it binds the iron?",k:"Tea &mdash; the tannic acid in it",w:"Tannic acid chelates iron in the gut so it is never absorbed."},
+{c:14,n:"14&nbsp;&middot;&nbsp;Q41",q:"A patient with pain, nausea and no urination has very high NPNs, particularly urea. Which organ is failing?",k:"The kidneys",w:"Urea is the main nitrogenous waste the kidneys clear; it backs up when they fail."},
+{c:14,n:"14&nbsp;&middot;&nbsp;Q43",q:"A child is born without plasminogen in the blood plasma. How does this affect hemostasis?",k:"Blood clots will not be dissolved, because plasminogen becomes the clot-dissolving substance",w:"Plasminogen &rarr; plasmin, which digests fibrin. Clot formation is normal; clot removal is not."},
+{c:14,n:"14&nbsp;&middot;&nbsp;Q44",q:"Tom's endothelium cannot secrete prostacyclin (PGI2). What happens to his blood?",k:"Clotting and general narrowing of the blood vessels",w:"Prostacyclin normally keeps platelets from adhering to healthy vessel walls and keeps vessels dilated."},
+{c:14,n:"14&nbsp;&middot;&nbsp;Q47",q:"Hemophilia lacks factor VIII and interrupts the cascade at the factor IX activation step. Which pathway is inhibited?",k:"The intrinsic clotting mechanism",w:"Factors VIII, IX, XI and XII belong to the intrinsic pathway. The extrinsic pathway, tested by prothrombin time, starts with tissue thromboplastin."},
+{c:14,n:"14&nbsp;&middot;&nbsp;Q52",q:"The release of tissue thromboplastin initiates what?",k:"The extrinsic clotting mechanism",w:"The uploaded key says &quot;platelet plug formation,&quot; but tissue thromboplastin (factor III) from damaged tissue is the definition of the extrinsic pathway trigger. Platelet plugs form when platelets adhere to exposed collagen.",flag:true},
+{c:14,n:"14&nbsp;&middot;&nbsp;Q53&ndash;54",q:"What is the basic event in blood clot formation, and what is the final step?",k:"Fibrinogen changes to fibrin &mdash; and that conversion is also the last step",w:"The uploaded key marks the final step as &quot;prothrombin to thrombin by prothrombin activator,&quot; which is the step <em>before</em> it. Order: prothrombin activator &rarr; thrombin &rarr; fibrin. Learn the sequence and either wording is safe.",flag:true},
+{c:14,n:"14&nbsp;&middot;&nbsp;Q55",q:"A man on a blood thinner is told to take vitamin K after a minor injury. Why?",k:"Vitamin K is essential for the synthesis of prothrombin",w:"The liver needs vitamin K to build prothrombin and several other clotting factors."},
+{c:14,n:"14&nbsp;&middot;&nbsp;Q56&ndash;57",q:"After chemotherapy a patient bleeds excessively and develops small red bruise-like spots. What is the condition, and what are the spots called?",k:"Thrombocytopenia; the spots are petechiae",w:"Chemotherapy suppresses marrow, dropping the platelet count."},
+{c:14,n:"14&nbsp;&middot;&nbsp;Q62",q:"A type A patient's first transfusion succeeds; the second unit of type A blood causes illness and agglutination. What happened?",k:"The first transfusion contained Rh antigens, so the patient made anti-Rh antibodies that attacked the second unit",w:"ABO compatibility doesn't cover Rh. The first exposure sensitizes; the second one reacts."},
+{c:14,n:"14&nbsp;&middot;&nbsp;Q65",q:"A person with type AB blood can successfully receive blood from how many types?",k:"All four &mdash; AB is the universal recipient",w:"The uploaded key says &quot;only one of the blood types.&quot; Type AB plasma has neither anti-A nor anti-B antibodies, so within ABO it can receive A, B, AB and O.",flag:true},
+{c:14,n:"14&nbsp;&middot;&nbsp;Q66",q:"What are universal precautions?",k:"Treating every person's blood and body fluids as though they were infectious",w:"The uploaded key here reads &quot;careful administration of clotting factors during surgery,&quot; which describes something else entirely.",flag:true},
+{c:14,n:"14&nbsp;&middot;&nbsp;Q67",q:"Stacy is tired, bruises easily, has had three respiratory infections, headaches and nosebleeds. What should the physician check for?",k:"Leukemia",w:"The uploaded key says erythroblastosis fetalis, which is a newborn's Rh disease and cannot apply to an adult with this history. Marrow crowding explains all four symptoms at once.",flag:true},
+{c:14,n:"14&nbsp;&middot;&nbsp;Q71",q:"What is the most important action of plasma albumin?",k:"Maintaining the colloid osmotic pressure of the blood",w:"The uploaded key says &quot;serving as energy sources.&quot; Albumin is the most abundant plasma protein and its defining job is holding water in the bloodstream &mdash; which is why low protein causes edema.",flag:true},
+{c:14,n:"14&nbsp;&middot;&nbsp;Q72",q:"Which leukocyte usually accounts for the smallest percentage in a blood sample?",k:"Basophils (under 1%)",w:"The uploaded key says eosinophils, which run about 1&ndash;3%. Basophils are the least common of the five. If your instructor teaches the test bank's answer, know both.",flag:true},
+{c:14,n:"14&nbsp;&middot;&nbsp;Q73",q:"Which element is included in hemoglobin molecules?",k:"Iron",w:"The uploaded key says cobalt. Cobalt sits at the center of vitamin B12; iron sits at the center of each heme group.",flag:true},
+{c:14,n:"14&nbsp;&middot;&nbsp;Q68",q:"What happens in leukemia?",k:"Blood-forming tissue produces too many abnormal, immature white cells, which crowd out normal cells",w:"The uploaded key states the body doesn't produce enough red blood cells. Anemia is a real consequence of that crowding, but the primary defect is the white cell overproduction.",flag:true},
+{c:14,n:"14&nbsp;&middot;&nbsp;Q69&ndash;70",q:"A man exercises in the aisle every two hours on a long flight. What is he preventing, and what is the key preventive measure?",k:"Deep vein thrombosis &mdash; avoid prolonged periods of staying still in one position",w:"Venous return depends on skeletal muscle squeezing the veins; stillness lets blood pool and clot."},
+
+/* --- 15 --- */
+{c:15,n:"15&nbsp;&middot;&nbsp;Q8",q:"Which sequence takes blood from the vena cava to the lungs?",k:"Right atrium &rarr; tricuspid valve &rarr; right ventricle &rarr; pulmonary valve",w:"Chamber, then its exit valve, every time."},
+{c:15,n:"15&nbsp;&middot;&nbsp;Q10",q:"Name the layers of the heart from the inside out.",k:"Endocardium, myocardium, epicardium, pericardial cavity, parietal pericardium, fibrous pericardium",w:"Work outward from the blood: lining, muscle, covering, space, sac lining, sac."},
+{c:15,n:"15&nbsp;&middot;&nbsp;Q18",q:"Blood flow to the right side of the heart muscle decreases due to constriction of which vessel, and the reduced flow causes what?",k:"Right coronary artery; ischemia",w:"Ischemia is reduced blood supply; prolonged or complete blockage leads to infarction."},
+{c:15,n:"15&nbsp;&middot;&nbsp;Q22",q:"The aortic baroreceptor senses stretching of the aorta. How does the nervous system respond?",k:"Parasympathetic signals are sent to decrease heart rate",w:"Stretch signals high pressure, so the vagus slows the heart to bring it down."},
+{c:15,n:"15&nbsp;&middot;&nbsp;Q23",q:"If yawning were a reflex triggered by changing blood CO2 and pH, which structures would be stimulated?",k:"Aortic bodies and carotid bodies",w:"Those hold the chemoreceptors. Baroreceptors respond to stretch, not chemistry."},
+{c:15,n:"15&nbsp;&middot;&nbsp;Q29",q:"Why might potassium be given to control an elevated heart rate during an anxiety attack?",k:"Excess potassium causes decreased rate and decreased force of contraction",w:"Conducting cells are especially sensitive to K&#8314;. It acts on the heart tissue directly &mdash; it does not signal the autonomic nervous system."},
+{c:15,n:"15&nbsp;&middot;&nbsp;Q36",q:"A person warming up feels a warm rush to their hands and feet. Why does nitric oxide matter here?",k:"It relaxes the smooth muscle in the blood vessel wall",w:"Endothelial nitric oxide causes vasodilation, so more warm blood reaches the periphery."},
+{c:15,n:"15&nbsp;&middot;&nbsp;Q37",q:"Net inward pressure at the venular end is less than net outward pressure at the arteriolar end. What follows?",k:"More fluid leaves the capillaries than returns",w:"The lymphatic system collects the surplus and returns it to the bloodstream."},
+{c:15,n:"15&nbsp;&middot;&nbsp;Q40",q:"Water and solutes leave the arteriolar end due to ______, and enter the venular end due to ______.",k:"Hydrostatic pressure being higher than osmotic pressure; osmotic pressure being higher than hydrostatic pressure",w:"Blood pressure pushes out at the start; plasma protein pull wins at the end."},
+{c:15,n:"15&nbsp;&middot;&nbsp;Q41",q:"How does injecting a VEGF inhibitor treat wet macular degeneration?",k:"VEGF stimulates growth of capillaries, so blocking it stops weak, leaky capillaries from growing in the eye",w:"The same logic makes VEGF inhibitors angiogenesis inhibitors in cancer &mdash; starving tumors of blood supply."},
+{c:15,n:"15&nbsp;&middot;&nbsp;Q39&nbsp;&amp;&nbsp;60",q:"Blue ink is pumped into the superior mesenteric artery; red ink into the common carotid. What shows up?",k:"Blue: the small intestine and portions of the large intestine. Red: the neck and head",w:"Superior mesenteric feeds the gut; the common carotid splits into internal (brain, eyes) and external (neck, face)."},
+{c:15,n:"15&nbsp;&middot;&nbsp;Q55",q:"Which is NOT a branch of the aorta: right coronary, pulmonary, brachiocephalic, left subclavian?",k:"The pulmonary artery",w:"It arises from the right ventricle by way of the pulmonary trunk, not the aorta."},
+{c:15,n:"15&nbsp;&middot;&nbsp;Q58",q:"Which artery is incorrectly matched to its location?",k:"Thyrocervical arteries &mdash; thymus",w:"They supply the thyroid, parathyroid and nearby neck structures. The other three pairings are correct."},
+{c:15,n:"15&nbsp;&middot;&nbsp;Q73",q:"Why does flexing your feet and squeezing your calves during long sitting help circulation?",k:"Leg muscle contraction squeezes the leg veins, pumping deoxygenated blood back to the heart",w:"Valves in the veins make that squeeze one-directional. It is mechanical, not a baroreceptor reflex."},
+{c:15,n:"15&nbsp;&middot;&nbsp;Q76",q:"Tim runs 5 to 8 miles a day and has an enlarged heart with a low heart rate and low blood pressure. What does he have?",k:"A very healthy cardiovascular system",w:"Athletic hypertrophy plus sinus bradycardia. A stronger ventricle moves more blood per beat, so it needs fewer beats."},
+{c:15,n:"15&nbsp;&middot;&nbsp;Q77",q:"Which is NOT a risk factor for atherosclerosis: a diet high in unsaturated fats, smoking, lack of exercise, low blood pressure?",k:"A diet high in unsaturated fats &mdash; and low blood pressure isn't one either",q2:1,w:"Unsaturated fats are protective; it is saturated fat and cholesterol that raise risk. HIGH blood pressure, not low, damages artery walls."},
+{c:15,n:"15&nbsp;&middot;&nbsp;Q93",q:"True or false: cardiac output is calculated by multiplying stroke volume by systolic blood pressure.",k:"False &mdash; cardiac output = stroke volume &times; heart rate",w:"A guaranteed test item. Blood pressure never appears in the cardiac output formula."},
+{c:15,n:"15&nbsp;&middot;&nbsp;Q96",q:"A long-distance runner's measured heart rate is 53 bpm. What is this arrhythmia called?",k:"Sinus bradycardia",w:"The SA node is still in charge (sinus), the rate is just under 60 (bradycardia)."}
+];
+</script>
+
+<script>
+(function(){
+  "use strict";
+  const $ = id => document.getElementById(id);
+  const KEY = "hbh-progress-v1";
+  const CH_NAMES = {13:"Ch 13", 14:"Ch 14", 15:"Ch 15"};
+
+  let known = {};
+  try { known = JSON.parse(localStorage.getItem(KEY) || "{}") || {}; } catch(e) { known = {}; }
+  const save = () => { try { localStorage.setItem(KEY, JSON.stringify(known)); } catch(e){} };
+
+  CARDS.forEach((c,i) => c.id = "c" + i);
+
+  let filter = "all";
+  let mode = "cards";
+  let order = [];
+  let pos = 0;
+  let flipped = false;
+
+  /* ---------- deck ---------- */
+  function buildDeck(keepCard){
+    const cur = keepCard && order.length ? order[pos] : null;
+    let pool = CARDS.filter(c => filter === "all" || c.c === +filter);
+    if ($("only-weak").checked) {
+      const weak = pool.filter(c => known[c.id] !== true);
+      pool = weak.length ? weak : pool;
+    }
+    order = pool;
+    pos = cur ? Math.max(0, order.indexOf(cur)) : 0;
+    if (pos < 0) pos = 0;
+    render();
+  }
+
+  function render(){
+    const total = order.length;
+    if (!total){
+      $("card-q").textContent = "No cards in this deck.";
+      $("card-a").hidden = true;
+      $("deck-pos").textContent = "0 cards";
+      $("deck-fill").style.width = "0%";
+      return;
+    }
+    if (pos >= total) pos = total - 1;
+    const c = order[pos];
+    flipped = false;
+    $("card-ch").textContent = CH_NAMES[c.c];
+    $("card-tag").textContent = c.t;
+    $("card-q").innerHTML = c.q;
+    $("card-a").innerHTML = c.a;
+    $("card-a").hidden = true;
+    $("card-status").textContent = known[c.id] === true ? "known" : (known[c.id] === false ? "missed" : "");
+    $("card").style.setProperty("--accent", "var(--ch" + c.c + ")");
+    $("deck-pos").textContent = "Card " + (pos + 1) + " of " + total;
+    const nk = CARDS.filter(x => known[x.id] === true && (filter === "all" || x.c === +filter)).length;
+    const scope = CARDS.filter(x => filter === "all" || x.c === +filter).length;
+    $("deck-known").textContent = nk + " of " + scope + " marked known";
+    $("deck-fill").style.width = (scope ? (nk / scope) * 100 : 0) + "%";
+    $("prev").disabled = pos === 0;
+  }
+
+  function flip(){
+    if (!order.length) return;
+    flipped = !flipped;
+    $("card-a").hidden = !flipped;
+  }
+  function step(d){
+    if (!order.length) return;
+    pos = (pos + d + order.length) % order.length;
+    render();
+  }
+  function mark(v){
+    if (!order.length) return;
+    known[order[pos].id] = v;
+    save();
+    step(1);
+  }
+
+  $("card").addEventListener("click", flip);
+  $("flip").addEventListener("click", e => { e.stopPropagation(); flip(); });
+  $("prev").addEventListener("click", () => step(-1));
+  $("got").addEventListener("click", () => mark(true));
+  $("miss").addEventListener("click", () => mark(false));
+  $("only-weak").addEventListener("change", () => buildDeck(false));
+  $("shuffle").addEventListener("click", () => {
+    for (let i = order.length - 1; i > 0; i--){
+      const j = Math.floor(Math.random() * (i + 1));
+      [order[i], order[j]] = [order[j], order[i]];
+    }
+    pos = 0; render();
+  });
+  $("reset").addEventListener("click", () => {
+    known = {}; save(); buildDeck(false);
+  });
+
+  document.addEventListener("keydown", e => {
+    if (mode !== "cards") return;
+    const t = e.target.tagName;
+    if (t === "INPUT" || t === "TEXTAREA") return;
+    if (e.key === " " || e.key === "Enter"){ e.preventDefault(); flip(); }
+    else if (e.key === "ArrowRight"){ e.preventDefault(); step(1); }
+    else if (e.key === "ArrowLeft"){ e.preventDefault(); step(-1); }
+    else if (e.key === "1"){ mark(false); }
+    else if (e.key === "2"){ mark(true); }
+  });
+
+  /* ---------- quiz ---------- */
+  function buildQuiz(){
+    const onlyFlag = $("only-flagged").checked;
+    const list = QUIZ.filter(q => (filter === "all" || q.c === +filter) && (!onlyFlag || q.flag));
+    $("quiz-list").innerHTML = list.map((q, i) => {
+      const aid = "qa" + i;
+      return '<div class="qitem' + (q.flag ? ' flag' : '') + '" style="--accent:var(--ch' + q.c + ')">' +
+        '<div class="num">' + q.n + (q.flag ? ' &middot; answer key disputed' : '') + '</div>' +
+        '<div class="stem">' + q.q + '</div>' +
+        '<button class="reveal" data-t="' + aid + '">Show answer</button>' +
+        '<div class="ans" id="' + aid + '" hidden><span class="key">' + q.k + '</span><span class="why">' + q.w + '</span></div>' +
+      '</div>';
+    }).join("") || '<p style="color:var(--ink-2)">Nothing in this filter.</p>';
+  }
+  $("quiz-list").addEventListener("click", e => {
+    const b = e.target.closest(".reveal");
+    if (!b) return;
+    const a = $(b.dataset.t);
+    a.hidden = !a.hidden;
+    b.textContent = a.hidden ? "Show answer" : "Hide answer";
+  });
+  $("reveal-all").addEventListener("click", () => {
+    document.querySelectorAll("#quiz-list .ans").forEach(a => a.hidden = false);
+    document.querySelectorAll("#quiz-list .reveal").forEach(b => b.textContent = "Hide answer");
+  });
+  $("hide-all").addEventListener("click", () => {
+    document.querySelectorAll("#quiz-list .ans").forEach(a => a.hidden = true);
+    document.querySelectorAll("#quiz-list .reveal").forEach(b => b.textContent = "Show answer");
+  });
+  $("only-flagged").addEventListener("change", buildQuiz);
+
+  /* ---------- cram ---------- */
+  function buildCram(){
+    document.querySelectorAll(".sheet").forEach(s => {
+      s.hidden = !(filter === "all" || s.dataset.sheet === filter);
+    });
+  }
+
+  /* ---------- chrome ---------- */
+  document.querySelectorAll(".modes button").forEach(b => {
+    b.addEventListener("click", () => {
+      mode = b.dataset.mode;
+      document.querySelectorAll(".modes button").forEach(x => x.setAttribute("aria-selected", String(x === b)));
+      ["cards","cram","quiz"].forEach(m => $("panel-" + m).hidden = (m !== mode));
+      if (mode === "quiz") buildQuiz();
+      if (mode === "cram") buildCram();
+    });
+  });
+
+  document.querySelectorAll(".chip").forEach(b => {
+    b.addEventListener("click", () => {
+      filter = b.dataset.ch;
+      document.querySelectorAll(".chip").forEach(x => x.setAttribute("aria-pressed", String(x === b)));
+      document.documentElement.setAttribute("data-ch", filter === "all" ? "" : filter);
+      buildDeck(false); buildQuiz(); buildCram();
+    });
+  });
+
+  /* counts */
+  $("n-all").textContent = CARDS.length;
+  [13,14,15].forEach(c => $("n-" + c).textContent = CARDS.filter(x => x.c === c).length);
+
+  buildDeck(false);
+  buildQuiz();
+  buildCram();
+})();
+</script>
