@@ -18,7 +18,7 @@ function Logo() {
           <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-navy font-display text-lg font-bold text-accent">
             DY
           </span>
-          <span className="min-w-0 leading-tight">
+          <span className="min-w-0 leading-tight xl:max-w-[240px]">
             <span className="block truncate font-display text-lg font-semibold text-navy">{site.agentName}</span>
             {/* Brokerage name shown alongside the agent name (TREC advertising rule) */}
             <span className="line-clamp-2 block text-xs leading-snug text-muted">REALTOR® · {site.brokerage.name}</span>
@@ -93,12 +93,12 @@ export function Header() {
           <LangToggle />
           <a
             href={`tel:${site.phoneE164}`}
-            className="hidden items-center gap-2 rounded-full px-3 py-2 font-semibold text-navy hover:bg-sand sm:flex"
+            className="hidden items-center gap-2 rounded-full px-3 py-2 font-semibold whitespace-nowrap text-navy hover:bg-sand sm:flex"
           >
             <PhoneIcon className="size-4 text-accent-dark" />
             {site.phone}
           </a>
-          <Link href="/home-value" className="btn-primary hidden !px-4 !py-2.5 !text-sm lg:inline-flex">
+          <Link href="/home-value" className="btn-primary hidden !px-4 !py-2.5 !text-sm whitespace-nowrap lg:inline-flex">
             <T k="nav.homeValue">What&apos;s my home worth?</T>
           </Link>
           <button

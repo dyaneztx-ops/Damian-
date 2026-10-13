@@ -54,7 +54,7 @@ export const site = {
   },
 
   // ---- Photos (replace the files in /public/images with real photos) ----
-  headshot: "/images/headshot-placeholder.svg", // [HEADSHOT]
+  headshot: "/images/damian-yanez-headshot.jpg",
   heroImage: photos.homeHero, // see src/config/photos.ts
 
   // ---- Colors (the whole site's palette lives here) ----
@@ -93,7 +93,13 @@ export function filled(value: string | null | undefined): value is string {
   return !!value && !value.includes("[") && !value.endsWith("@example.com");
 }
 
-export const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000").replace(/\/$/, "");
+// Your live address. Order: NEXT_PUBLIC_SITE_URL (set this when you add a custom domain),
+// then Vercel's production domain (automatic on Vercel), then the fallback below.
+export const siteUrl = (
+  process.env.NEXT_PUBLIC_SITE_URL ||
+  (process.env.VERCEL_PROJECT_PRODUCTION_URL && `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`) ||
+  "https://damian-kohl.vercel.app"
+).replace(/\/$/, "");
 
 export const navLinks = [
   { href: "/buy", label: "Buy", key: "nav.buy" },
