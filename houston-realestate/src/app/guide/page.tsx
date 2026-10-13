@@ -29,11 +29,11 @@ export default function GuidePage() {
           <div className="mt-8">
             <CheckList
               items={[
-                `Snapshots of ${names.length} areas: ${names.slice(0, 5).join(", ")} and more`,
-                "Typical price ranges and what your budget buys",
-                "Commute times to Downtown, the Galleria, the Med Center, and Energy Corridor",
-                "How to check flood zones, MUD taxes, and school boundaries",
-                "Investor notes: where rentals tend to cash flow",
+                `A page on each of ${names.length} areas: ${names.slice(0, 5).join(", ")} and more`,
+                "A side-by-side comparison: what each area is known for and how to get around",
+                "An investor's take on every area: repairs, taxes, insurance, and rental demand",
+                "5 things to check on every Houston home: flood risk, total tax rate, schools, insurance, and big-ticket repairs",
+                "A notes page for each area to take on your home tours",
               ]}
             />
           </div>

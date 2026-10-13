@@ -164,7 +164,7 @@ export default function HomePage() {
               light
               eyebrow="Free download"
               title="The Houston Neighborhood Guide"
-              intro="Compare 10 of the area's most popular neighborhoods and suburbs side by side: price ranges, commutes, schools to research, flood-zone tips, and what each area is best for."
+              intro="Compare 10 of the area's most popular neighborhoods and suburbs side by side: lifestyle, getting around, an investor's take on each, and the 5 things to check on every Houston home."
             />
             <Link href="/guide" className="mt-6 inline-flex font-semibold text-accent hover:underline">
               See what&apos;s inside →
