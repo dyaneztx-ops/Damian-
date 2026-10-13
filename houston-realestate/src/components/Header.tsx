@@ -33,7 +33,11 @@ function LangToggle() {
   const { lang, setLang } = useLang();
   if (!site.features.spanishToggle) return null;
   return (
-    <div className="flex rounded-full border border-slate-300 p-0.5 text-xs font-semibold" role="group" aria-label="Language">
+    <div
+      className="flex rounded-full border border-slate-300 p-0.5 text-xs font-semibold"
+      role="group"
+      aria-label="Language"
+    >
       {(["en", "es"] as const).map((l) => (
         <button
           key={l}
@@ -64,59 +68,71 @@ export function Header() {
   const isActive = (href: string) => pathname === href || pathname.startsWith(href + "/");
 
   return (
-    <header className="sticky top-0 z-40 border-b border-black/5 bg-white/95 backdrop-blur">
-      <a
-        href="#main"
-        className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:rounded-lg focus:bg-navy focus:px-4 focus:py-2 focus:text-white"
-      >
-        Skip to content
-      </a>
-      <div className="container-x flex h-[72px] items-center justify-between gap-4">
-        <Logo />
+    <>
+      <header className="sticky top-0 z-40 border-b border-black/5 bg-white/95 backdrop-blur">
+        <a
+          href="#main"
+          className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:rounded-lg focus:bg-navy focus:px-4 focus:py-2 focus:text-white"
+        >
+          Skip to content
+        </a>
+        <div className="container-x flex h-[72px] items-center justify-between gap-4">
+          <Logo />
 
-        <nav aria-label="Main" className="hidden items-center gap-1 xl:flex">
-          {navLinks.map((l) => (
-            <Link
-              key={l.href}
-              href={l.href}
-              aria-current={isActive(l.href) ? "page" : undefined}
-              className={`rounded-full px-3 py-2 text-[15px] font-medium transition hover:bg-sand hover:text-navy ${
-                isActive(l.href) ? "text-accent-dark" : "text-ink"
-              }`}
+          <nav aria-label="Main" className="hidden items-center gap-1 xl:flex">
+            {navLinks.map((l) => (
+              <Link
+                key={l.href}
+                href={l.href}
+                aria-current={isActive(l.href) ? "page" : undefined}
+                className={`rounded-full px-3 py-2 text-[15px] font-medium transition hover:bg-sand hover:text-navy ${
+                  isActive(l.href) ? "text-accent-dark" : "text-ink"
+                }`}
+              >
+                <T k={l.key}>{l.label}</T>
+              </Link>
+            ))}
+          </nav>
+
+          <div className="flex items-center gap-2">
+            <LangToggle />
+            <a
+              href={`tel:${site.phoneE164}`}
+              className="hidden items-center gap-2 rounded-full px-3 py-2 font-semibold whitespace-nowrap text-navy hover:bg-sand sm:flex"
             >
-              <T k={l.key}>{l.label}</T>
+              <PhoneIcon className="size-4 text-accent-dark" />
+              {site.phone}
+            </a>
+            <Link
+              href="/home-value"
+              className="btn-primary hidden !px-4 !py-2.5 !text-sm whitespace-nowrap lg:inline-flex"
+            >
+              <T k="nav.homeValue">What&apos;s my home worth?</T>
             </Link>
-          ))}
-        </nav>
-
-        <div className="flex items-center gap-2">
-          <LangToggle />
-          <a
-            href={`tel:${site.phoneE164}`}
-            className="hidden items-center gap-2 rounded-full px-3 py-2 font-semibold whitespace-nowrap text-navy hover:bg-sand sm:flex"
-          >
-            <PhoneIcon className="size-4 text-accent-dark" />
-            {site.phone}
-          </a>
-          <Link href="/home-value" className="btn-primary hidden !px-4 !py-2.5 !text-sm whitespace-nowrap lg:inline-flex">
-            <T k="nav.homeValue">What&apos;s my home worth?</T>
-          </Link>
-          <button
-            type="button"
-            className="grid size-11 place-items-center rounded-full text-navy hover:bg-sand xl:hidden"
-            aria-expanded={open}
-            aria-controls="mobile-menu"
-            aria-label={open ? "Close menu" : "Open menu"}
-            onClick={() => setOpen((o) => !o)}
-          >
-            {open ? <CloseIcon /> : <MenuIcon />}
-          </button>
+            <button
+              type="button"
+              className="grid size-11 place-items-center rounded-full text-navy hover:bg-sand xl:hidden"
+              aria-expanded={open}
+              aria-controls="mobile-menu"
+              aria-label={open ? "Close menu" : "Open menu"}
+              onClick={() => setOpen((o) => !o)}
+            >
+              {open ? <CloseIcon /> : <MenuIcon />}
+            </button>
+          </div>
         </div>
-      </div>
-
+      </header>
+      {/* Rendered outside <header>: its backdrop-blur would otherwise trap this fixed panel inside the 72px bar */}
       {open && (
-        <div id="mobile-menu" className="fixed inset-x-0 top-[72px] bottom-0 overflow-y-auto bg-white xl:hidden">
-          <nav aria-label="Mobile" className="container-x flex flex-col gap-1 py-6">
+        <div
+          id="mobile-menu"
+          className="fixed inset-x-0 top-[72px] bottom-0 z-50 overflow-y-auto overscroll-contain bg-white xl:hidden"
+        >
+          <nav
+            aria-label="Mobile"
+            className="container-x flex flex-col gap-1 py-6"
+            onClick={(e) => (e.target as HTMLElement).closest("a") && setOpen(false)}
+          >
             {navLinks.map((l) => (
               <Link
                 key={l.href}
@@ -139,6 +155,6 @@ export function Header() {
           </nav>
         </div>
       )}
-    </header>
+    </>
   );
 }
