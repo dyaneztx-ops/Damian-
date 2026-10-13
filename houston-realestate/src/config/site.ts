@@ -24,7 +24,10 @@ export const site = {
   // ---- Contact ----
   phone: "(832) 873-3625",
   phoneE164: "+18328733625", // used for tel: and sms: links
-  email: "Damian.yanez@kw.com",
+  email: "Damian.yanez@kw.com", // shown on the site
+  // Where website leads are emailed. Must be the email you signed up to Resend
+  // with until you verify your own domain in Resend. (LEAD_TO_EMAIL overrides it.)
+  leadInbox: "dyanez.tx@gmail.com",
   serviceAreaText: "Houston and surrounding suburbs — Harris, Fort Bend, Montgomery, Brazoria & Galveston counties",
 
   // ---- Texas license & brokerage (required by TREC on all advertising) ----

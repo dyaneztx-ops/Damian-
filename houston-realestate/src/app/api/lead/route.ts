@@ -11,6 +11,9 @@ import { site } from "@/config/site";
 
 const MAX_FIELD = 5000;
 
+/** Reads an env var, ignoring stray spaces/quotes from copy-pasting on a phone. */
+const env = (key: string) => (process.env[key] ?? "").trim().replace(/^["']|["']$/g, "").trim();
+
 const pretty: Record<string, string> = {
   company_website: "",
   consent: "Consent to calls/texts/emails",
@@ -61,15 +64,17 @@ export async function POST(req: Request) {
       .join("") +
     `</table>`;
 
-  const to = process.env.LEAD_TO_EMAIL || site.email;
+  const to = (env("LEAD_TO_EMAIL") || site.leadInbox || site.email).toLowerCase();
+  const resendKey = env("RESEND_API_KEY");
+  const formspree = env("FORMSPREE_ENDPOINT");
 
   try {
-    if (process.env.RESEND_API_KEY) {
+    if (resendKey) {
       const res = await fetch("https://api.resend.com/emails", {
         method: "POST",
-        headers: { Authorization: `Bearer ${process.env.RESEND_API_KEY}`, "Content-Type": "application/json" },
+        headers: { Authorization: `Bearer ${resendKey}`, "Content-Type": "application/json" },
         body: JSON.stringify({
-          from: process.env.RESEND_FROM || "Website Leads <onboarding@resend.dev>",
+          from: env("RESEND_FROM") || "Website Leads <onboarding@resend.dev>",
           to: [to],
           reply_to: email || undefined,
           subject,
@@ -77,9 +82,9 @@ export async function POST(req: Request) {
           html,
         }),
       });
-      if (!res.ok) throw new Error(`Resend error ${res.status}: ${await res.text()}`);
-    } else if (process.env.FORMSPREE_ENDPOINT) {
-      const res = await fetch(process.env.FORMSPREE_ENDPOINT, {
+      if (!res.ok) throw new Error(`Resend error ${res.status} (sending to ${to}): ${await res.text()}`);
+    } else if (formspree) {
+      const res = await fetch(formspree, {
         method: "POST",
         headers: { Accept: "application/json", "Content-Type": "application/json" },
         body: JSON.stringify({ _subject: subject, form, page: body.page, ...clean, _replyto: email }),
