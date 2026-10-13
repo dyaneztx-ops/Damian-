@@ -33,12 +33,11 @@ export const site = {
     phone: "[BROKER PHONE]",
     email: "[BROKER EMAIL]",
     address: "[BROKERAGE STREET ADDRESS], Houston, TX [ZIP]",
-    // Your broker should give you a filled-out IABS form. Upload it to
-    // /public/docs/iabs.pdf and change this to "/docs/iabs.pdf".
-    iabsUrl: "https://www.trec.texas.gov/sites/default/files/pdf-forms/IABS%201-0.pdf",
+    // TREC "Information About Brokerage Services" (your brokerage's filled-out IABS, hosted by HAR)
+    iabsUrl: "https://www.har.com/mhf/terms/dispBrokerInfo?sitetype=aws&cid=857656",
   },
   trecConsumerProtectionUrl:
-    "https://www.trec.texas.gov/sites/default/files/pdf-forms/CN%201-5_0.pdf",
+    "https://content.harstatic.com/pdf/TREC_CPN.pdf",
 
   // ---- Links ----
   harProfileUrl: "https://www.har.com/", // [YOUR HAR.COM PROFILE URL]
