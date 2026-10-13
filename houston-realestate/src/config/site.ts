@@ -54,7 +54,7 @@ export const site = {
   },
 
   // ---- Photos (replace the files in /public/images with real photos) ----
-  headshot: "/images/headshot-placeholder.svg", // [HEADSHOT]
+  headshot: "/images/damian-yanez-headshot.jpg",
   heroImage: photos.homeHero, // see src/config/photos.ts
 
   // ---- Colors (the whole site's palette lives here) ----
