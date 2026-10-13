@@ -50,7 +50,7 @@ Other editable files:
 | `src/data/testimonials.ts` | Client reviews. While it's empty, the site shows a "coming soon" placeholder. |
 | `src/lib/i18n.tsx` | English/Spanish translations for the header, hero, and buttons |
 | `public/images/` | Photos. Replace the placeholder `.svg` files with real `.jpg` / `.webp` images and update the paths. |
-| `public/docs/houston-neighborhood-guide.pdf` | The free guide PDF (currently a placeholder) |
+| `public/docs/houston-neighborhood-guide.pdf` | The free 14-page Houston Neighborhood Guide (built from `content/neighborhoods/`; ask Claude to regenerate it after you edit areas) |
 | `src/app/privacy/page.tsx`, `src/app/terms/page.tsx` | Legal pages. Have your broker review them. |
 
 **Photos tip:** use landscape JPGs about 2000px wide for heroes and about 1200px for cards. Next.js resizes and compresses them automatically. Once every image is a real photo, you can remove `dangerouslyAllowSVG` from `next.config.ts`.

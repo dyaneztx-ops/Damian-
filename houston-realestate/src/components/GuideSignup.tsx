@@ -4,7 +4,7 @@ import { useState } from "react";
 import { LeadForm } from "./LeadForm";
 import { DownloadIcon } from "./Icons";
 
-export const guideFile = "/docs/houston-neighborhood-guide.pdf"; // [REPLACE WITH YOUR REAL PDF]
+export const guideFile = "/docs/houston-neighborhood-guide.pdf";
 
 export function GuideSignup({ dark = false }: { dark?: boolean }) {
   const [done, setDone] = useState(false);
@@ -23,7 +23,7 @@ export function GuideSignup({ dark = false }: { dark?: boolean }) {
         onSuccess={() => setDone(true)}
       />
       {done && (
-        <a href={guideFile} download className="btn-primary mt-4 w-full">
+        <a href={guideFile} download="Houston-Neighborhood-Guide-Damian-Yanez.pdf" className="btn-primary mt-4 w-full">
           <DownloadIcon className="size-5" /> Download the Houston Neighborhood Guide
         </a>
       )}
