@@ -3,7 +3,7 @@ title: "How I Evaluate a Rental Property (The Exact Checklist I Use)"
 description: "The step-by-step process I use to analyze Houston rental properties: rent comps, real expenses, cash flow, cap rate, and cash-on-cash return."
 date: "2026-09-15"
 category: "Investing"
-image: "/images/blog/rental-analysis.svg"
+image: "https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?auto=format&fit=crop&w=1600&q=80"
 ---
 
 I own and manage rentals myself, and I use the same process for every deal, whether it's for me or a client. Here's how it works.

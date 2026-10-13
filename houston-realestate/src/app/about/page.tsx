@@ -8,7 +8,7 @@ import { SocialLinks } from "@/components/SocialLinks";
 
 export const metadata = pageMeta({
   title: `About ${site.agentName} | Houston REALTOR® & Real Estate Investor`,
-  description: `Meet ${site.agentName}: a young Houston REALTOR®, entrepreneur, and real estate investor who has bought homes, flipped properties, and manages rentals.`,
+  description: `Meet ${site.agentName}: a young Houston REALTOR®, entrepreneur, and real estate investor who has flipped a house, is renovating a second, and manages rentals.`,
   path: "/about",
   image: site.headshot,
 });
@@ -27,7 +27,7 @@ export default function AboutPage() {
               Hi, I&apos;m {site.agentFirstName}.
             </h1>
             <p className="mt-5 text-xl text-ink">
-              I&apos;m a {site.title} in Houston, a young entrepreneur, and a real estate investor. I help people buy, sell,
+              I&apos;m a {site.title} in Houston, a young entrepreneur, and a hands-on real estate investor. I help people buy, sell,
               invest in, and lease property, using what I&apos;ve learned from doing it myself.
             </p>
             <p className="mt-4 text-sm text-muted">
@@ -51,33 +51,39 @@ export default function AboutPage() {
           <div className="prose prose-lg max-w-none prose-headings:font-display prose-headings:text-navy">
             <h2>My story</h2>
             <p>
-              [EDIT THIS IN YOUR OWN VOICE] I didn&apos;t get into real estate because of a TV show. I got into it the way a lot
-              of people do: by buying my own home and realizing how much I didn&apos;t know. That first purchase taught me how
-              much a good agent matters, and how much money a bad decision can cost.
+              Not long ago, I was working as an In-Home Expert at AT&amp;T. I was good at it: sitting at people&apos;s kitchen
+              tables, figuring out what they actually needed, and following through. Then my position was cut in a company
+              surplus, and just like that, I was let go.
+            </p>
+            <p>
+              It would have been easy to go find another job just like it. Instead, I decided to bet on myself. I&apos;d
+              already bought homes of my own and I&apos;d always been drawn to real estate, so I went all in.
             </p>
             <h2>Why I got into real estate</h2>
             <p>
-              [EDIT] After buying a second home, I started investing: flipping properties and buying rentals that I manage
-              myself. Along the way I learned how to estimate renovations, price rentals, screen tenants, and run the numbers
-              on a deal. I got my license so I could use that experience to help other people make smarter moves, whether
-              it&apos;s their first home or their fifth rental.
+              I bought my first flip, built the rehab budget, managed the contractors, and sold it. That one project taught
+              me more than any class could: how to read a house, what repairs really cost, which updates buyers will pay for,
+              and why you run the numbers <em>before</em> you sign. Today I&apos;m in the middle of my second flip.
+            </p>
+            <p>
+              Getting let go taught me something too: real security comes from ownership and skills, not a job title.
+              I got my license so I could help other people build that same security, whether they&apos;re buying their
+              first home, selling to move up, or buying their first investment property.
             </p>
             <h2>My investor background</h2>
             <ul>
-              <li>Bought homes twice for myself, so I&apos;ve been in the buyer&apos;s seat</li>
-              <li>Flipped properties, from budgeting the rehab to managing contractors to selling</li>
+              <li>Bought homes of my own, so I&apos;ve been in the buyer&apos;s seat</li>
+              <li>Flipped my first house start to finish: purchase, rehab budget, contractors, and sale</li>
+              <li>Currently renovating flip #2</li>
               <li>Own and manage rental properties, including pricing, leasing, and maintenance</li>
               <li>Analyze deals the same way for clients as I do for myself: cash flow, cap rate, cash-on-cash</li>
             </ul>
             <h2>My sales background</h2>
             <p>
-              Before real estate, I worked in sales as an In-Home Expert at AT&amp;T, meeting people in their homes, listening
-              to what they actually needed, and following through. That&apos;s where I learned that clear communication and
-              fast follow-up build trust. I bring the same approach to every client: you&apos;ll always know what&apos;s
-              happening and what comes next, and I&apos;ll negotiate hard on your behalf.
+              My time at AT&amp;T taught me that clear communication and fast follow-up build trust. I bring the same
+              approach to every client: you&apos;ll always know what&apos;s happening and what comes next, and I&apos;ll
+              negotiate hard on your behalf.
             </p>
-            <h2>Outside of work</h2>
-            <p>[ADD A FEW PERSONAL DETAILS: where you grew up, favorite Houston spots, family, hobbies.]</p>
           </div>
         </div>
       </Section>

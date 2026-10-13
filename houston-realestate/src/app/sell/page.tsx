@@ -1,5 +1,6 @@
 import { site } from "@/config/site";
 import { pageMeta } from "@/lib/seo";
+import { photos } from "@/config/photos";
 import { CheckList, CtaBand, PageHero, Section, SectionHeading, Steps } from "@/components/Sections";
 import { LeadForm } from "@/components/LeadForm";
 import { valuationFields } from "@/components/formFields";
@@ -23,6 +24,7 @@ export default function SellPage() {
   return (
     <>
       <PageHero
+        image={photos.sellHero}
         eyebrow="Sell for more, with less stress"
         title="Sell your Houston home with an agent who thinks like a buyer."
         intro="I've bought, renovated, and sold property myself. I know what buyers notice, what they'll pay for, and what's not worth your money before listing."

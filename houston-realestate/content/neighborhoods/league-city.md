@@ -2,7 +2,7 @@
 name: "League City"
 order: 10
 description: "Bay Area city between Houston and Galveston with marinas, waterfront living, and access to I-45 and NASA's Johnson Space Center."
-image: "/images/neighborhoods/league-city.svg"
+image: "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&w=1600&q=80"
 priceRange: "[ADD PRICE RANGE, e.g. $300k–$700k]"
 commute: "I-45 (Gulf Freeway); close to Clear Lake, NASA, and Galveston"
 highlights:

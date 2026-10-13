@@ -1,6 +1,6 @@
-import Image from "next/image";
 import Link from "next/link";
 import { filled, site } from "@/config/site";
+import { listings } from "@/data/listings";
 import { getNeighborhoods, getPosts } from "@/lib/content";
 import { pageMeta } from "@/lib/seo";
 import { T } from "@/lib/i18n";
@@ -18,6 +18,7 @@ import { LeadForm } from "@/components/LeadForm";
 import { GuideSignup } from "@/components/GuideSignup";
 import { PostCard } from "@/components/PostCard";
 import { ArrowIcon, PhoneIcon } from "@/components/Icons";
+import { SmartImage } from "@/components/SmartImage";
 
 export const metadata = pageMeta({
   title: `Houston Realtor & Investment Property Agent | ${site.agentName}`,
@@ -33,19 +34,26 @@ export default function HomePage() {
     <>
       {/* HERO */}
       <section className="relative isolate overflow-hidden bg-navy-deep">
-        <Image src={site.heroImage} alt="" fill priority sizes="100vw" className="-z-10 object-cover" />
-        <div className="absolute inset-0 -z-10 bg-gradient-to-r from-navy-deep via-navy-deep/80 to-navy-deep/20" />
+        <SmartImage
+          src={site.heroImage}
+          fallback="/images/hero-houston.svg"
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          className="-z-10 object-cover"
+        />
+        <div className="absolute inset-0 -z-10 bg-gradient-to-r from-navy-deep via-navy-deep/80 to-navy-deep/30" />
         <div className="container-x pt-20 pb-28 sm:pt-28 sm:pb-36">
-          <p className="eyebrow !text-accent">
-            {site.agentName} · Houston REALTOR® & Investor
-          </p>
+          <p className="eyebrow !text-accent">{site.agentName} · Houston REALTOR® & Investor</p>
           <h1 className="mt-4 max-w-3xl font-display text-4xl leading-[1.08] font-semibold text-white sm:text-6xl">
             <T k="hero.title">Houston real estate, guided by an agent who invests too.</T>
           </h1>
           <p className="mt-6 max-w-2xl text-lg text-slate-200 sm:text-xl">
             <T k="hero.subtitle">
-              I&apos;ve bought my own homes, flipped properties, and manage my own rentals. Whether you&apos;re buying,
-              selling, investing, or leasing, you get advice backed by real deals, not just a license.
+              I&apos;ve bought my own homes, flipped a house (and I&apos;m renovating my second), and manage my own
+              rentals. Whether you&apos;re buying, selling, investing, or leasing, you get advice backed by real deals,
+              not just a license.
             </T>
           </p>
           <div className="mt-9 grid max-w-md grid-cols-2 gap-3 sm:flex sm:max-w-none">
@@ -106,18 +114,20 @@ export default function HomePage() {
         </div>
       </Section>
 
-      {/* FEATURED LISTINGS */}
-      <Section tone="sand">
-        <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
-          <SectionHeading eyebrow="Featured listings" title="Homes I'm featuring right now" />
-          <Link href="/buy#idx-search" className="font-semibold text-accent-dark hover:underline">
-            Search all homes →
-          </Link>
-        </div>
-        <div className="mt-10">
-          <FeaturedListings />
-        </div>
-      </Section>
+      {/* FEATURED LISTINGS (hidden until you add listings in src/data/listings.ts) */}
+      {listings.length > 0 && (
+        <Section tone="sand">
+          <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
+            <SectionHeading eyebrow="Featured listings" title="Homes I'm featuring right now" />
+            <Link href="/buy#idx-search" className="font-semibold text-accent-dark hover:underline">
+              Search all homes →
+            </Link>
+          </div>
+          <div className="mt-10">
+            <FeaturedListings />
+          </div>
+        </Section>
+      )}
 
       {/* NEIGHBORHOODS */}
       <Section>

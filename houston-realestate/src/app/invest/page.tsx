@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { site } from "@/config/site";
 import { pageMeta } from "@/lib/seo";
+import { photos } from "@/config/photos";
 import { CheckList, CtaBand, PageHero, Section, SectionHeading } from "@/components/Sections";
 import { CashFlowCalculator } from "@/components/CashFlowCalculator";
 import { LeadForm } from "@/components/LeadForm";
@@ -9,7 +10,7 @@ import { ChartIcon, KeyIcon, ToolIcon } from "@/components/Icons";
 
 export const metadata = pageMeta({
   title: "Houston Investment Property Agent | Flips & Rentals",
-  description: `Looking for Houston investment property? ${site.agentName} is an investor-agent who flips homes and owns rentals. Run cash flow, cap rate, and cash-on-cash numbers with the free calculator.`,
+  description: `Looking for Houston investment property? ${site.agentName} is an investor-agent who flips houses and owns rentals. Run cash flow, cap rate, and cash-on-cash numbers with the free calculator.`,
   path: "/invest",
 });
 
@@ -35,9 +36,10 @@ export default function InvestPage() {
   return (
     <>
       <PageHero
+        image={photos.investHero}
         eyebrow="Investor services"
         title="Your Houston investment property agent, who invests too."
-        intro="I've flipped properties and own rentals that I manage. I'll help you find deals, run honest numbers, estimate rehab, and avoid the mistakes that cost new investors money."
+        intro="I've flipped a house, I'm renovating my second, and I own rentals that I manage. I'll help you find deals, run honest numbers, estimate rehab, and avoid the mistakes that cost new investors money."
       >
         <a href="#calculator" className="btn-primary">Run the numbers</a>
         <a href="#investor-intake" className="btn-outline-light">Tell me what you&apos;re looking for</a>
