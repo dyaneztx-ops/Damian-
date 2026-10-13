@@ -1,0 +1,100 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+/*
+ * Brand colors come from src/config/site.ts (injected as --brand-* variables
+ * in layout.tsx). The fallbacks below only apply if that injection is removed.
+ */
+:root {
+  --brand-navy: #14213d;
+  --brand-navy-deep: #0b1427;
+  --brand-accent: #c8873a;
+  --brand-accent-dark: #8f5a1c;
+  --brand-sand: #f7f3ee;
+  --brand-ink: #1d2433;
+  --brand-muted: #5b6577;
+}
+
+@theme inline {
+  --color-navy: var(--brand-navy);
+  --color-navy-deep: var(--brand-navy-deep);
+  --color-accent: var(--brand-accent);
+  --color-accent-dark: var(--brand-accent-dark);
+  --color-sand: var(--brand-sand);
+  --color-ink: var(--brand-ink);
+  --color-muted: var(--brand-muted);
+  --font-sans: var(--font-body), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: var(--font-heading), ui-serif, Georgia, serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: #fff;
+  color: var(--brand-ink);
+  -webkit-font-smoothing: antialiased;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Reusable component classes (usable in className and with @apply) */
+@utility container-x {
+  @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+}
+
+@utility btn {
+  @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-base font-semibold transition duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent;
+}
+
+@utility btn-primary {
+  @apply btn bg-accent text-navy-deep hover:bg-accent-dark hover:text-white;
+}
+
+@utility btn-dark {
+  @apply btn bg-navy text-white hover:bg-navy-deep;
+}
+
+@utility btn-outline {
+  @apply btn border-2 border-navy text-navy hover:bg-navy hover:text-white;
+}
+
+@utility btn-outline-light {
+  @apply btn border-2 border-white text-white hover:bg-white hover:text-navy;
+}
+
+@utility eyebrow {
+  @apply text-sm font-semibold tracking-[0.18em] text-accent-dark uppercase;
+}
+
+@utility h2 {
+  @apply font-display text-3xl leading-tight font-semibold text-navy sm:text-4xl;
+}
+
+@utility card {
+  @apply rounded-2xl bg-white shadow-sm ring-1 ring-black/5 transition duration-300 hover:-translate-y-1 hover:shadow-xl;
+}
+
+@utility field {
+  @apply w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-base text-ink placeholder:text-slate-500 focus:border-accent focus:ring-2 focus:ring-accent/40 focus:outline-none;
+}
+
+@utility label {
+  @apply mb-1.5 block text-sm font-medium text-ink;
+}
+
+/* Same look as .card without the hover lift (for forms and panels) */
+@utility card-static {
+  @apply rounded-2xl bg-white shadow-sm ring-1 ring-black/5;
+}
