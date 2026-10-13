@@ -61,14 +61,17 @@ export const site = {
   heroImage: photos.homeHero, // see src/config/photos.ts
 
   // ---- Colors (the whole site's palette lives here) ----
+  // Black & Champagne. (Key names are historical: "navy" = main dark color.)
+  // Previous Navy & Gold: navy #14213d, navyDeep #0b1427, accent #c8873a,
+  // accentDark #8f5a1c, sand #f7f3ee, ink #1d2433, muted #5b6577
   colors: {
-    navy: "#14213d", // primary dark
-    navyDeep: "#0b1427", // darkest sections / footer
-    accent: "#c8873a", // warm gold-terracotta for buttons & highlights
-    accentDark: "#8f5a1c", // hover state + accessible accent text
-    sand: "#f7f3ee", // soft warm background
-    ink: "#1d2433", // body text
-    muted: "#5b6577", // secondary text
+    navy: "#161616", // primary dark
+    navyDeep: "#050505", // darkest sections / footer
+    accent: "#d8c3a5", // champagne for buttons & highlights
+    accentDark: "#7a6242", // hover state + accessible accent text
+    sand: "#f6f3ee", // soft warm background
+    ink: "#161616", // body text
+    muted: "#5c5c5c", // secondary text
   },
 
   // ---- Trust bar (real experience, not invented sales stats) ----

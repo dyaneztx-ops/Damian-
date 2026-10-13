@@ -6,13 +6,13 @@
  * in layout.tsx). The fallbacks below only apply if that injection is removed.
  */
 :root {
-  --brand-navy: #14213d;
-  --brand-navy-deep: #0b1427;
-  --brand-accent: #c8873a;
-  --brand-accent-dark: #8f5a1c;
-  --brand-sand: #f7f3ee;
-  --brand-ink: #1d2433;
-  --brand-muted: #5b6577;
+  --brand-navy: #161616;
+  --brand-navy-deep: #050505;
+  --brand-accent: #d8c3a5;
+  --brand-accent-dark: #7a6242;
+  --brand-sand: #f6f3ee;
+  --brand-ink: #161616;
+  --brand-muted: #5c5c5c;
 }
 
 @theme inline {
