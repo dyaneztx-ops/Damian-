@@ -2,7 +2,7 @@
 name: "Pearland"
 order: 5
 description: "Fast-growing city south of Houston with quick access to the Medical Center, Downtown, and Hobby Airport."
-image: "/images/neighborhoods/pearland.svg"
+image: "https://images.unsplash.com/photo-1576941089067-2de3c901e126?auto=format&fit=crop&w=1600&q=80"
 priceRange: "[ADD PRICE RANGE, e.g. $300k–$700k]"
 commute: "TX-288, Beltway 8; a popular commute to the Texas Medical Center"
 highlights:

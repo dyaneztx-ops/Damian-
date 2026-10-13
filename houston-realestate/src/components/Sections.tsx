@@ -2,6 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { site } from "@/config/site";
+import { photos } from "@/config/photos";
+import { SmartImage } from "./SmartImage";
 import { listings, type Listing } from "@/data/listings";
 import { testimonials } from "@/data/testimonials";
 import type { Neighborhood } from "@/lib/content";
@@ -55,7 +57,7 @@ export function PageHero({
   eyebrow,
   title,
   intro,
-  image = "/images/hero-houston.svg",
+  image = photos.pageHero,
   children,
 }: {
   eyebrow: string;
@@ -66,7 +68,7 @@ export function PageHero({
 }) {
   return (
     <section className="relative isolate overflow-hidden bg-navy-deep">
-      <Image src={image} alt="" fill priority sizes="100vw" className="-z-10 object-cover opacity-40" />
+      <SmartImage src={image} fallback="/images/hero-houston.svg" alt="" fill priority sizes="100vw" className="-z-10 object-cover opacity-40" />
       <div className="absolute inset-0 -z-10 bg-gradient-to-r from-navy-deep via-navy-deep/85 to-navy-deep/30" />
       <div className="container-x py-16 sm:py-24">
         <p className="eyebrow !text-accent">{eyebrow}</p>
@@ -206,8 +208,8 @@ export const investorEdge = [
   },
   {
     icon: ToolIcon,
-    title: "I've done the renovations",
-    text: "I've flipped properties, so I can walk a house and tell you what repairs really cost and which ones actually matter.",
+    title: "I'm doing the renovations",
+    text: "I've flipped a house and I'm renovating my second, so I can walk a property and tell you what repairs really cost and which ones actually matter.",
   },
   {
     icon: KeyIcon,
@@ -217,7 +219,7 @@ export const investorEdge = [
   {
     icon: HandshakeIcon,
     title: "Sales & follow-up are my background",
-    text: "Years in in-home sales at AT&T taught me to listen, communicate clearly, follow up fast, and negotiate with confidence.",
+    text: "My in-home sales career at AT&T taught me to listen, communicate clearly, follow up fast, and negotiate with confidence.",
   },
 ];
 
@@ -302,8 +304,9 @@ export function FeaturedListings() {
 export function NeighborhoodCard({ n }: { n: Neighborhood }) {
   return (
     <Link href={`/neighborhoods/${n.slug}`} className="group relative block aspect-[4/5] overflow-hidden rounded-2xl sm:aspect-[3/4]">
-      <Image
+      <SmartImage
         src={n.image}
+        fallback={`/images/neighborhoods/${n.slug}.svg`}
         alt={`${n.name}, Texas`}
         fill
         sizes="(min-width:1024px) 25vw, (min-width:640px) 50vw, 100vw"

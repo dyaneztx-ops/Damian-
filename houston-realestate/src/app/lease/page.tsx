@@ -1,5 +1,6 @@
 import { site } from "@/config/site";
 import { pageMeta } from "@/lib/seo";
+import { photos } from "@/config/photos";
 import { CheckList, CtaBand, PageHero, Section, SectionHeading, Steps } from "@/components/Sections";
 import { LeadForm } from "@/components/LeadForm";
 import { landlordFields, tenantFields } from "@/components/formFields";
@@ -14,6 +15,7 @@ export default function LeasePage() {
   return (
     <>
       <PageHero
+        image={photos.leaseHero}
         eyebrow="Leasing & landlord services"
         title="Renting in Houston? Leasing out a property? I do both sides."
         intro="As a landlord myself, I know what makes a lease go smoothly for everyone. Tenants get help finding the right home fast. Owners get accurate rent pricing and quality tenants."

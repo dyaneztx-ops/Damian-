@@ -4,6 +4,7 @@
  * your broker's / listing agent's permission).
  * status: "For Sale" | "For Lease" | "Pending" | "Sold" | "Coming Soon"
  * photo: put images in /public/images/listings/ and reference them here.
+ * Only use photos you have the rights to (your own or the listing's MLS photos per MLS rules).
  */
 export type Listing = {
   address: string;
@@ -17,38 +18,15 @@ export type Listing = {
   link: string;
 };
 
-export const listings: Listing[] = [
-  {
-    address: "[SAMPLE] 1234 Example St",
-    city: "Houston Heights, TX 77008",
-    price: "$000,000",
-    beds: 3,
-    baths: 2,
-    sqft: 1850,
-    photo: "/images/listings/listing-1.svg",
-    status: "Coming Soon",
-    link: "/contact?interest=buy",
-  },
-  {
-    address: "[SAMPLE] 5678 Placeholder Ln",
-    city: "Katy, TX 77494",
-    price: "$000,000",
-    beds: 4,
-    baths: 3,
-    sqft: 2600,
-    photo: "/images/listings/listing-2.svg",
-    status: "Coming Soon",
-    link: "/contact?interest=buy",
-  },
-  {
-    address: "[SAMPLE] 910 Sample Ct",
-    city: "Pearland, TX 77584",
-    price: "$0,000/mo",
-    beds: 3,
-    baths: 2.5,
-    sqft: 2100,
-    photo: "/images/listings/listing-3.svg",
-    status: "For Lease",
-    link: "/lease",
-  },
-];
+// Empty = the "Featured listings" sections are hidden. Add your own listings here.
+// Example:
+// {
+//   address: "1234 Example St",
+//   city: "Katy, TX 77494",
+//   price: "$425,000",
+//   beds: 4, baths: 3, sqft: 2600,
+//   photo: "/images/listings/1234-example.jpg",
+//   status: "For Sale",
+//   link: "https://www.har.com/...",
+// },
+export const listings: Listing[] = [];

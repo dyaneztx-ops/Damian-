@@ -8,6 +8,8 @@
  * you still need to fill in.
  */
 
+import { photos } from "./photos";
+
 export const site = {
   // ---- Brand ----
   brandName: "Damian Yanez Real Estate", // [CONFIRM BRAND NAME]
@@ -22,7 +24,7 @@ export const site = {
   // ---- Contact ----
   phone: "(832) 873-3625",
   phoneE164: "+18328733625", // used for tel: and sms: links
-  email: "[YOUR-EMAIL]@example.com", // [BUSINESS EMAIL]
+  email: "Damian.yanez@kw.com",
   serviceAreaText: "Houston and surrounding suburbs — Harris, Fort Bend, Montgomery, Brazoria & Galveston counties",
 
   // ---- Texas license & brokerage (required by TREC on all advertising) ----
@@ -53,7 +55,7 @@ export const site = {
 
   // ---- Photos (replace the files in /public/images with real photos) ----
   headshot: "/images/headshot-placeholder.svg", // [HEADSHOT]
-  heroImage: "/images/hero-houston.svg", // [HERO PHOTO]
+  heroImage: photos.homeHero, // see src/config/photos.ts
 
   // ---- Colors (the whole site's palette lives here) ----
   colors: {
@@ -70,7 +72,7 @@ export const site = {
   // Add real numbers later, e.g. { value: "25+", label: "Homes sold" }
   trustBar: [
     { value: "2×", label: "Personal home purchases" },
-    { value: "Flips", label: "Renovated & resold properties" },
+    { value: "Flipper", label: "1 house flipped, #2 underway" },
     { value: "Landlord", label: "Owns & manages rentals" },
     { value: "All types", label: "Buy · Sell · Invest · Lease" },
   ],

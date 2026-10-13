@@ -3,7 +3,7 @@ title: "Buying Your First Home in Houston: A Step-by-Step Guide"
 description: "What first-time buyers in Houston need to know about budgets, property taxes, MUDs, flood zones, option periods, and closing, from an agent who has bought homes too."
 date: "2026-10-01"
 category: "Buying"
-image: "/images/blog/first-home.svg"
+image: "https://images.unsplash.com/photo-1518780664697-55e3ad937233?auto=format&fit=crop&w=1600&q=80"
 ---
 
 Buying your first home is exciting, and it comes with a lot of new vocabulary. I've been through it myself twice, so here's the guide I wish I'd had the first time.

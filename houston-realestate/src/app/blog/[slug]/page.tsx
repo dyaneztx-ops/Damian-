@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { site, siteUrl } from "@/config/site";
@@ -7,6 +6,7 @@ import { formatDate, getPost, getPosts } from "@/lib/content";
 import { CtaBand, Section } from "@/components/Sections";
 import { PostCard } from "@/components/PostCard";
 import { JsonLd } from "@/components/JsonLd";
+import { SmartImage } from "@/components/SmartImage";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -34,7 +34,7 @@ export default async function PostPage({ params }: Props) {
           headline: post.title,
           description: post.description,
           datePublished: post.date,
-          image: `${siteUrl}${post.image}`,
+          image: post.image.startsWith("http") ? post.image : `${siteUrl}${post.image}`,
           author: { "@type": "Person", name: site.agentName, url: `${siteUrl}/about` },
           publisher: { "@id": `${siteUrl}/#agent` },
           mainEntityOfPage: `${siteUrl}/blog/${post.slug}`,
@@ -57,7 +57,7 @@ export default async function PostPage({ params }: Props) {
         </header>
         <div className="container-x max-w-3xl">
           <div className="relative -mt-0 aspect-[16/9] overflow-hidden rounded-2xl sm:mt-10">
-            <Image src={post.image} alt="" fill priority sizes="(min-width:768px) 768px, 100vw" className="object-cover" />
+            <SmartImage src={post.image} fallback="/images/blog-default.svg" alt="" fill priority sizes="(min-width:768px) 768px, 100vw" className="object-cover" />
           </div>
           <div
             className="prose prose-lg mt-10 max-w-none pb-16 prose-headings:font-display prose-headings:text-navy prose-a:text-accent-dark prose-strong:text-navy"

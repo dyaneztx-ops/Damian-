@@ -2,7 +2,7 @@
 name: "Sugar Land"
 order: 4
 description: "Established Fort Bend County city with polished neighborhoods, Sugar Land Town Square, and easy access to US-59/I-69."
-image: "/images/neighborhoods/sugar-land.svg"
+image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1600&q=80"
 priceRange: "[ADD PRICE RANGE, e.g. $300k–$700k]"
 commute: "US-59 / I-69, Beltway 8, Grand Parkway (99)"
 highlights:

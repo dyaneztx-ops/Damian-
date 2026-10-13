@@ -2,7 +2,7 @@
 name: "Spring"
 order: 7
 description: "North Houston suburb with Old Town Spring's shops, wide price ranges, and access to I-45 and the Grand Parkway."
-image: "/images/neighborhoods/spring.svg"
+image: "https://images.unsplash.com/photo-1598228723793-52759bba239c?auto=format&fit=crop&w=1600&q=80"
 priceRange: "[ADD PRICE RANGE, e.g. $300k–$700k]"
 commute: "I-45, Hardy Toll Road, Grand Parkway (99)"
 highlights:

@@ -2,7 +2,7 @@
 name: "Humble"
 order: 8
 description: "Northeast Houston area including Atascocita and Kingwood, close to Bush Intercontinental Airport and Lake Houston."
-image: "/images/neighborhoods/humble.svg"
+image: "https://images.unsplash.com/photo-1605276374104-dee2a0ed3cd6?auto=format&fit=crop&w=1600&q=80"
 priceRange: "[ADD PRICE RANGE, e.g. $300k–$700k]"
 commute: "US-59 / I-69, Beltway 8, Sam Houston Tollway; close to IAH airport"
 highlights:
