@@ -1,4 +1,4 @@
-import { site } from "@/config/site";
+import { filled, site } from "@/config/site";
 import { pageMeta } from "@/lib/seo";
 
 export const metadata = pageMeta({
@@ -20,7 +20,8 @@ export default function TermsPage() {
         <h2>Real estate services</h2>
         <p>
           {site.agentName} is a licensed Texas real estate sales agent (License #{site.licenseNumber}) sponsored by{" "}
-          {site.brokerage.name} (License #{site.brokerage.licenseNumber}). Contacting us through this site does not create an
+          {site.brokerage.name}
+          {filled(site.brokerage.licenseNumber) && ` (License #${site.brokerage.licenseNumber})`}. Contacting us through this site does not create an
           agency relationship. An agency relationship is created only by a written agreement. Please review the Texas Real
           Estate Commission <a href={site.brokerage.iabsUrl}>Information About Brokerage Services</a> and{" "}
           <a href={site.trecConsumerProtectionUrl}>Consumer Protection Notice</a>.
@@ -54,7 +55,13 @@ export default function TermsPage() {
         <p>These terms are governed by the laws of the State of Texas.</p>
         <h2>Contact</h2>
         <p>
-          Questions? Email <a href={`mailto:${site.email}`}>{site.email}</a> or call {site.phone}.
+          Questions?{" "}
+          {filled(site.email) && (
+            <>
+              Email <a href={`mailto:${site.email}`}>{site.email}</a> or{" "}
+            </>
+          )}
+          call {site.phone}.
         </p>
       </article>
     </div>

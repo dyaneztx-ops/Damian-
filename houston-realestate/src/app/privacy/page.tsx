@@ -1,4 +1,4 @@
-import { site } from "@/config/site";
+import { filled, site } from "@/config/site";
 import { pageMeta } from "@/lib/seo";
 
 export const metadata = pageMeta({
@@ -59,14 +59,21 @@ export default function PrivacyPage() {
         </p>
         <h2>Your choices</h2>
         <p>
-          You may ask us to access, correct, or delete your information, or to stop contacting you, by emailing{" "}
-          <a href={`mailto:${site.email}`}>{site.email}</a> or calling {site.phone}.
+          You may ask us to access, correct, or delete your information, or to stop contacting you, by{" "}
+          {filled(site.email) && (
+            <>
+              emailing <a href={`mailto:${site.email}`}>{site.email}</a> or{" "}
+            </>
+          )}
+          calling {site.phone}.
         </p>
         <h2>Children</h2>
         <p>This website is not directed to children under 13, and we do not knowingly collect their information.</p>
         <h2>Contact</h2>
         <p>
-          {site.agentName}, {site.brokerage.name}, {site.brokerage.address}. Phone: {site.phone}. Email: {site.email}.
+          {site.agentName}, {site.brokerage.name}
+          {filled(site.brokerage.address) && `, ${site.brokerage.address}`}. Phone: {site.phone}.
+          {filled(site.email) && ` Email: ${site.email}.`}
         </p>
       </article>
     </div>

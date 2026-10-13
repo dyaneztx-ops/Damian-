@@ -21,7 +21,7 @@ function Logo() {
           <span className="min-w-0 leading-tight">
             <span className="block truncate font-display text-lg font-semibold text-navy">{site.agentName}</span>
             {/* Brokerage name shown alongside the agent name (TREC advertising rule) */}
-            <span className="block truncate text-xs text-muted">REALTOR® · {site.brokerage.name}</span>
+            <span className="line-clamp-2 block text-xs leading-snug text-muted">REALTOR® · {site.brokerage.name}</span>
           </span>
         </>
       )}

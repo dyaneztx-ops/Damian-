@@ -1,4 +1,4 @@
-import { site, siteUrl } from "@/config/site";
+import { filled, site, siteUrl } from "@/config/site";
 import { getNeighborhoods } from "@/lib/content";
 
 export function JsonLd({ data }: { data: Record<string, unknown> }) {
@@ -28,7 +28,7 @@ export function AgentJsonLd() {
         description: `${site.agentName} is a ${site.title} in Houston, TX helping clients buy, sell, invest in, and lease all property types.`,
         url: siteUrl,
         telephone: site.phoneE164,
-        email: site.email,
+        ...(filled(site.email) ? { email: site.email } : {}),
         image: `${siteUrl}${site.headshot}`,
         priceRange: "$$",
         address: {
@@ -41,7 +41,7 @@ export function AgentJsonLd() {
         parentOrganization: {
           "@type": "RealEstateAgent",
           name: site.brokerage.name,
-          telephone: site.brokerage.phone,
+          ...(filled(site.brokerage.phone) ? { telephone: site.brokerage.phone } : {}),
         },
         knowsLanguage: site.features.spanishToggle ? ["en", "es"] : ["en"],
         ...(sameAs.length ? { sameAs } : {}),

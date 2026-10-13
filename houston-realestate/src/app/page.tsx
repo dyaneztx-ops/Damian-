@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { site } from "@/config/site";
+import { filled, site } from "@/config/site";
 import { getNeighborhoods, getPosts } from "@/lib/content";
 import { pageMeta } from "@/lib/seo";
 import { T } from "@/lib/i18n";
@@ -194,9 +194,11 @@ export default function HomePage() {
               <a href={`tel:${site.phoneE164}`} className="block font-semibold text-navy hover:text-accent-dark">
                 {site.phone}
               </a>
-              <a href={`mailto:${site.email}`} className="block break-all text-muted hover:text-accent-dark">
-                {site.email}
-              </a>
+              {filled(site.email) && (
+                <a href={`mailto:${site.email}`} className="block break-all text-muted hover:text-accent-dark">
+                  {site.email}
+                </a>
+              )}
               <p className="pt-2 text-sm text-muted">{site.brokerage.name}</p>
             </div>
           </div>

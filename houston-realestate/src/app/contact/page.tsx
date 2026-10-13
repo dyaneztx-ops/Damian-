@@ -1,4 +1,4 @@
-import { site } from "@/config/site";
+import { filled, site } from "@/config/site";
 import { pageMeta } from "@/lib/seo";
 import { PageHero, Section } from "@/components/Sections";
 import { LeadForm } from "@/components/LeadForm";
@@ -15,7 +15,7 @@ export default function ContactPage() {
   const items = [
     { icon: PhoneIcon, label: "Call", value: site.phone, href: `tel:${site.phoneE164}` },
     { icon: ChatIcon, label: "Text", value: site.phone, href: `sms:${site.phoneE164}` },
-    { icon: MailIcon, label: "Email", value: site.email, href: `mailto:${site.email}` },
+    ...(filled(site.email) ? [{ icon: MailIcon, label: "Email", value: site.email, href: `mailto:${site.email}` }] : []),
     { icon: PinIcon, label: "Service area", value: site.serviceAreaText },
   ];
   return (
@@ -49,8 +49,8 @@ export default function ContactPage() {
             <div className="rounded-2xl bg-white p-5 ring-1 ring-black/5">
               <p className="text-sm text-muted">Brokerage</p>
               <p className="font-semibold text-navy">{site.brokerage.name}</p>
-              <p className="text-sm text-muted">{site.brokerage.address}</p>
-              <p className="text-sm text-muted">{site.brokerage.phone}</p>
+              {filled(site.brokerage.address) && <p className="text-sm text-muted">{site.brokerage.address}</p>}
+              {filled(site.brokerage.phone) && <p className="text-sm text-muted">{site.brokerage.phone}</p>}
               <SocialLinks dark className="mt-4" />
             </div>
           </div>

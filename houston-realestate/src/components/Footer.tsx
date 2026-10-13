@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { site } from "@/config/site";
+import { filled, site } from "@/config/site";
 import { getNeighborhoods } from "@/lib/content";
 import { SocialLinks } from "./SocialLinks";
 
@@ -32,9 +32,11 @@ export function Footer() {
             <a className="block hover:text-white" href={`tel:${site.phoneE164}`}>
               {site.phone}
             </a>
-            <a className="block break-all hover:text-white" href={`mailto:${site.email}`}>
-              {site.email}
-            </a>
+            {filled(site.email) && (
+              <a className="block break-all hover:text-white" href={`mailto:${site.email}`}>
+                {site.email}
+              </a>
+            )}
           </p>
           <SocialLinks className="mt-5" />
         </div>
@@ -103,8 +105,15 @@ export function Footer() {
         <div className="container-x flex flex-col gap-3 py-6 text-xs leading-relaxed md:flex-row md:items-center md:justify-between">
           <p>
             © {year} {site.brandName}. {site.agentName}, REALTOR®, TX License #{site.licenseNumber}. Brokerage:{" "}
-            {site.brokerage.name}, License #{site.brokerage.licenseNumber}, {site.brokerage.address}, {site.brokerage.phone}.
-            Information deemed reliable but not guaranteed.
+            {[
+              site.brokerage.name,
+              filled(site.brokerage.licenseNumber) && `License #${site.brokerage.licenseNumber}`,
+              filled(site.brokerage.address) && site.brokerage.address,
+              filled(site.brokerage.phone) && site.brokerage.phone,
+            ]
+              .filter(Boolean)
+              .join(", ")}
+            . Information deemed reliable but not guaranteed.
           </p>
           <p className="flex shrink-0 gap-4">
             <Link className="hover:text-white" href="/privacy">

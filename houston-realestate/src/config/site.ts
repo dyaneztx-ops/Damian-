@@ -26,9 +26,9 @@ export const site = {
   serviceAreaText: "Houston and surrounding suburbs — Harris, Fort Bend, Montgomery, Brazoria & Galveston counties",
 
   // ---- Texas license & brokerage (required by TREC on all advertising) ----
-  licenseNumber: "[TX LICENSE #]",
+  licenseNumber: "857656",
   brokerage: {
-    name: "[BROKERAGE NAME]",
+    name: "Keller Williams Realty The Woodlands & Magnolia",
     licenseNumber: "[BROKER LICENSE #]",
     phone: "[BROKER PHONE]",
     email: "[BROKER EMAIL]",
@@ -86,6 +86,11 @@ export const site = {
 };
 
 export type SiteConfig = typeof site;
+
+/** True once a value has been filled in (not empty and not a "[PLACEHOLDER]"). */
+export function filled(value: string | null | undefined): value is string {
+  return !!value && !value.includes("[") && !value.endsWith("@example.com");
+}
 
 export const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000").replace(/\/$/, "");
 
