@@ -1,0 +1,100 @@
+/**
+ * ============================================================
+ *  YOUR BUSINESS INFO — EDIT EVERYTHING HERE
+ * ============================================================
+ * This one file controls your name, phone, brokerage, license,
+ * social links, service areas, colors and feature switches across
+ * the entire site. Anything wrapped in [BRACKETS] is a placeholder
+ * you still need to fill in.
+ */
+
+export const site = {
+  // ---- Brand ----
+  brandName: "Damian Yanez Real Estate", // [CONFIRM BRAND NAME]
+  agentName: "Damian Yanez",
+  agentFirstName: "Damian",
+  title: "Licensed Texas REALTOR®",
+  tagline: "Houston real estate from an agent who invests too.",
+  // Set to a file in /public (e.g. "/images/logo.svg") to use an image logo.
+  // Leave null to show a clean text logo.
+  logo: null as string | null,
+
+  // ---- Contact ----
+  phone: "(832) 873-3625",
+  phoneE164: "+18328733625", // used for tel: and sms: links
+  email: "[YOUR-EMAIL]@example.com", // [BUSINESS EMAIL]
+  serviceAreaText: "Houston and surrounding suburbs — Harris, Fort Bend, Montgomery, Brazoria & Galveston counties",
+
+  // ---- Texas license & brokerage (required by TREC on all advertising) ----
+  licenseNumber: "[TX LICENSE #]",
+  brokerage: {
+    name: "[BROKERAGE NAME]",
+    licenseNumber: "[BROKER LICENSE #]",
+    phone: "[BROKER PHONE]",
+    email: "[BROKER EMAIL]",
+    address: "[BROKERAGE STREET ADDRESS], Houston, TX [ZIP]",
+    // Your broker should give you a filled-out IABS form. Upload it to
+    // /public/docs/iabs.pdf and change this to "/docs/iabs.pdf".
+    iabsUrl: "https://www.trec.texas.gov/sites/default/files/pdf-forms/IABS%201-0.pdf",
+  },
+  trecConsumerProtectionUrl:
+    "https://www.trec.texas.gov/sites/default/files/pdf-forms/CN%201-5_0.pdf",
+
+  // ---- Links ----
+  harProfileUrl: "https://www.har.com/", // [YOUR HAR.COM PROFILE URL]
+  harSearchUrl: "https://www.har.com/search/dosearch?for_sale=1&city=Houston",
+  preApprovalUrl: "/contact?interest=buy&topic=pre-approval", // swap for your lender's link if you have one
+  social: {
+    instagram: "", // e.g. "https://instagram.com/yourhandle"
+    facebook: "",
+    tiktok: "",
+    youtube: "",
+    linkedin: "",
+  },
+
+  // ---- Photos (replace the files in /public/images with real photos) ----
+  headshot: "/images/headshot-placeholder.svg", // [HEADSHOT]
+  heroImage: "/images/hero-houston.svg", // [HERO PHOTO]
+
+  // ---- Colors (the whole site's palette lives here) ----
+  colors: {
+    navy: "#14213d", // primary dark
+    navyDeep: "#0b1427", // darkest sections / footer
+    accent: "#c8873a", // warm gold-terracotta for buttons & highlights
+    accentDark: "#8f5a1c", // hover state + accessible accent text
+    sand: "#f7f3ee", // soft warm background
+    ink: "#1d2433", // body text
+    muted: "#5b6577", // secondary text
+  },
+
+  // ---- Trust bar (real experience, not invented sales stats) ----
+  // Add real numbers later, e.g. { value: "25+", label: "Homes sold" }
+  trustBar: [
+    { value: "2×", label: "Personal home purchases" },
+    { value: "Flips", label: "Renovated & resold properties" },
+    { value: "Landlord", label: "Owns & manages rentals" },
+    { value: "All types", label: "Buy · Sell · Invest · Lease" },
+  ],
+
+  // ---- Feature switches ----
+  features: {
+    // Shows an EN / ES toggle in the header. Translations live in src/lib/i18n.ts
+    spanishToggle: false,
+    // Set to true once your IDX provider gives you an embed (see src/components/IdxSearch.tsx)
+    idxEnabled: false,
+  },
+};
+
+export type SiteConfig = typeof site;
+
+export const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000").replace(/\/$/, "");
+
+export const navLinks = [
+  { href: "/buy", label: "Buy", key: "nav.buy" },
+  { href: "/sell", label: "Sell", key: "nav.sell" },
+  { href: "/invest", label: "Invest", key: "nav.invest" },
+  { href: "/lease", label: "Lease", key: "nav.lease" },
+  { href: "/neighborhoods", label: "Neighborhoods", key: "nav.neighborhoods" },
+  { href: "/about", label: "About", key: "nav.about" },
+  { href: "/blog", label: "Blog", key: "nav.blog" },
+] as const;
