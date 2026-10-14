@@ -37,7 +37,7 @@ export const site = {
     licenseNumber: "[BROKER LICENSE #]",
     phone: "[BROKER PHONE]",
     email: "[BROKER EMAIL]",
-    address: "[BROKERAGE STREET ADDRESS], Houston, TX [ZIP]",
+    address: "2201 Lake Woodlands Dr., The Woodlands, TX 77380",
     // TREC "Information About Brokerage Services" (your brokerage's filled-out IABS, hosted by HAR)
     iabsUrl: "https://www.har.com/mhf/terms/dispBrokerInfo?sitetype=aws&cid=857656",
   },
