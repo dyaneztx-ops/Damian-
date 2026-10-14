@@ -78,7 +78,7 @@ export const site = {
   // Add real numbers later, e.g. { value: "25+", label: "Homes sold" }
   trustBar: [
     { value: "2×", label: "Personal home purchases" },
-    { value: "Flipper", label: "1 house flipped, #2 underway" },
+    { value: "2 flips", label: "Taken on as an investor" },
     { value: "Landlord", label: "Owns & manages rentals" },
     { value: "All types", label: "Buy · Sell · Invest · Lease" },
   ],

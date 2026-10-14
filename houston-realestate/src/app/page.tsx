@@ -28,7 +28,9 @@ export const metadata = pageMeta({
 });
 
 export default function HomePage() {
-  const neighborhoods = getNeighborhoods().slice(0, 8);
+  const allNeighborhoods = getNeighborhoods();
+  const areaCount = allNeighborhoods.length;
+  const neighborhoods = allNeighborhoods.slice(0, 8);
   const posts = getPosts().slice(0, 3);
 
   return (
@@ -52,7 +54,7 @@ export default function HomePage() {
           </h1>
           <p className="mt-6 max-w-2xl text-lg text-slate-200 sm:text-xl">
             <T k="hero.subtitle">
-              I&apos;ve bought my own homes, flipped a house (and I&apos;m renovating my second), and manage my own
+              I&apos;ve bought my own homes, taken on two house flips, and manage my own
               rentals. Whether you&apos;re buying, selling, investing, or leasing, you get advice backed by real deals,
               not just a license.
             </T>
@@ -167,7 +169,7 @@ export default function HomePage() {
               light
               eyebrow="Free download"
               title="The Houston Neighborhood Guide"
-              intro="Compare 10 of the area's most popular neighborhoods and suburbs side by side: lifestyle, getting around, an investor's take on each, and the 5 things to check on every Houston home."
+              intro={`Compare ${areaCount} of the area's most popular neighborhoods and suburbs side by side: lifestyle, getting around, an investor's take on each, and the 5 things to check on every Houston home.`}
             />
             <Link href="/guide" className="mt-6 inline-flex font-semibold text-accent hover:underline">
               See what&apos;s inside →

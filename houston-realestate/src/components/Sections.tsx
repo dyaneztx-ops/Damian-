@@ -208,8 +208,8 @@ export const investorEdge = [
   },
   {
     icon: ToolIcon,
-    title: "I'm doing the renovations",
-    text: "I've flipped a house and I'm renovating my second, so I can walk a property and tell you what repairs really cost and which ones actually matter.",
+    title: "I'm in the renovations",
+    text: "I'm working on two house flips of my own, so I can walk a property and tell you what repairs really cost and which ones actually matter.",
   },
   {
     icon: KeyIcon,

@@ -2,13 +2,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { site } from "@/config/site";
 import { pageMeta } from "@/lib/seo";
-import { CtaBand, InvestorEdge, Section, SectionHeading } from "@/components/Sections";
-import { PhoneIcon } from "@/components/Icons";
+import { CheckList, CtaBand, Section } from "@/components/Sections";
+import { ChatIcon, CoffeeIcon, PhoneIcon } from "@/components/Icons";
 import { SocialLinks } from "@/components/SocialLinks";
 
 export const metadata = pageMeta({
   title: `About ${site.agentName} | Houston REALTOR® & Real Estate Investor`,
-  description: `Meet ${site.agentName}: a young Houston REALTOR®, entrepreneur, and real estate investor who has flipped a house, is renovating a second, and manages rentals.`,
+  description: `Meet ${site.agentName}: a young Houston REALTOR®, entrepreneur, and real estate investor working on two house flips and managing a rental property.`,
   path: "/about",
   image: site.headshot,
 });
@@ -48,58 +48,63 @@ export default function AboutPage() {
 
       <Section>
         <div className="mx-auto max-w-3xl">
-          <div className="prose prose-lg max-w-none prose-headings:font-display prose-headings:text-navy">
+          <figure className="border-l-4 border-accent pl-6 sm:pl-8">
+            <blockquote className="font-display text-3xl leading-snug font-semibold text-navy sm:text-4xl">
+              &ldquo;Real security comes from ownership and skills, not a job title.&rdquo;
+            </blockquote>
+          </figure>
+
+          <div className="prose prose-lg mt-12 max-w-none prose-headings:font-display prose-headings:text-navy">
             <h2>My story</h2>
             <p>
-              I got into sales at 19 and never looked back. For four and a half years I put in the work every single day,
-              consistently beat expectations, and earned a spot among the top-ranked salespeople in the company. That job
-              taught me what I still rely on with every client: listen first, figure out what people actually need, and always
-              follow through.
+              I got into sales at 19. For four and a half years I put in the work every day, consistently beat
+              expectations, and earned a spot among the company&apos;s top-ranked salespeople. Along the way I started real
+              estate school, and a few months before everything changed, I bought my first house to flip.
             </p>
             <p>
-              Then one day, it was gone. No warning, no notice. Because of circumstances completely out of my control, I
-              was let go from the place I&apos;d given my early twenties to.
+              Then I was let go. No warning, no notice, for reasons completely out of my control. My rental property kept
+              me afloat while I finished real estate school, and right after the layoff I closed on my second flip,
+              because I knew nothing was going to stop me.
             </p>
             <p>
-              That moment could have knocked me down. Instead, it pushed me forward. I already owned a rental property, and
-              that income kept me afloat while I finished real estate school, which I&apos;d started while I was still
-              working there. So I made a decision: no more waiting on someone else to decide my future. I would bet on
-              myself, build my own book of business, and help other people use real estate to build something of their own.
+              So I bet on myself. Now I&apos;m building my own book of business and helping people use real estate to build
+              something of their own, whether that&apos;s a first home, a move-up, or a first investment property.
             </p>
-            <h2>Why I got into real estate</h2>
-            <p>
-              I bought my first flip, built the rehab budget, managed the contractors, and sold it. That one project taught
-              me more than any class could: how to read a house, what repairs really cost, which updates buyers will pay for,
-              and why you run the numbers <em>before</em> you sign. Today I&apos;m in the middle of my second flip.
-            </p>
-            <p>
-              Getting let go taught me something too: real security comes from ownership and skills, not a job title.
-              That one rental property proved it. Now I help other people build that same security, whether they&apos;re
-              buying their first home, selling to move up, or buying their first investment property.
-            </p>
-            <h2>My investor background</h2>
-            <ul>
-              <li>Bought homes of my own, so I&apos;ve been in the buyer&apos;s seat</li>
-              <li>Flipped my first house start to finish: purchase, rehab budget, contractors, and sale</li>
-              <li>Currently renovating flip #2</li>
-              <li>Own and manage rental properties, including pricing, leasing, and maintenance</li>
-              <li>Analyze deals the same way for clients as I do for myself: cash flow, cap rate, cash-on-cash</li>
-            </ul>
-            <h2>My sales background</h2>
-            <p>
-              Four and a half years in sales, ranking among my company&apos;s top performers, taught me that clear
-              communication and fast follow-up build trust. I bring the same
-              approach to every client: you&apos;ll always know what&apos;s happening and what comes next, and I&apos;ll
-              negotiate hard on your behalf.
-            </p>
+            <h2>What I bring to the table</h2>
+          </div>
+          <div className="mt-6">
+            <CheckList
+              items={[
+                "Two house flips of my own: budgets, contractors, and real renovation decisions",
+                "A rental I own and manage, so I know pricing, leasing, and maintenance firsthand",
+                "I've bought homes myself, so I've been in the buyer's seat",
+                "4.5 years as a top-ranked salesperson: clear communication, fast follow-up, and hard negotiation",
+                "I run the numbers for every client the same way I do for myself",
+              ]}
+            />
           </div>
         </div>
       </Section>
 
-      <Section tone="navy">
-        <SectionHeading light eyebrow="What that means for you" title="Experience you can use." />
-        <div className="mt-10">
-          <InvestorEdge />
+      <Section tone="sand">
+        <div className="mx-auto flex max-w-3xl flex-col items-start gap-6 rounded-3xl bg-white p-8 shadow-sm ring-1 ring-black/5 sm:flex-row sm:p-10">
+          <span className="grid size-14 shrink-0 place-items-center rounded-2xl bg-navy text-accent">
+            <CoffeeIcon className="size-7" />
+          </span>
+          <div>
+            <p className="eyebrow">Off the clock</p>
+            <h2 className="mt-2 font-display text-3xl font-semibold text-navy">Coffee lover and foodie.</h2>
+            <p className="mt-3 text-lg text-muted">
+              When I&apos;m not looking at houses, I&apos;m probably trying a new restaurant or coffee shop. I&apos;ve eaten and
+              sipped my way across Greater Houston, from The Woodlands to Pearland.
+            </p>
+            <p className="mt-4 text-lg font-semibold text-navy">
+              Need a spot to grab a bite or a great cup of coffee? Ask me. I always have a recommendation.
+            </p>
+            <a href={`sms:${site.phoneE164}`} className="btn-dark mt-6">
+              <ChatIcon className="size-5" /> Text me for a recommendation
+            </a>
+          </div>
         </div>
       </Section>
 

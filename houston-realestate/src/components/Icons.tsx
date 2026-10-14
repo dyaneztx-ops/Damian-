@@ -90,6 +90,12 @@ export const HandshakeIcon = (p: P) => (
     <path d="m8 12 2.5 2.5M10.5 9.5 13 12" />
   </svg>
 );
+export const CoffeeIcon = (p: P) => (
+  <svg {...base} {...p}>
+    <path d="M17 8h1a4 4 0 0 1 0 8h-1M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4z" />
+    <path d="M6 2v2M10 2v2M14 2v2" />
+  </svg>
+);
 export const DownloadIcon = (p: P) => (
   <svg {...base} {...p}>
     <path d="M12 3v12M7 10l5 5 5-5M5 21h14" />
