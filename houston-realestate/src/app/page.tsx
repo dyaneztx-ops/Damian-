@@ -136,7 +136,7 @@ export default function HomePage() {
           <SectionHeading
             eyebrow="Where I work"
             title="North Houston neighborhoods"
-            intro="Based in The Woodlands and Magnolia, serving Montgomery County, northwest Harris County, and Greater Houston: lifestyle, commutes, and what your money buys in each area."
+            intro="Based in The Woodlands area, serving Montgomery County, northwest Harris County, and Greater Houston: lifestyle, commutes, and what your money buys in each area."
           />
           <Link href="/neighborhoods" className="font-semibold whitespace-nowrap text-accent-dark hover:underline">
             All neighborhoods →
