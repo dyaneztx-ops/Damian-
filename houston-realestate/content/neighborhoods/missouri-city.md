@@ -1,6 +1,6 @@
 ---
 name: "Missouri City"
-order: 12
+order: 13
 description: "Fort Bend County city next to Sugar Land with established neighborhoods, golf course communities, and access to the Medical Center."
 image: "https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?auto=format&fit=crop&w=1600&q=80"
 priceRange: "[ADD PRICE RANGE, e.g. $300k–$700k]"
