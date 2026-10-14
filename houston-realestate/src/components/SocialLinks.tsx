@@ -17,9 +17,11 @@ export function SocialLinks({ className = "", dark = false }: { className?: stri
     : "grid size-10 place-items-center rounded-full bg-white/10 text-white hover:bg-accent hover:text-navy-deep";
   return (
     <div className={`flex flex-wrap items-center gap-2 ${className}`}>
-      <a href={site.harProfileUrl} target="_blank" rel="noopener noreferrer" className={`${cls} !w-auto px-3 text-xs font-bold`}>
-        HAR.com
-      </a>
+      {site.harProfileUrl && (
+        <a href={site.harProfileUrl} target="_blank" rel="noopener noreferrer" className={`${cls} !w-auto px-3 text-xs font-bold`}>
+          HAR.com
+        </a>
+      )}
       {entries.map((k) => {
         const Icon = icons[k];
         return (

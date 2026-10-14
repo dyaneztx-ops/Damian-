@@ -1,6 +1,6 @@
 ---
 name: "Pearland"
-order: 5
+order: 11
 description: "Fast-growing city south of Houston with quick access to the Medical Center, Downtown, and Hobby Airport."
 image: "https://images.unsplash.com/photo-1576941089067-2de3c901e126?auto=format&fit=crop&w=1600&q=80"
 priceRange: "[ADD PRICE RANGE, e.g. $300k–$700k]"

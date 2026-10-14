@@ -72,7 +72,7 @@ export function getNeighborhoods(): Neighborhood[] {
       name: String(data.name ?? slug),
       description: String(data.description ?? ""),
       image: String(data.image ?? "/images/neighborhood-default.svg"),
-      priceRange: String(data.priceRange ?? "[PRICE RANGE]"),
+      priceRange: data.priceRange && !String(data.priceRange).includes("[") ? String(data.priceRange) : "",
       commute: String(data.commute ?? ""),
       highlights: Array.isArray(data.highlights) ? data.highlights.map(String) : [],
       order: Number(data.order ?? 99),

@@ -1,6 +1,6 @@
 ---
 name: "Humble"
-order: 8
+order: 7
 description: "Northeast Houston area including Atascocita and Kingwood, close to Bush Intercontinental Airport and Lake Houston."
 image: "https://images.unsplash.com/photo-1605276374104-dee2a0ed3cd6?auto=format&fit=crop&w=1600&q=80"
 priceRange: "[ADD PRICE RANGE, e.g. $300k–$700k]"

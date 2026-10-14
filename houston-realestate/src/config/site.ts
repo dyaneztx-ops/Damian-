@@ -28,7 +28,7 @@ export const site = {
   // Where website leads are emailed. Must be the email you signed up to Resend
   // with until you verify your own domain in Resend. (LEAD_TO_EMAIL overrides it.)
   leadInbox: "dyanez.tx@gmail.com",
-  serviceAreaText: "Houston and surrounding suburbs — Harris, Fort Bend, Montgomery, Brazoria & Galveston counties",
+  serviceAreaText: "The Woodlands, Magnolia & North Houston — Montgomery and Harris counties, plus Greater Houston",
 
   // ---- Texas license & brokerage (required by TREC on all advertising) ----
   licenseNumber: "857656",
@@ -45,7 +45,7 @@ export const site = {
     "https://content.harstatic.com/pdf/TREC_CPN.pdf",
 
   // ---- Links ----
-  harProfileUrl: "https://www.har.com/", // [YOUR HAR.COM PROFILE URL]
+  harProfileUrl: "", // paste your HAR.com profile URL here; HAR links stay hidden until you do
   harSearchUrl: "https://www.har.com/search/dosearch?for_sale=1&city=Houston",
   preApprovalUrl: "/contact?interest=buy&topic=pre-approval", // swap for your lender's link if you have one
   social: {

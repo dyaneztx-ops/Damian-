@@ -56,10 +56,12 @@ export default async function NeighborhoodPage({ params }: Props) {
             <div className="rounded-2xl bg-sand p-6">
               <h2 className="text-lg font-semibold text-navy">At a glance</h2>
               <dl className="mt-4 space-y-3 text-sm">
-                <div>
-                  <dt className="text-muted">Typical home prices</dt>
-                  <dd className="font-semibold text-ink">{n.priceRange}</dd>
-                </div>
+                {n.priceRange && (
+                  <div>
+                    <dt className="text-muted">Typical home prices</dt>
+                    <dd className="font-semibold text-ink">{n.priceRange}</dd>
+                  </div>
+                )}
                 {n.commute && (
                   <div>
                     <dt className="text-muted">Commute</dt>

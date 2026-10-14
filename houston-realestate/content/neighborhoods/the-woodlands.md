@@ -1,6 +1,6 @@
 ---
 name: "The Woodlands"
-order: 6
+order: 1
 description: "Wooded master-planned community north of Houston with its own town center, waterway, and major employers."
 image: "https://images.unsplash.com/photo-1449844908441-8829872d2607?auto=format&fit=crop&w=1600&q=80"
 priceRange: "[ADD PRICE RANGE, e.g. $300k–$700k]"
