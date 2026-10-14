@@ -1,6 +1,6 @@
 ---
 name: "Tomball"
-order: 5
+order: 6
 description: "Northwest Harris County town with a historic downtown, larger lots, and easy SH 249 and Grand Parkway access."
 image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1600&q=80"
 commute: "SH 249 (Tomball Parkway), Grand Parkway (99), FM 2920"
