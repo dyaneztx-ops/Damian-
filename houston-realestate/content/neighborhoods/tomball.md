@@ -18,7 +18,7 @@ Tomball is a small city in northwest Harris County, with unincorporated communit
 Downtown Tomball keeps a small-town feel, with local shops, restaurants, and community festivals through the year. Lots tend to be larger than in closer-in suburbs.
 
 ## Investor's take
-Steady demand from families and commuters supports rentals. As with any older area, budget for drainage, foundation, and roof checks on established homes.
+Steady renter demand, including commuters to The Woodlands and northwest Houston, supports rentals. As with any older area, budget for drainage, foundation, and roof checks on established homes.
 
 ## Schools
 Much of the area is served by Tomball ISD, with some addresses in Klein, Magnolia, or other districts. Verify school assignments directly with the district.

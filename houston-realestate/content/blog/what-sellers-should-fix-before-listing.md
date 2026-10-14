@@ -6,7 +6,7 @@ category: "Selling"
 image: "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=1600&q=80"
 ---
 
-Flipping my first house (and renovating my second) taught me that the right small fixes often beat a big renovation. Here's how I'd think about it.
+Working on my own house flips has taught me that the right small fixes often beat a big renovation. Here's how I'd think about it.
 
 ## Usually worth it
 
