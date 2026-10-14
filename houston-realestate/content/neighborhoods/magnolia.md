@@ -2,7 +2,7 @@
 name: "Magnolia"
 order: 4
 description: "Fast-growing western Montgomery County with acreage lots, new master-planned communities, and a small-town feel."
-image: "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=formatimage: "/images/neighborhood-default.svg"fit=cropimage: "/images/neighborhood-default.svg"w=1600image: "/images/neighborhood-default.svg"q=80"
+image: "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=1600&q=80"
 commute: "SH 249, FM 1488, Grand Parkway (99)"
 highlights:
   - "Acreage and larger lots alongside new master-planned communities"

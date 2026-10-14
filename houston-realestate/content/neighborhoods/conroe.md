@@ -2,7 +2,7 @@
 name: "Conroe"
 order: 6
 description: "Montgomery County's seat, with a revived historic downtown, Lake Conroe nearby, and approachable price points along I-45."
-image: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=formatimage: "/images/neighborhood-default.svg"fit=cropimage: "/images/neighborhood-default.svg"w=1600image: "/images/neighborhood-default.svg"q=80"
+image: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1600&q=80"
 commute: "I-45, SH 105, Loop 336"
 highlights:
   - "Lake Conroe for boating and waterfront living"
