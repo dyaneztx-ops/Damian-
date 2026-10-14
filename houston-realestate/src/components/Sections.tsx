@@ -219,7 +219,7 @@ export const investorEdge = [
   {
     icon: HandshakeIcon,
     title: "Sales & follow-up are my background",
-    text: "My in-home sales career at AT&T taught me to listen, communicate clearly, follow up fast, and negotiate with confidence.",
+    text: "4.5 years in sales, ranked among my company's top performers, taught me to listen, communicate clearly, follow up fast, and negotiate with confidence.",
   },
 ];
 
