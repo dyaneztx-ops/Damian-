@@ -202,8 +202,8 @@ export default function HomePage() {
           <div className="lg:col-span-2">
             <SectionHeading
               eyebrow="Let's talk"
-              title="Tell me what you're working on."
-              intro="Buying, selling, investing, or leasing, send me a quick note and I'll get back to you fast. Usually same day."
+              title="Let's grab a coffee. I'll bring the comps."
+              intro="Recent sales, real numbers, and a straight answer on what a home is worth. Coffee's on me. Send a quick note and I'll get back to you fast, usually same day."
             />
             <div className="mt-8 space-y-2 text-lg">
               <a href={`tel:${site.phoneE164}`} className="block font-semibold text-navy hover:text-accent-dark">

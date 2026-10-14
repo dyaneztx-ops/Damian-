@@ -50,7 +50,7 @@ export default function AboutPage() {
         <div className="mx-auto max-w-3xl">
           <figure className="border-l-4 border-accent pl-6 sm:pl-8">
             <blockquote className="font-display text-3xl leading-snug font-semibold text-navy sm:text-4xl">
-              &ldquo;Real security comes from ownership and skills, not a job title.&rdquo;
+              &ldquo;The best time to start building wealth is the day you decide to.&rdquo;
             </blockquote>
           </figure>
 
