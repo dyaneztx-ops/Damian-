@@ -51,17 +51,18 @@ export default function AboutPage() {
           <div className="prose prose-lg max-w-none prose-headings:font-display prose-headings:text-navy">
             <h2>My story</h2>
             <p>
-              I started my sales career at 19. For four and a half years I put in the hard work, consistently exceeded
-              expectations, and ranked among the top salespeople in the company. I learned how to listen, figure out what
-              people actually need, and follow through.
+              I got into sales at 19 and never looked back. For four and a half years I put in the work every single day,
+              consistently beat expectations, and earned a spot among the top-ranked salespeople in the company. That job
+              taught me what I still rely on with every client: listen first, figure out what people actually need, and always
+              follow through.
             </p>
             <p>
-              Then, due to unforeseen circumstances, I was let go. No warning, no notice. After four and a half years of
-              giving it everything, just like that, it was over.
+              Then one day, it was gone. No warning, no notice. Because of circumstances completely out of my control, I
+              was let go from the place I&apos;d given my early twenties to.
             </p>
             <p>
-              It would have been easy to go find another job just like it. Instead, I decided to bet on myself. I&apos;d
-              already bought homes of my own and I&apos;d always been drawn to real estate, so I went all in.
+              That moment could have knocked me down. Instead, it pushed me forward. I&apos;d already bought homes of my own
+              and had always been drawn to real estate, so I made a decision: from now on, I bet on myself.
             </p>
             <h2>Why I got into real estate</h2>
             <p>
