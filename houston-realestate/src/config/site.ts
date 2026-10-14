@@ -99,13 +99,10 @@ export function filled(value: string | null | undefined): value is string {
   return !!value && !value.includes("[") && !value.endsWith("@example.com");
 }
 
-// Your live address. Order: NEXT_PUBLIC_SITE_URL (set this when you add a custom domain),
-// then Vercel's production domain (automatic on Vercel), then the fallback below.
-export const siteUrl = (
-  process.env.NEXT_PUBLIC_SITE_URL ||
-  (process.env.VERCEL_PROJECT_PRODUCTION_URL && `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`) ||
-  "https://damianyanez.space"
-).replace(/\/$/, "");
+// Your live address (used for the sitemap, canonical links, and social previews).
+// www is the primary domain in Vercel; damianyanez.space redirects to it.
+// NEXT_PUBLIC_SITE_URL overrides this if set.
+export const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL || "https://www.damianyanez.space").replace(/\/$/, "");
 
 export const navLinks = [
   { href: "/buy", label: "Buy", key: "nav.buy" },
