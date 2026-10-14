@@ -50,7 +50,7 @@ export default function AboutPage() {
         <div className="mx-auto max-w-3xl">
           <figure className="border-l-4 border-accent pl-6 sm:pl-8">
             <blockquote className="font-display text-3xl leading-snug font-semibold text-navy sm:text-4xl">
-              &ldquo;Real security comes from ownership and skills, not a job title.&rdquo;
+              &ldquo;The best time to start building wealth is the day you decide to.&rdquo;
             </blockquote>
           </figure>
 
@@ -69,7 +69,7 @@ export default function AboutPage() {
             </p>
             <p>
               So I bet on myself. Now I&apos;m building my own book of business and helping people use real estate to build
-              something of their own, whether that&apos;s a first home, a move-up, or a first investment property.
+              something of their own: a first home, a bigger next home, or their first step into investing.
             </p>
             <h2>What I bring to the table</h2>
           </div>
