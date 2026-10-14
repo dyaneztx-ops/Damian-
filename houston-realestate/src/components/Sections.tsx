@@ -336,9 +336,11 @@ export function Testimonials() {
           I&apos;m building my business one client at a time, and every review here will be real. Want to be one of the
           first? I&apos;ll work twice as hard to earn it.
         </p>
-        <a href={site.harProfileUrl} target="_blank" rel="noopener noreferrer" className="mt-6 inline-flex font-semibold text-accent-dark hover:underline">
-          See my HAR.com profile →
-        </a>
+        {site.harProfileUrl && (
+          <a href={site.harProfileUrl} target="_blank" rel="noopener noreferrer" className="mt-6 inline-flex font-semibold text-accent-dark hover:underline">
+            See my HAR.com profile →
+          </a>
+        )}
       </div>
     );
   }

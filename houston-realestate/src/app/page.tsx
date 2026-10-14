@@ -1,3 +1,4 @@
+import { testimonials } from "@/data/testimonials";
 import Link from "next/link";
 import { filled, site } from "@/config/site";
 import { listings } from "@/data/listings";
@@ -134,8 +135,8 @@ export default function HomePage() {
         <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
           <SectionHeading
             eyebrow="Where I work"
-            title="Explore Houston neighborhoods"
-            intro="From the Heights to the suburbs: lifestyle, commutes, and what your money buys in each area."
+            title="North Houston neighborhoods"
+            intro="Based in The Woodlands and Magnolia, serving Montgomery County, northwest Harris County, and Greater Houston: lifestyle, commutes, and what your money buys in each area."
           />
           <Link href="/neighborhoods" className="font-semibold whitespace-nowrap text-accent-dark hover:underline">
             All neighborhoods →
@@ -148,13 +149,15 @@ export default function HomePage() {
         </div>
       </Section>
 
-      {/* TESTIMONIALS */}
-      <Section tone="sand">
-        <SectionHeading center eyebrow="Client stories" title="What clients say" />
-        <div className="mt-10">
-          <Testimonials />
-        </div>
-      </Section>
+      {/* TESTIMONIALS (hidden until real reviews are added in src/data/testimonials.ts) */}
+      {testimonials.length > 0 && (
+        <Section tone="sand">
+          <SectionHeading center eyebrow="Client stories" title="What clients say" />
+          <div className="mt-10">
+            <Testimonials />
+          </div>
+        </Section>
+      )}
 
       {/* FREE GUIDE */}
       <Section tone="navy">
