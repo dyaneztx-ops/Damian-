@@ -63,7 +63,7 @@ export default function AboutPage() {
               and rented it out.
             </p>
             <p>
-              Then I was let go. No warning, no notice, for reasons completely out of my control. My rental property kept
+              Then I was let go. No warning, no notice, for reasons completely out of my control. That rental is what kept
               me afloat while I finished real estate school, and right after the layoff I closed on my next property. I&apos;m
               renovating it now to rent out and refinance, because I knew nothing was going to stop me.
             </p>
