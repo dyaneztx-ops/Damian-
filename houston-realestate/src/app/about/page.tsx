@@ -8,7 +8,7 @@ import { SocialLinks } from "@/components/SocialLinks";
 
 export const metadata = pageMeta({
   title: `About ${site.agentName} | Houston REALTOR® & Real Estate Investor`,
-  description: `Meet ${site.agentName}: a young Houston REALTOR®, entrepreneur, and real estate investor working on two house flips and managing a rental property.`,
+  description: `Meet ${site.agentName}: a young Houston REALTOR®, entrepreneur, and real estate investor who renovates, rents, and refinances investment property.`,
   path: "/about",
   image: site.headshot,
 });
@@ -59,12 +59,13 @@ export default function AboutPage() {
             <p>
               I got into sales at 19. For four and a half years I put in the work every day, consistently beat
               expectations, and earned a spot among the company&apos;s top-ranked salespeople. Along the way I started real
-              estate school, and a few months before everything changed, I bought my first house to flip.
+              estate school, and a few months before everything changed, I bought my first investment property, renovated it,
+              and rented it out.
             </p>
             <p>
               Then I was let go. No warning, no notice, for reasons completely out of my control. My rental property kept
-              me afloat while I finished real estate school, and right after the layoff I closed on my second flip,
-              because I knew nothing was going to stop me.
+              me afloat while I finished real estate school, and right after the layoff I closed on my next property. I&apos;m
+              renovating it now to rent out and refinance, because I knew nothing was going to stop me.
             </p>
             <p>
               So I bet on myself. Now I&apos;m building my own book of business and helping people use real estate to build
@@ -75,7 +76,7 @@ export default function AboutPage() {
           <div className="mt-6">
             <CheckList
               items={[
-                "Two house flips of my own: budgets, contractors, and real renovation decisions",
+                "Renovated and rented out my first investment property, and I'm in the middle of a renovate, rent, and refinance (BRRRR) now",
                 "A rental I own and manage, so I know pricing, leasing, and maintenance firsthand",
                 "I've bought homes myself, so I've been in the buyer's seat",
                 "4.5 years as a top-ranked salesperson: clear communication, fast follow-up, and hard negotiation",

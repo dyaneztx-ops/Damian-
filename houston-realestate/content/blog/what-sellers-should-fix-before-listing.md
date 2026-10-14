@@ -1,12 +1,12 @@
 ---
 title: "What Sellers Should Fix Before Listing (and What to Skip)"
-description: "A Houston agent and house flipper on which pre-listing repairs pay you back, which ones don't, and how to prep your home for top dollar."
+description: "A Houston agent and hands-on renovator on which pre-listing repairs pay you back, which ones don't, and how to prep your home for top dollar."
 date: "2026-08-28"
 category: "Selling"
 image: "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=1600&q=80"
 ---
 
-Working on my own house flips has taught me that the right small fixes often beat a big renovation. Here's how I'd think about it.
+Renovating my own investment properties has taught me that the right small fixes often beat a big renovation. Here's how I'd think about it.
 
 ## Usually worth it
 
