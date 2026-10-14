@@ -1,6 +1,6 @@
 ---
 name: "Cypress"
-order: 8
+order: 9
 description: "Northwest Houston suburb known for master-planned communities, newer homes, and access to US-290 and the Grand Parkway."
 image: "https://images.unsplash.com/photo-1570129477492-45c003edd2be?auto=format&fit=crop&w=1600&q=80"
 priceRange: "[ADD PRICE RANGE, e.g. $300k–$700k]"
