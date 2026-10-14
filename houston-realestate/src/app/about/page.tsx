@@ -69,7 +69,7 @@ export default function AboutPage() {
             </p>
             <p>
               So I bet on myself. Now I&apos;m building my own book of business and helping people use real estate to build
-              something of their own, whether that&apos;s a first home, a move-up, or a first investment property.
+              something of their own: a first home, a bigger next home, or their first step into investing.
             </p>
             <h2>What I bring to the table</h2>
           </div>
