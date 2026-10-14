@@ -24,4 +24,4 @@ New-construction supply keeps competition for rentals real, so pricing has to be
 Much of the area is served by Magnolia ISD, with some addresses in other districts. Verify school assignments directly with the district.
 
 ## Thinking about Magnolia?
-My brokerage is based right here. Tell me what you're looking for and I'll send you homes that match, plus honest advice on pricing, condition, and long-term value.
+I work this area from The Woodlands, just down the road. Tell me what you're looking for and I'll send you homes that match, plus honest advice on pricing, condition, and long-term value.

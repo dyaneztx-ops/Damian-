@@ -33,7 +33,7 @@ export const site = {
   // ---- Texas license & brokerage (required by TREC on all advertising) ----
   licenseNumber: "857656",
   brokerage: {
-    name: "Keller Williams Realty The Woodlands & Magnolia",
+    name: "Keller Williams Realty The Woodlands",
     licenseNumber: "[BROKER LICENSE #]",
     phone: "[BROKER PHONE]",
     email: "[BROKER EMAIL]",
