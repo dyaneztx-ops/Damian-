@@ -45,7 +45,7 @@ export const site = {
     "https://content.harstatic.com/pdf/TREC_CPN.pdf",
 
   // ---- Links ----
-  harProfileUrl: "", // paste your HAR.com profile URL here; HAR links stay hidden until you do
+  harProfileUrl: "https://www.har.com/damian-yanez/agent_damianyanez",
   harSearchUrl: "https://www.har.com/search/dosearch?for_sale=1&city=Houston",
   preApprovalUrl: "/contact?interest=buy&topic=pre-approval", // swap for your lender's link if you have one
   social: {
