@@ -61,8 +61,10 @@ export default function AboutPage() {
               was let go from the place I&apos;d given my early twenties to.
             </p>
             <p>
-              That moment could have knocked me down. Instead, it pushed me forward. I&apos;d already bought homes of my own
-              and had always been drawn to real estate, so I made a decision: from now on, I bet on myself.
+              That moment could have knocked me down. Instead, it pushed me forward. I already owned a rental property, and
+              that income kept me afloat while I finished real estate school, which I&apos;d started while I was still
+              working there. So I made a decision: no more waiting on someone else to decide my future. I would bet on
+              myself, build my own book of business, and help other people use real estate to build something of their own.
             </p>
             <h2>Why I got into real estate</h2>
             <p>
@@ -72,8 +74,8 @@ export default function AboutPage() {
             </p>
             <p>
               Getting let go taught me something too: real security comes from ownership and skills, not a job title.
-              I got my license so I could help other people build that same security, whether they&apos;re buying their
-              first home, selling to move up, or buying their first investment property.
+              That one rental property proved it. Now I help other people build that same security, whether they&apos;re
+              buying their first home, selling to move up, or buying their first investment property.
             </p>
             <h2>My investor background</h2>
             <ul>
