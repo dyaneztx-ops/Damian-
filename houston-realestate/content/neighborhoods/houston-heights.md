@@ -1,6 +1,7 @@
 ---
 name: "Houston Heights"
 order: 9
+harCity: "Houston"
 description: "Historic bungalows, walkable streets, and some of Houston's best restaurants, minutes from Downtown."
 image: "https://images.unsplash.com/photo-1513584684374-8bab748fbf90?auto=format&fit=crop&w=1600&q=80"
 priceRange: "[ADD PRICE RANGE, e.g. $300k–$700k]"

@@ -25,6 +25,7 @@ export type Neighborhood = {
   commute: string;
   highlights: string[];
   order: number;
+  harCity: string;
   html: string;
 };
 
@@ -76,6 +77,7 @@ export function getNeighborhoods(): Neighborhood[] {
       commute: String(data.commute ?? ""),
       highlights: Array.isArray(data.highlights) ? data.highlights.map(String) : [],
       order: Number(data.order ?? 99),
+      harCity: String(data.harCity ?? data.name ?? slug),
       html: toHtml(content),
     }))
     .sort((a, b) => a.order - b.order || a.name.localeCompare(b.name));

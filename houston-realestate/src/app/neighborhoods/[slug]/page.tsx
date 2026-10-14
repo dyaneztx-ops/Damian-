@@ -43,7 +43,7 @@ export default async function NeighborhoodPage({ params }: Props) {
         }}
       />
       <PageHero eyebrow="Neighborhood guide" title={`${n.name} homes for sale & area guide`} intro={n.description} image={n.image}>
-        <a href={site.harSearchUrl} target="_blank" rel="noopener noreferrer" className="btn-primary">
+        <a href={`https://www.har.com/search/dosearch?for_sale=1&city=${encodeURIComponent(n.harCity)}`} target="_blank" rel="noopener noreferrer" className="btn-primary">
           Search {n.name} homes
         </a>
         <a href="#ask" className="btn-outline-light">Ask me about {n.name}</a>
