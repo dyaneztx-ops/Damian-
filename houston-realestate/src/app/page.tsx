@@ -54,7 +54,7 @@ export default function HomePage() {
           </h1>
           <p className="mt-6 max-w-2xl text-lg text-slate-200 sm:text-xl">
             <T k="hero.subtitle">
-              I&apos;ve bought my own homes, taken on two house flips, and manage my own
+              I&apos;ve bought my own homes, renovated and rented out an investment property, and manage my own
               rentals. Whether you&apos;re buying, selling, investing, or leasing, you get advice backed by real deals,
               not just a license.
             </T>

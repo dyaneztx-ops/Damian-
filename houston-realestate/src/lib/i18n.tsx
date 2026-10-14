@@ -29,8 +29,8 @@ const dictionary: Record<string, { en: string; es: string }> = {
     es: "Bienes raíces en Houston con un agente que también invierte.",
   },
   "hero.subtitle": {
-    en: "I've bought my own homes, taken on two house flips, and manage my own rentals. Whether you're buying, selling, investing, or leasing, you get advice backed by real deals, not just a license.",
-    es: "He comprado mis propias casas, he emprendido dos proyectos de remodelación para reventa y administro mis propias rentas. Ya sea que compre, venda, invierta o rente, recibirá consejos basados en experiencia real.",
+    en: "I've bought my own homes, renovated and rented out an investment property, and manage my own rentals. Whether you're buying, selling, investing, or leasing, you get advice backed by real deals, not just a license.",
+    es: "He comprado mis propias casas, remodelé y renté una propiedad de inversión y administro mis propias rentas. Ya sea que compre, venda, invierta o rente, recibirá consejos basados en experiencia real.",
   },
   "form.send": { en: "Send message", es: "Enviar mensaje" },
 };

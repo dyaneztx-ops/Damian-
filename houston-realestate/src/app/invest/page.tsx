@@ -10,7 +10,7 @@ import { ChartIcon, KeyIcon, ToolIcon } from "@/components/Icons";
 
 export const metadata = pageMeta({
   title: "Houston Investment Property Agent | Flips & Rentals",
-  description: `Looking for Houston investment property? ${site.agentName} is an investor-agent with two house flips and a rental. Run cash flow, cap rate, and cash-on-cash numbers with the free calculator.`,
+  description: `Looking for Houston investment property? ${site.agentName} is an investor-agent who renovates, rents, and refinances property. Run cash flow, cap rate, and cash-on-cash numbers with the free calculator.`,
   path: "/invest",
 });
 
@@ -28,7 +28,7 @@ const strategies = [
   {
     icon: ChartIcon,
     title: "BRRRR & value-add",
-    text: "Buy, rehab, rent, refinance, repeat. We'll stress-test the numbers so the refinance and cash flow actually work.",
+    text: "Buy, rehab, rent, refinance, repeat. I'm doing one right now, so we'll stress-test the numbers to make sure the refinance and cash flow actually work.",
   },
 ];
 
@@ -39,7 +39,7 @@ export default function InvestPage() {
         image={photos.investHero}
         eyebrow="Investor services"
         title="Your Houston investment property agent, who invests too."
-        intro="I'm working on two house flips of my own and I own rentals that I manage. I'll help you find deals, run honest numbers, estimate rehab, and avoid the mistakes that cost new investors money."
+        intro="I've renovated and rented out an investment property, I'm in the middle of a renovate, rent, and refinance right now, and I manage my own rentals. I'll help you find deals, run honest numbers, estimate rehab, and avoid the mistakes that cost new investors money."
       >
         <a href="#calculator" className="btn-primary">Run the numbers</a>
         <a href="#investor-intake" className="btn-outline-light">Tell me what you&apos;re looking for</a>
