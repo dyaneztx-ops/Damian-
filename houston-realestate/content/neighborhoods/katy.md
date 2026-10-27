@@ -1,6 +1,6 @@
 ---
 name: "Katy"
-order: 9
+order: 10
 description: "Master-planned communities, newer construction, and easy I-10 and Grand Parkway access on Houston's west side."
 image: "https://images.unsplash.com/photo-1568605114967-8130f3a36994?auto=format&fit=crop&w=1600&q=80"
 priceRange: "[ADD PRICE RANGE, e.g. $300k–$700k]"

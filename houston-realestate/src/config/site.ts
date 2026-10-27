@@ -16,7 +16,7 @@ export const site = {
   agentName: "Damian Yanez",
   agentFirstName: "Damian",
   title: "Licensed Texas REALTOR®",
-  tagline: "Houston real estate from an agent who invests too.",
+  tagline: "The Woodlands & North Houston real estate from an agent who invests too.",
   // Set to a file in /public (e.g. "/images/logo.svg") to use an image logo.
   // Leave null to show a clean text logo.
   logo: null as string | null,
@@ -46,12 +46,12 @@ export const site = {
 
   // ---- Links ----
   harProfileUrl: "https://www.har.com/damian-yanez/agent_damianyanez",
-  harSearchUrl: "https://www.har.com/search/dosearch?for_sale=1&city=Houston",
+  harSearchUrl: "https://www.har.com/search/dosearch?for_sale=1&city=The%20Woodlands",
   preApprovalUrl: "/contact?interest=buy&topic=pre-approval", // swap for your lender's link if you have one
   social: {
-    instagram: "", // e.g. "https://instagram.com/yourhandle"
+    instagram: "https://www.instagram.com/damiany.realty",
     facebook: "",
-    tiktok: "",
+    tiktok: "https://www.tiktok.com/@damiany.realty",
     youtube: "",
     linkedin: "",
   },

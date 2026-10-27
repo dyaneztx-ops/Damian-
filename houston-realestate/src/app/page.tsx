@@ -1,5 +1,6 @@
 import { testimonials } from "@/data/testimonials";
 import Link from "next/link";
+import Image from "next/image";
 import { filled, site } from "@/config/site";
 import { listings } from "@/data/listings";
 import { getNeighborhoods, getPosts } from "@/lib/content";
@@ -18,12 +19,12 @@ import {
 import { LeadForm } from "@/components/LeadForm";
 import { GuideSignup } from "@/components/GuideSignup";
 import { PostCard } from "@/components/PostCard";
-import { ArrowIcon, PhoneIcon } from "@/components/Icons";
+import { ArrowIcon, ChatIcon, PhoneIcon } from "@/components/Icons";
 import { SmartImage } from "@/components/SmartImage";
 
 export const metadata = pageMeta({
-  title: `Houston Realtor & Investment Property Agent | ${site.agentName}`,
-  description: `Looking for a Houston real estate agent who actually invests? ${site.agentName} helps you buy, sell, invest, and lease across Greater Houston. Call or text ${site.phone}.`,
+  title: `The Woodlands & Spring Realtor, Investor-Agent | ${site.agentName}`,
+  description: `Looking for a real estate agent in The Woodlands, Spring, or North Houston who actually invests? ${site.agentName} (Keller Williams Realty The Woodlands) helps you buy, sell, invest, and lease. Call or text ${site.phone}.`,
   path: "/",
 });
 
@@ -47,36 +48,43 @@ export default function HomePage() {
           className="-z-10 object-cover"
         />
         <div className="absolute inset-0 -z-10 bg-gradient-to-r from-navy-deep via-navy-deep/80 to-navy-deep/30" />
-        <div className="container-x pt-20 pb-28 sm:pt-28 sm:pb-36">
-          <p className="eyebrow !text-accent">{site.agentName} · Houston REALTOR® & Investor</p>
-          <h1 className="mt-4 max-w-3xl font-display text-4xl leading-[1.08] font-semibold text-white sm:text-6xl">
-            <T k="hero.title">Houston real estate, guided by an agent who invests too.</T>
-          </h1>
-          <p className="mt-6 max-w-2xl text-lg text-slate-200 sm:text-xl">
-            <T k="hero.subtitle">
-              I&apos;ve bought my own homes, renovated and rented out an investment property, and manage my own
-              rentals. Whether you&apos;re buying, selling, investing, or leasing, you get advice backed by real deals,
-              not just a license.
-            </T>
-          </p>
-          <div className="mt-9 grid max-w-md grid-cols-2 gap-3 sm:flex sm:max-w-none">
-            <Link href="/buy" className="btn-primary whitespace-nowrap !px-4 !py-4 sm:!px-8 sm:!text-lg">
-              <T k="cta.buy">I want to Buy</T>
-            </Link>
-            <Link href="/sell" className="btn-outline-light whitespace-nowrap !px-4 !py-4 sm:!px-8 sm:!text-lg">
-              <T k="cta.sell">I want to Sell</T>
-            </Link>
+        <div className="container-x grid items-center gap-10 pt-16 pb-24 sm:pt-24 sm:pb-32 lg:grid-cols-[1fr_auto] lg:gap-16">
+          <div>
+            <div className="flex items-center gap-4">
+              <div className="relative size-16 shrink-0 overflow-hidden rounded-full ring-2 ring-accent lg:hidden">
+                <Image src={site.headshot} alt={`${site.agentName}, REALTOR®`} fill priority sizes="64px" className="object-cover object-top" />
+              </div>
+              <p className="eyebrow !text-accent">
+                {site.agentName} · REALTOR® · {site.brokerage.name}
+              </p>
+            </div>
+            <h1 className="mt-5 max-w-3xl font-display text-4xl leading-[1.08] font-semibold text-white sm:text-6xl">
+              <T k="hero.title">The Woodlands &amp; North Houston real estate, from an agent who invests too.</T>
+            </h1>
+            <p className="mt-6 max-w-2xl text-lg text-slate-200 sm:text-xl">
+              <T k="hero.subtitle">
+                I&apos;ve bought, renovated, rented, and refinanced my own properties. Buying, selling, investing, or
+                leasing, you get the real numbers before you decide.
+              </T>
+            </p>
+            <div className="mt-9 flex flex-col gap-3 sm:flex-row">
+              <Link href="/home-value" className="btn-primary whitespace-nowrap !px-6 !py-4 sm:!px-8 sm:!text-lg">
+                <T k="nav.homeValue">What&apos;s my home worth?</T>
+              </Link>
+              <a href={`sms:${site.phoneE164}`} className="btn-outline-light whitespace-nowrap !px-6 !py-4 sm:!px-8 sm:!text-lg">
+                <ChatIcon className="size-5" /> Call or text Damian
+              </a>
+            </div>
+            <p className="mt-6 text-sm text-slate-300">
+              Looking to{" "}
+              <Link href="/buy" className="font-semibold text-white underline underline-offset-4">buy</Link>,{" "}
+              <Link href="/invest" className="font-semibold text-white underline underline-offset-4">invest</Link>, or{" "}
+              <Link href="/lease" className="font-semibold text-white underline underline-offset-4">lease</Link>?
+            </p>
           </div>
-          <p className="mt-6 text-sm text-slate-300">
-            Thinking about investing or leasing?{" "}
-            <Link href="/invest" className="font-semibold text-white underline underline-offset-4">
-              Invest
-            </Link>{" "}
-            ·{" "}
-            <Link href="/lease" className="font-semibold text-white underline underline-offset-4">
-              Lease
-            </Link>
-          </p>
+          <div className="relative hidden aspect-[4/5] w-80 overflow-hidden rounded-2xl shadow-2xl ring-1 ring-white/15 lg:block xl:w-96">
+            <Image src={site.headshot} alt={`${site.agentName}, REALTOR® with ${site.brokerage.name}`} fill priority sizes="384px" className="object-cover object-top" />
+          </div>
         </div>
       </section>
 

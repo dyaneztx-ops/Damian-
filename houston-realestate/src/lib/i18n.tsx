@@ -25,12 +25,12 @@ const dictionary: Record<string, { en: string; es: string }> = {
   "cta.buy": { en: "I want to Buy", es: "Quiero Comprar" },
   "cta.sell": { en: "I want to Sell", es: "Quiero Vender" },
   "hero.title": {
-    en: "Houston real estate, guided by an agent who invests too.",
-    es: "Bienes raíces en Houston con un agente que también invierte.",
+    en: "The Woodlands & North Houston real estate, from an agent who invests too.",
+    es: "Bienes raíces en The Woodlands y el norte de Houston, con un agente que también invierte.",
   },
   "hero.subtitle": {
-    en: "I've bought my own homes, renovated and rented out an investment property, and manage my own rentals. Whether you're buying, selling, investing, or leasing, you get advice backed by real deals, not just a license.",
-    es: "He comprado mis propias casas, remodelé y renté una propiedad de inversión y administro mis propias rentas. Ya sea que compre, venda, invierta o rente, recibirá consejos basados en experiencia real.",
+    en: "I've bought, renovated, rented, and refinanced my own properties. Buying, selling, investing, or leasing, you get the real numbers before you decide.",
+    es: "He comprado, remodelado, rentado y refinanciado mis propias propiedades. Ya sea que compre, venda, invierta o rente, tendrá los números reales antes de decidir.",
   },
   "form.send": { en: "Send message", es: "Enviar mensaje" },
 };

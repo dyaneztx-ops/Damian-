@@ -292,7 +292,7 @@ export function FeaturedListings() {
       <div className="mt-8 flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
         <p className="max-w-2xl text-xs text-muted">{listingDisclaimer}</p>
         <a href={site.harSearchUrl} target="_blank" rel="noopener noreferrer" className="btn-outline shrink-0">
-          Search all Houston homes
+          Search homes in The Woodlands
         </a>
       </div>
     </>
