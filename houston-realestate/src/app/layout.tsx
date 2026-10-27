@@ -15,10 +15,10 @@ const heading = Fraunces({ subsets: ["latin"], variable: "--font-heading", displ
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: `Houston Realtor | ${site.agentName}, Investor-Agent | ${site.brokerage.name}`,
-    template: `%s | ${site.agentName}, Houston REALTOR®`,
+    default: `The Woodlands & Spring Realtor | ${site.agentName}, Investor-Agent | Keller Williams`,
+    template: `%s | ${site.agentName}, REALTOR® in The Woodlands`,
   },
-  description: `${site.agentName} is a Houston real estate agent and real estate investor helping clients buy, sell, invest, and lease homes across Houston, Katy, Cypress, Sugar Land, Pearland and more. Call ${site.phone}.`,
+  description: `${site.agentName} is a REALTOR® with Keller Williams Realty The Woodlands and a real estate investor helping clients buy, sell, invest, and lease homes in The Woodlands, Spring, Conroe, Magnolia, Tomball and North Houston. Call ${site.phone}.`,
   applicationName: site.brandName,
   authors: [{ name: site.agentName }],
   openGraph: { siteName: site.brandName, locale: "en_US", type: "website" },
